@@ -15,25 +15,14 @@ const checkPassword = (password) => {
   return false;
 };
 
-const emailInput = (email, handleChange) => (
+const loginInput = (state, handleChange, type) => (
   <input
-    type="text"
-    value={email}
+    type={type}
+    value={state}
     className="col s10 offset-s1"
-    data-testid="email-input"
+    data-testid={`${type}-input`}
     onChange={(e) => handleChange(e)}
-    id="email"
-  />
-);
-
-const passwordInput = (password, handleChange) => (
-  <input
-    type="text"
-    value={password}
-    className="col s10 offset-s1"
-    data-testid="password-input"
-    onChange={(e) => handleChange(e)}
-    id="password"
+    id={type}
   />
 );
 
@@ -44,11 +33,11 @@ const saveTokens = () => {
 
 const saveEmail = (email) => localStorage.setItem('user', JSON.stringify({ email }));
 
-const submitButton = (enableButton, email) => (
+const submitButton = (disableButton, email) => (
   <Link to="/comidas">
     <button
       type="button"
-      disabled={enableButton}
+      disabled={disableButton}
       className="col s10 offset-s1 waves-effect waves-light btn"
       data-testid="login-submit-btn"
       onClick={() => {
@@ -63,17 +52,17 @@ const submitButton = (enableButton, email) => (
 
 const Login = () => {
   const [state, setState] = useState({
-    enableButton: true,
+    disableButton: true,
     email: '',
     password: '',
   });
-  const { enableButton, email, password } = state;
+  const { disableButton, email, password } = state;
 
   useEffect(() => {
     if (checkEmail(email) && checkPassword(password)) {
-      setState({ ...state, enableButton: false });
+      setState({ ...state, disableButton: false });
     } else {
-      setState({ ...state, enableButton: true });
+      setState({ ...state, disableButton: true });
     }
   }, [email, password]);
 
@@ -86,9 +75,9 @@ const Login = () => {
 
   return (
     <div className="row">
-      {emailInput(email, handleChange)}
-      {passwordInput(password, handleChange)}
-      {submitButton(enableButton, email)}
+      {loginInput(email, handleChange, "email")}
+      {loginInput(password, handleChange, "password")}
+      {submitButton(disableButton, email)}
     </div>
   );
 };
