@@ -8,11 +8,11 @@ export const getAreasMeal = () => fetch('https://www.themealdb.com/api/json/v1/1
 
 export const getIngredientsMeal = () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
   .then((response) => response.json()
-  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));  
+  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
 export const getMealName = (meal) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`)
   .then((response) => response.json()
-  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));  
+  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
 export const getMealsFirstLetter = (letter) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
   .then((response) => response.json()

@@ -15,9 +15,8 @@ import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
 import ExploreFoodsArea from './pages/ExploreFoodsArea';
 import MadeRecipes from './pages/MadeRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import {getcocktailName}  from './services/thecocktailAPI';
+
 function App() {
-  console.log(getcocktailName('margarita'));
   return (
     <div id="meals">
       <Router>
