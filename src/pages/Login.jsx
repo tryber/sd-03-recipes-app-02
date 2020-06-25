@@ -18,8 +18,7 @@ const emailInput = (email, handleChange) => (
   <input
     type="text"
     value={email}
-    className="col
-  s10 offset-s1"
+    className="col s10 offset-s1"
     data-testid="email-input"
     onChange={(e) => handleChange(e)}
     id="email"
@@ -37,12 +36,23 @@ const passwordInput = (password, handleChange) => (
   />
 );
 
-const submitButton = (enableButton) => (
+const saveTokens = () => {
+  localStorage.setItem('mealsToken', 1);
+  localStorage.setItem('cocktailsToken', 1);
+};
+
+const saveEmail = (email) => localStorage.setItem('user', JSON.stringify({ email }));
+
+const submitButton = (enableButton, email) => (
   <button
     type="button"
     disabled={enableButton}
     className="col s10 offset-s1 waves-effect waves-light btn"
     data-testid="login-submit-btn"
+    onClick={() => {
+      saveTokens();
+      saveEmail(email);
+    }}
   >
     Entrar
   </button>
@@ -75,7 +85,7 @@ const Login = () => {
     <div className="row">
       {emailInput(email, handleChange)}
       {passwordInput(password, handleChange)}
-      {submitButton(enableButton)}
+      {submitButton(enableButton, email)}
     </div>
   );
 };
