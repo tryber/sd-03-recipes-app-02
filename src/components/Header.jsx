@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-
-const searchTextInput = (searchInputEnabled) => {
-  if (searchInputEnabled) {
-    return <input type="text" data-testid="search-input" />;
-  }
-  return null;
-};
+import SearchBar from './SearchBar';
 
 const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
   if (searchEnabled) {
@@ -36,7 +30,7 @@ const Header = ({ title, searchEnabled }) => {
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         {searchIconBtn(searchEnabled, handleSearchIconClick)}
-        {searchTextInput(searchInputEnabled)}
+        <SearchBar searchInputEnabled={searchInputEnabled} />
       </nav>
     </header>
   );
