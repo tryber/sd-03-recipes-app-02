@@ -17,7 +17,7 @@ const checkPassword = (password) => {
 
 const emailInput = (email, handleChange) => (
   <input
-    type="text"
+    type="email"
     value={email}
     className="col s10 offset-s1"
     data-testid="email-input"
@@ -28,7 +28,7 @@ const emailInput = (email, handleChange) => (
 
 const passwordInput = (password, handleChange) => (
   <input
-    type="text"
+    type="password"
     value={password}
     className="col s10 offset-s1"
     data-testid="password-input"
