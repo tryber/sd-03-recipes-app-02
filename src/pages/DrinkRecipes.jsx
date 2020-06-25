@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const DrinkRecipes = () => ( 
+const DrinkRecipes = () => (
   <div>
     <Header title="Bebidas" searchEnabled />
     <Footer />
