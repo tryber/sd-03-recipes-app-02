@@ -75,8 +75,8 @@ const Login = () => {
 
   return (
     <div className="row">
-      {loginInput(email, handleChange, "email")}
-      {loginInput(password, handleChange, "password")}
+      {loginInput(email, handleChange, 'email')}
+      {loginInput(password, handleChange, 'password')}
       {submitButton(disableButton, email)}
     </div>
   );
