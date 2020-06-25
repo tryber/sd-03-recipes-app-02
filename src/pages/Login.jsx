@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const checkEmail = (email) => {
   if (email.match(/\S+@\S+\.\S+/i)) {
@@ -44,18 +45,20 @@ const saveTokens = () => {
 const saveEmail = (email) => localStorage.setItem('user', JSON.stringify({ email }));
 
 const submitButton = (enableButton, email) => (
-  <button
-    type="button"
-    disabled={enableButton}
-    className="col s10 offset-s1 waves-effect waves-light btn"
-    data-testid="login-submit-btn"
-    onClick={() => {
-      saveTokens();
-      saveEmail(email);
-    }}
-  >
-    Entrar
-  </button>
+  <Link to="/comidas">
+    <button
+      type="button"
+      disabled={enableButton}
+      className="col s10 offset-s1 waves-effect waves-light btn"
+      data-testid="login-submit-btn"
+      onClick={() => {
+        saveTokens();
+        saveEmail(email);
+      }}
+    >
+      Entrar
+    </button>
+  </Link>
 );
 
 const Login = () => {
