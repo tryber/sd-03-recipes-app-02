@@ -15,25 +15,14 @@ const checkPassword = (password) => {
   return false;
 };
 
-const emailInput = (email, handleChange) => (
+const loginInput = (state, handleChange, type) => (
   <input
-    type="email"
-    value={email}
+    type={type}
+    value={state}
     className="col s10 offset-s1"
-    data-testid="email-input"
+    data-testid={`${type}-input`}
     onChange={(e) => handleChange(e)}
-    id="email"
-  />
-);
-
-const passwordInput = (password, handleChange) => (
-  <input
-    type="password"
-    value={password}
-    className="col s10 offset-s1"
-    data-testid="password-input"
-    onChange={(e) => handleChange(e)}
-    id="password"
+    id={type}
   />
 );
 
@@ -86,8 +75,8 @@ const Login = () => {
 
   return (
     <div className="row">
-      {emailInput(email, handleChange)}
-      {passwordInput(password, handleChange)}
+      {loginInput(email, handleChange, "email")}
+      {loginInput(password, handleChange, "password")}
       {submitButton(disableButton, email)}
     </div>
   );
