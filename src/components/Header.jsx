@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-const searchInput = (searchInputEnabled) => {
+const searchTextInput = (searchInputEnabled) => {
   if (searchInputEnabled) {
     return <input type="text" data-testid="search-input" />;
   }
   return null;
 };
 
-const searchButton = (searchEnabled, handleSearchIconClick) => {
+const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
   if (searchEnabled) {
     return (
       <button type="button" onClick={() => handleSearchIconClick()}>
@@ -35,8 +35,8 @@ const Header = ({ title, searchEnabled }) => {
           <img data-testid="profile-top-btn" alt="icon" src={profileIcon} />
         </Link>
         <h1 data-testid="page-title">{title}</h1>
-        {searchButton(searchEnabled, handleSearchIconClick)}
-        {searchInput(searchInputEnabled)}
+        {searchIconBtn(searchEnabled, handleSearchIconClick)}
+        {searchTextInput(searchInputEnabled)}
       </nav>
     </header>
   );
