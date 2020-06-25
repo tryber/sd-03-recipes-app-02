@@ -1,7 +1,13 @@
 import React from 'react';
 
 const Header = () => {
-  return <div></div>;
+  return (
+    <nav>
+      <div class="nav-wrapper">
+     
+      </div>
+    </nav>
+  );
 };
 
 export default Header;
