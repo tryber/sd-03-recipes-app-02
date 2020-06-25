@@ -44,11 +44,11 @@ const saveTokens = () => {
 
 const saveEmail = (email) => localStorage.setItem('user', JSON.stringify({ email }));
 
-const submitButton = (enableButton, email) => (
+const submitButton = (disableButton, email) => (
   <Link to="/comidas">
     <button
       type="button"
-      disabled={enableButton}
+      disabled={disableButton}
       className="col s10 offset-s1 waves-effect waves-light btn"
       data-testid="login-submit-btn"
       onClick={() => {
@@ -63,17 +63,17 @@ const submitButton = (enableButton, email) => (
 
 const Login = () => {
   const [state, setState] = useState({
-    enableButton: true,
+    disableButton: true,
     email: '',
     password: '',
   });
-  const { enableButton, email, password } = state;
+  const { disableButton, email, password } = state;
 
   useEffect(() => {
     if (checkEmail(email) && checkPassword(password)) {
-      setState({ ...state, enableButton: false });
+      setState({ ...state, disableButton: false });
     } else {
-      setState({ ...state, enableButton: true });
+      setState({ ...state, disableButton: true });
     }
   }, [email, password]);
 
@@ -88,7 +88,7 @@ const Login = () => {
     <div className="row">
       {emailInput(email, handleChange)}
       {passwordInput(password, handleChange)}
-      {submitButton(enableButton, email)}
+      {submitButton(disableButton, email)}
     </div>
   );
 };
