@@ -25,10 +25,7 @@ export const getMealId = (id) => fetch(`https://www.themealdb.com/api/json/v1/1/
 export const getMealRandom = () => fetch('https://www.themealdb.com/api/json/v1/1/random.php')
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-  
+
 export const getMealscategorie = (categorie) => fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-   
-  
-

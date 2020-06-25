@@ -21,10 +21,7 @@ export const getcocktailId = (id) => fetch(`https://www.thecocktaildb.com/api/js
 export const getcocktailRandom = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-  
+
 export const getcocktailscategorie = (categorie) => fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-   
-  
-
