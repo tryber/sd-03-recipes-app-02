@@ -15,7 +15,7 @@ const checkPassword = (password) => {
   return false;
 };
 
-const loginInput = (state, handleChange, type) => (
+const textInput = (state, handleChange, type) => (
   <input
     type={type}
     value={state}
@@ -75,8 +75,8 @@ const Login = () => {
 
   return (
     <div className="row">
-      {loginInput(email, handleChange, 'email')}
-      {loginInput(password, handleChange, 'password')}
+      {textInput(email, handleChange, 'email')}
+      {textInput(password, handleChange, 'password')}
       {submitButton(disableButton, email)}
     </div>
   );
