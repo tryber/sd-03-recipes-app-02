@@ -37,3 +37,7 @@ export const searchMealsByCategory = (category) => fetch(`https://www.themealdb.
 export const searchMealsByArea = (area) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${area}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
+
+export const searchMealsByMainIngredients = (ingredients) => fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`)
+  .then((response) => response.json()
+  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
