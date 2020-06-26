@@ -3,6 +3,7 @@ import React from 'react';
 import * as fetchMealAPI from '../services/fetchMealAPI';
 
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import MainCardMeal from '../components/MainCardMeal';
 import MainCardDrink from '../components/MainCardDrink';
 
@@ -18,6 +19,7 @@ const FoodRecipes = () => {
       <div>
         {getCards()}
       </div>
+      <Footer />
     </div>
   )
 };
