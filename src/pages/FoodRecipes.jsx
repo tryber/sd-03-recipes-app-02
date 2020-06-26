@@ -1,14 +1,25 @@
 import React from 'react';
+
+import * as fetchMealAPI from '../services/fetchMealAPI';
+
 import Header from '../components/Header';
 import MainCardMeal from '../components/MainCardMeal';
+import MainCardDrink from '../components/MainCardDrink';
 
-const FoodRecipes = () => (
-  <div>
-    <Header title="Comidas" searchEnabled />
+const getCards = () =>
+  (title="Comidas")
+  ? (meals.slice(0, 12).map((meal) => <MainCardMeal key={meal.idMeal} meal={meal} />))
+  : (drinks.slice(0, 12).map((drink) => <MainCardDrink key={drink.idDrink} drink={drink} />));
+
+const FoodRecipes = () => {
+  return (
     <div>
-      {meals.map((meal) => <MainCardMeal key={meal.idMeal} meal={meal} />)}
+      <Header title="Comidas" searchEnabled />
+      <div>
+        {getCards()}
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 export default FoodRecipes;
