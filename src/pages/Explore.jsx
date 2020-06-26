@@ -1,6 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-const Explore = () => <div><Header title="Explorar" searchEnabled={false} /></div>;
+const Explore = () => (
+  <div>
+    <Header title="Explorar" searchEnabled={false} />
+    <Footer />
+  </div>
+);
 
 export default Explore;
