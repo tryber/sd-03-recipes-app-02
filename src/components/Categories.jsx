@@ -1,27 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { fetchCategories } from '../services/fetchAPI';
-
-
-// export async function fetchCategories(type) {
-//   return fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?c=list`)
-//     .then((categories) => categories
-//       .json()
-//       .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json))));
-// }
+import { fetchCategories } from '../services/fetchMealAPI';
 
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState('');
 
   useEffect( () => {
-    (type === 'meal') ?
     fetchCategories(type)
-      .then( data => setCategories([...data.meals.splice(0, 5)]))
-    :
-    fetchCategories(type)
-      .then( data => setCategories([...data.drinks.splice(0, 5)]))
+      .then( data => setCategories((data['drinks'] || data['meals']).splice(0, 5)))
   }, [])
+
+  // handleBtnClick = (category) => {
+  //   (category === 'All' || category === currentFilter) ?
+
+  // }
 
   return (
     <div>
@@ -29,6 +23,7 @@ const Categories = ({ type }) => {
       {categories.map(category => 
         <button 
         data-testid={`${category.strCategory}-category-filter`} type='button'
+        onClick={e => console.log(e.target.innerHTML)}
         >
           {category.strCategory}
         </button>)}
