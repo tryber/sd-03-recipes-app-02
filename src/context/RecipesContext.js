@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const RecipesContext = createContext(null);
 
@@ -13,6 +14,6 @@ const RecipesProvider = ({ children }) => {
   return <RecipesContext.Provider value={context}>{children}</RecipesContext.Provider>;
 }
 
-PlanetsProvider.propTypes = { children: PropTypes.node.isRequired };
+RecipesContext.propTypes = { children: PropTypes.node.isRequired };
 
 export default RecipesProvider;

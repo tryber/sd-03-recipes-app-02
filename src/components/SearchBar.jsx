@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { searchMealsByName, searchMealsByMainIngredients, searchMealsByFirstLetter } from '../services/fetchMealAPI';
+import { RecipesContext } from '../context/RecipesContext';
 
 const SearchBar = ({ searchInputEnabled }) => {
   const [state, setState] = useState({
@@ -7,6 +8,7 @@ const SearchBar = ({ searchInputEnabled }) => {
     searchText: '',
   });
 
+  const { setIsFetching, setRecipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -16,7 +18,7 @@ const SearchBar = ({ searchInputEnabled }) => {
       firstLetter: searchMealsByFirstLetter,
     }
     searchOptions[searchParam](searchText).then((data) => {
-      setPlanets(data);
+      setRecipes(data);
       setIsFetching(false);
     })
   }
