@@ -8,7 +8,7 @@ export const getRecipeCategories = (type) => fetch(`https://www.the${type}db.com
 
 export const getRecipeAreas = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?a=list`)
   .then((response) => response.json()
-  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));, type
+  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
 export const getRecipeIngredients = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?i=list`)
   .then((response) => response.json()
