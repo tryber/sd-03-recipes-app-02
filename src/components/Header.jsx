@@ -16,7 +16,7 @@ const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
   return null;
 };
 
-const Header = ({ title, searchEnabled }) => {
+const Header = ({ title, searchEnabled, type }) => {
   const [state, setState] = useState({ searchInputEnabled: false });
   const { searchInputEnabled } = state;
   const handleSearchIconClick = () => {
@@ -30,7 +30,7 @@ const Header = ({ title, searchEnabled }) => {
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         {searchIconBtn(searchEnabled, handleSearchIconClick)}
-        <SearchBar searchInputEnabled={searchInputEnabled} />
+        <SearchBar searchInputEnabled={searchInputEnabled} type={type} />
       </nav>
     </header>
   );

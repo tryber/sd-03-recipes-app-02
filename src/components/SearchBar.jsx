@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { searchRecipesByName, searchRecipesByMainIngredients, searchRecipesByFirstLetter } from '../services/fetchRecipes';
 import { RecipesContext } from '../context/RecipesContext';
 
-const SearchBar = ({ searchInputEnabled }) => {
+const SearchBar = ({ searchInputEnabled, type }) => {
   const [state, setState] = useState({
     searchParam: 'name',
     searchText: '',
@@ -17,7 +17,7 @@ const SearchBar = ({ searchInputEnabled }) => {
       name: searchRecipesByName,
       firstLetter: searchRecipesByFirstLetter,
     }
-    searchOptions[searchParam](searchText).then((data) => {
+    searchOptions[searchParam](searchText, type).then((data) => {
       setRecipes(data);
       setIsFetching(false);
     })
