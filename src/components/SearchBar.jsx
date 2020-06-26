@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { searchMealsByName, searchMealsByMainIngredient, searchMealsByFirstLetter } from '../services/fetchAPI';
-
-const searchBtn = (searchParam, searchText) => {
-  const searchOptions = {
-    ingredients: searchMealsByMainIngredient,
-    name: searchMealsByName,
-    firstLetter: searchMealsByFirstLetter,
-  }
-  console.log(searchOptions[searchParam](searchText))
-}
+import { searchMealsByName, searchMealsByMainIngredients, searchMealsByFirstLetter } from '../services/fetchMealAPI';
 
 const SearchBar = ({ searchInputEnabled }) => {
   const [state, setState] = useState({
@@ -17,6 +8,18 @@ const SearchBar = ({ searchInputEnabled }) => {
   });
 
   const { searchParam, searchText } = state;
+
+  const searchBtn = () => {
+    const searchOptions = {
+      ingredients: searchMealsByMainIngredients,
+      name: searchMealsByName,
+      firstLetter: searchMealsByFirstLetter,
+    }
+    searchOptions[searchParam](searchText).then((data) => {
+      setPlanets(data);
+      setIsFetching(false);
+    })
+  }
 
   const handleChange = (e) => {
     setState({
@@ -47,7 +50,7 @@ const SearchBar = ({ searchInputEnabled }) => {
             <span>Primeira letra</span>
           </label>
         </p>
-        <button type="button" data-testid="exec-search-btn" onClick={() => searchBtn(searchParam, searchText)}>Buscar</button>
+        <button type="button" data-testid="exec-search-btn" onClick={() => searchBtn()}>Buscar</button>
       </div>
     );
   }
