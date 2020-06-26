@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const checkEmail = (email) => email.match(/\S+@\S+\.\S+/i);
 
-const checkPassword = (password) =>  (password.length > 6); 
+const checkPassword = (password) =>  (password.length > 6);
 
 const loginInput = (state, handleChange, type) => (
   <input
