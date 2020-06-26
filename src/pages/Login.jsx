@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const checkEmail = (email) => {
-  if (email.match(/\S+@\S+\.\S+/i)) {
-    return true;
-  }
-  return false;
-};
+const checkEmail = (email) => email.match(/\S+@\S+\.\S+/i);
 
-const checkPassword = (password) => {
-  if (password.length > 6) {
-    return true;
-  }
-  return false;
-};
+const checkPassword = (password) =>  (password.length > 6); 
 
 const loginInput = (state, handleChange, type) => (
   <input
@@ -33,16 +23,16 @@ const saveTokens = () => {
 
 const saveEmail = (email) => localStorage.setItem('user', JSON.stringify({ email }));
 
-const submitButton = (disableButton, email) => (
+const submitButton = (state) => (
   <Link to="/comidas">
     <button
       type="button"
-      disabled={disableButton}
+      disabled={!(checkEmail(state.email) && checkPassword(state.password))}
       className="col s10 offset-s1 waves-effect waves-light btn"
       data-testid="login-submit-btn"
       onClick={() => {
         saveTokens();
-        saveEmail(email);
+        saveEmail(state.email);
       }}
     >
       Entrar
@@ -52,19 +42,10 @@ const submitButton = (disableButton, email) => (
 
 const Login = () => {
   const [state, setState] = useState({
-    disableButton: true,
     email: '',
     password: '',
   });
-  const { disableButton, email, password } = state;
-
-  useEffect(() => {
-    if (checkEmail(email) && checkPassword(password)) {
-      setState({ ...state, disableButton: false });
-    } else {
-      setState({ ...state, disableButton: true });
-    }
-  }, [email, password]);
+  const { email, password } = state;
 
   const handleChange = (e) => {
     setState({
@@ -77,7 +58,7 @@ const Login = () => {
     <div className="row">
       {loginInput(email, handleChange, 'email')}
       {loginInput(password, handleChange, 'password')}
-      {submitButton(disableButton, email)}
+      {submitButton(state)}
     </div>
   );
 };
