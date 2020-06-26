@@ -58,7 +58,7 @@ const Login = () => {
     <div className="row">
       {textInput(email, handleChange, 'email')}
       {textInput(password, handleChange, 'password')}
-      {submitButton(disableButton, email)}
+      {submitButton(state)}
     </div>
   );
 };
