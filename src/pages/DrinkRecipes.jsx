@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const DrinkRecipes = () => (
   <div>
-    <Header title="Bebidas" searchEnabled />
+    <Header title="Bebidas" type="cocktail" searchEnabled />
     <Footer />
   </div>
 );

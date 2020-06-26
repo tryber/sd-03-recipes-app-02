@@ -5,7 +5,7 @@ const checkEmail = (email) => email.match(/\S+@\S+\.\S+/i);
 
 const checkPassword = (password) => (password.length > 6);
 
-const loginInput = (state, handleChange, type) => (
+const textInput = (state, handleChange, type) => (
   <input
     type={type}
     value={state}
@@ -56,8 +56,8 @@ const Login = () => {
 
   return (
     <div className="row">
-      {loginInput(email, handleChange, 'email')}
-      {loginInput(password, handleChange, 'password')}
+      {textInput(email, handleChange, 'email')}
+      {textInput(password, handleChange, 'password')}
       {submitButton(state)}
     </div>
   );
