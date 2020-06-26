@@ -14,15 +14,15 @@ export const getMealIngredients = () => fetch('https://www.themealdb.com/api/jso
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const getMealsByName = (meal) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`)
+export const searchMealsByName = (meal) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const getMealsByFirstLetter = (letter) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+export const searchMealsByFirstLetter = (letter) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const getMealById = (id) => fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+export const getMealDetailsById = (id) => fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
@@ -30,6 +30,10 @@ export const getRandomMeal = () => fetch('https://www.themealdb.com/api/json/v1/
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const getMealByCategory = (category) => fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+export const searchMealsByCategory = (category) => fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+  .then((response) => response.json()
+  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
+
+export const searchMealsByArea = (area) => fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${area}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
