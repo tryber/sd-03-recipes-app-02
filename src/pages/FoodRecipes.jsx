@@ -9,7 +9,7 @@ import MainCardMeal from '../components/MainCardMeal';
 const FoodRecipes = () => {
   return (
     <div>
-      <Header title="Comidas" searchEnabled />
+      <Header title="Comidas" type="meal" searchEnabled />
       <div>
         {meals.slice(0, 12).map((meal) => <MainCardMeal key={meal.idMeal} meal={meal} />)}
       </div>
