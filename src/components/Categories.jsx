@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { fetchCategories } from '../services/fetchMealAPI';
+import { fetchCategories, searchMealsByName } from '../services/fetchMealAPI';
 
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
@@ -14,7 +14,7 @@ const Categories = ({ type }) => {
 
   // handleBtnClick = (category) => {
   //   (category === 'All' || category === currentFilter) ?
-
+    
   // }
 
   return (
