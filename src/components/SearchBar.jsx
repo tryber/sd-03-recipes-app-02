@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import {
   searchRecipesByName,
   searchRecipesByMainIngredients,
@@ -7,7 +8,7 @@ import {
 } from '../services/fetchRecipes';
 import { RecipesContext } from '../context/RecipesContext';
 
-const SearchBar = ({ searchInputEnabled, type }) => {
+const SearchBar = ({ searchInputEnabled, type, history }) => {
   const [state, setState] = useState({
     searchParam: 'name',
     searchText: '',
@@ -22,10 +23,23 @@ const SearchBar = ({ searchInputEnabled, type }) => {
       name: searchRecipesByName,
       firstLetter: searchRecipesByFirstLetter,
     };
-    searchOptions[searchParam](searchText, type).then((data) => {
-      setRecipes(data);
-      setIsFetching(false);
-    });
+
+    if (searchParam === 'firstLetter' && searchText.length !== 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      searchOptions[searchParam](searchText, type).then((data) => {
+        setRecipes(data);
+        setIsFetching(false);
+        if (data.meals) {
+          if (data.meals.length === 1) history.push(`/comidas/${data.meals[0].idMeal}`);
+          if (data.meals.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        }
+        if (data.drinks && data.drinks.length === 1) {
+          if (data.drinks.length === 1) history.push(`/bebidas/${data.drinks[0].idDrink}`);
+          if (data.drinks.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        }
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -95,6 +109,7 @@ const SearchBar = ({ searchInputEnabled, type }) => {
 SearchBar.propTypes = {
   searchInputEnabled: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);
