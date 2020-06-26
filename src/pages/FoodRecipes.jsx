@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const FoodRecipes = () => (
   <div>
-    <Header title="Comidas" searchEnabled />
+    <Header title="Comidas" type="meal" searchEnabled />
     <Footer />
   </div>
 );
