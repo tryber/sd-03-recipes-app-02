@@ -14,7 +14,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     searchText: '',
   });
 
-  const { setIsFetching, setRecipes } = useContext(RecipesContext);
+  const { setIsFetching, setRecipes, recipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -28,15 +28,16 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       searchOptions[searchParam](searchText, type).then((data) => {
-        setRecipes(data);
-        setIsFetching(false);
-        if (data.meals) {
-          if (data.meals.length === 1) history.push(`/comidas/${data.meals[0].idMeal}`);
-          if (data.meals.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        if (data.meals || data.drinks) {
+          setRecipes(data.meals || data.drinks);
+          setIsFetching(false);
         }
-        if (data.drinks && data.drinks.length === 1) {
-          if (data.drinks.length === 1) history.push(`/bebidas/${data.drinks[0].idDrink}`);
-          if (data.drinks.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        if (recipes.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        if (type === 'meal' && data.meals.length === 1) {
+          history.push(`/comidas/${data.meals[0].idMeal}`);
+        }
+        if (type === 'cocktail' && data.drinks.length === 1) {
+          history.push(`/bebidas/${data.drinks[0].idDrink}`);
         }
       });
     }
