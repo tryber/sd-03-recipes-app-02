@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const RecipeCardDrink = ({ drink }) => {
@@ -12,6 +13,10 @@ const RecipeCardDrink = ({ drink }) => {
       </div>
     </Link>
   );
-}
+};
+
+RecipeCardDrink.propTypes = {
+  drink: PropTypes.string.isRequired,
+};
 
 export default RecipeCardDrink;
