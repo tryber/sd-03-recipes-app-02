@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { searchRecipesByName } from '../services/fetchRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 import RecipeCardDrink from '../components/RecipeCardDrink';
 import { RecipesContext } from '../context/RecipesContext';
 
@@ -17,6 +18,7 @@ const DrinkRecipes = () => {
     });
   },)
 
+  if(isFetching) return <Loading />;
   return (
     <div>
       <Header title="Bebidas" type="cocktail" searchEnabled />
