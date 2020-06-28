@@ -16,7 +16,7 @@ const DrinkRecipes = () => {
       setRecipes(data.drinks);
       setIsFetching(false);
     });
-  });
+  }, []);
 
   if (isFetching) return <Loading />;
   return (

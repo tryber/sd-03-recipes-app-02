@@ -16,15 +16,16 @@ const FoodRecipes = () => {
       setRecipes(data.meals.slice(0, 12));
       setIsFetching(false);
     });
-  });
+  }, []);
 
   if (isFetching) return <Loading />;
   return (
     <div>
       <Header title="Comidas" type="meal" searchEnabled />
       <div>
-        {recipes.map((meal, index) =>
-          <RecipeCard key={meal.idMeal} recipe={meal} index={index} type="Meal" />)}
+        {recipes.map((meal, index) => {
+          return <RecipeCard key={meal.idMeal} recipe={meal} index={index} type="Meal" />;
+        })}
       </div>
       <Footer />
     </div>

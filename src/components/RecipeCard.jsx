@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ recipe, index, type }) => {
-  console.log('fui renderizado')
   const addresses = {
     Meal: 'comidas',
     Drink: 'bebidas',
   }
+  console.log('fui renderizado')
   return (
     <Link to={`/${addresses[type]}/${recipe[`id${type}`]}`}>
       <div data-testid={`${index}-recipe-card`}>
@@ -21,7 +21,7 @@ const RecipeCard = ({ recipe, index, type }) => {
           {recipe[`str${type}`]}
         </h4>
       </div>
-    </Link>
+   </Link>
   );
 };
 
