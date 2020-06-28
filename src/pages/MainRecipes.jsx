@@ -16,12 +16,12 @@ const MainRecipes = ({ type, title }) => {
       setRecipes((data.meals || data.drinks).slice(0, 12));
       setIsFetching(false);
     });
-  }, [ type ]);
+  }, [type]);
 
   const upperCase = {
     meal: 'Meal',
     cocktail: 'Drink',
-  }
+  };
 
   if (isFetching) return <Loading />;
   return (
