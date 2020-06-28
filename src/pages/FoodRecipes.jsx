@@ -23,8 +23,8 @@ const FoodRecipes = () => {
     <div>
       <Header title="Comidas" type="meal" searchEnabled />
       <div>
-        {recipes.slice(0, 12).map((meal) =>
-          <RecipeCardMeal key={meal.idMeal} meal={meal} />)}
+        {recipes.slice(0, 12).map((meal, index) =>
+          <RecipeCardMeal key={meal.idMeal} meal={meal} index={index} />)}
       </div>
       <Footer />
     </div>

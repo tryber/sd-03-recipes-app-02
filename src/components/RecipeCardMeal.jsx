@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const RecipeCardMeal = ({ meal }) => {
-  const { index, strMealThumb, strMeal, idMeal } = meal;
+const RecipeCardMeal = ({ meal, index }) => {
+  const { strMealThumb, strMeal, idMeal } = meal;
 
   return (
     <Link to={`/comidas/${idMeal}`}>
