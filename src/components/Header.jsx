@@ -24,7 +24,7 @@ const Header = ({ title, searchEnabled, type }) => {
   };
   return (
     <header>
-      <nav>
+      <nav className="header">
         <Link to="perfil">
           <img data-testid="profile-top-btn" alt="icon" src={profileIcon} />
         </Link>

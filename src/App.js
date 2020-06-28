@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
-import FoodRecipes from './pages/FoodRecipes';
-import DrinkRecipes from './pages/DrinkRecipes';
+import MainRecipes from './pages/MainRecipes';
 import FoodRecipeDetail from './pages/FoodRecipeDetail';
 import DrinkRecipeDetail from './pages/DrinkRecipeDetail';
 import Profile from './pages/Profile';
@@ -23,10 +22,18 @@ function App() {
       <RecipesProvider>
         <Router>
           <Switch>
-            <Route exact path="/comidas" component={FoodRecipes} />
+            <Route
+              exact
+              path="/comidas"
+              render={(props) => <MainRecipes {...props} type="meal" title="Comidas" />}
+            />
             <Route exact path="/comidas/:id" component={FoodRecipeDetail} />
             <Route exact path="/comidas/:id/in-progress" component={FoodRecipeDetail} />
-            <Route exact path="/bebidas" component={DrinkRecipes} />
+            <Route
+              exact
+              path="/bebidas"
+              render={(props) => <MainRecipes {...props} type="cocktail" title="Bebidas" />}
+            />
             <Route exact path="/bebidas/:id" component={DrinkRecipeDetail} />
             <Route exact path="/bebidas/:id/in-progress" component={DrinkRecipeDetail} />
             <Route exact path="/perfil" component={Profile} />
