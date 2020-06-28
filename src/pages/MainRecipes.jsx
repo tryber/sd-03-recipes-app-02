@@ -18,13 +18,18 @@ const MainRecipes = ({ type, title }) => {
     });
   }, []);
 
+  const upperCase = {
+    meal: 'Meal',
+    cocktail: 'Drink',
+  }
+
   if (isFetching) return <Loading />;
   return (
     <div>
       <Header title={title} type={type} searchEnabled />
       <div className="recipes-display">
-        {recipes.map((meal, index) => (
-          <RecipeCard key={meal.idMeal} recipe={meal} index={index} type={type} />
+        {recipes.map((recipe, index) => (
+          <RecipeCard key={recipe[`id${upperCase[type]}`]} recipe={recipe} index={index} type={type} />
         ))}
       </div>
       <Footer />
