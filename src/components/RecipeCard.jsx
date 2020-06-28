@@ -9,7 +9,7 @@ const RecipeCard = ({ recipe, index, type }) => {
   };
   return (
     <Link to={`/${stringsObj[type][0]}/${recipe[`id${stringsObj[type][1]}`]}`}>
-      <div data-testid={`${index}-recipe-card`}>
+      <div data-testid={`${index}-recipe-card`} className="card" >
         <img
           data-testid={`${index}-card-img`}
           alt="Recipe"

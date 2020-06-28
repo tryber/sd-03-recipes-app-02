@@ -22,7 +22,7 @@ const MainRecipes = ({ type, title }) => {
   return (
     <div>
       <Header title={title} type={type} searchEnabled />
-      <div>
+      <div className="recipes-display">
         {recipes.map((meal, index) => (
           <RecipeCard key={meal.idMeal} recipe={meal} index={index} type={type} />
         ))}

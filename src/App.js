@@ -15,54 +15,40 @@ import RecipesProvider from './context/RecipesContext';
 
 function App() {
   return (
-    <div id="meals">
-      <RecipesProvider>
-        <Router>
-          <Switch>
-            <Route
-              exact
-              path="/comidas"
-              render={(props) => <MainRecipes {...props} type="meal" title="Comidas" />}
-            />
-            <Route exact path="/comidas/:id" component={RecipeDetail} />
-            <Route exact path="/comidas/:id/in-progress" component={RecipeDetail} />
-            <Route
-              exact
-              path="/bebidas"
-              render={(props) => <MainRecipes {...props} type="cocktail" title="Bebidas" />}
-            />
-            <Route exact path="/bebidas/:id" component={RecipeDetail} />
-            <Route exact path="/bebidas/:id/in-progress" component={RecipeDetail} />
-            <Route exact path="/perfil" component={Profile} />
-            <Route exact path="/explorar" component={Explore} />
-            <Route
-              exact
-              path="/explorar/comidas"
-              render={(props) => <ExploreRecipes {...props} title="Explorar Comidas" />}
-            />
-            <Route
-              exact
-              path="/explorar/comidas/ingredientes"
-              component={ExploreByIngredients}
-            />
-            <Route exact path="/explorar/comidas/area" component={ExploreFoodsByArea} />
-            <Route
-              exact
-              path="/explorar/bebidas"
-              render={(props) => <ExploreRecipes {...props} title="Explorar Bebidas" />}
-            />
-            <Route
-              exact
-              path="/explorar/bebidas/ingredientes"
-              component={ExploreByIngredients}
-            />
-            <Route exact path="/receitas-feitas" component={MadeRecipes} />
-            <Route exact path="/receitas-favoritas" component={FavoriteRecipes} />
-            <Route exact path="/" component={Login} />
-          </Switch>
-        </Router>
-      </RecipesProvider>
-    </div>
+    <RecipesProvider>
+      <Router>
+        <Switch>
+          <Route
+            path="/comidas"
+            render={(props) => <MainRecipes {...props} type="meal" title="Comidas" />}
+          />
+          <Route exact path="/comidas/:id" component={RecipeDetail} />
+          <Route exact path="/comidas/:id/in-progress" component={RecipeDetail} />
+          <Route
+            path="/bebidas"
+            render={(props) => <MainRecipes {...props} type="cocktail" title="Bebidas" />}
+          />
+          <Route exact path="/bebidas/:id" component={RecipeDetail} />
+          <Route exact path="/bebidas/:id/in-progress" component={RecipeDetail} />
+          <Route exact path="/perfil" component={Profile} />
+          <Route exact path="/explorar" component={Explore} />
+          <Route
+            path="/explorar/comidas"
+            render={(props) => <ExploreRecipes {...props} title="Explorar Comidas" />}
+          />
+          <Route path="/explorar/comidas/ingredientes" component={ExploreByIngredients} />
+          <Route exact path="/explorar/comidas/area" component={ExploreFoodsByArea} />
+          <Route
+            path="/explorar/bebidas"
+            render={(props) => <ExploreRecipes {...props} title="Explorar Bebidas" />}
+          />
+          <Route path="/explorar/bebidas/ingredientes" component={ExploreByIngredients} />
+          <Route exact path="/receitas-feitas" component={MadeRecipes} />
+          <Route exact path="/receitas-favoritas" component={FavoriteRecipes} />
+          <Route exact path="/" component={Login} />
+        </Switch>
+      </Router>
+    </RecipesProvider>
   );
 }
 

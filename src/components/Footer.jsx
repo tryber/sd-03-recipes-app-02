@@ -6,7 +6,7 @@ import exploreIcon from '../images/exploreIcon.svg';
 
 const Footer = () => (
   <footer>
-    <nav data-testid="footer" className="footer">
+    <nav data-testid="footer" className="footer ruby-bg">
       <Link to="comidas">
         <img data-testid="food-bottom-btn" alt="meal-icon" src={mealIcon} />
       </Link>

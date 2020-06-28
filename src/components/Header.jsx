@@ -8,8 +8,8 @@ import SearchBar from './SearchBar';
 const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
   if (searchEnabled) {
     return (
-      <button type="button" onClick={() => handleSearchIconClick()}>
-        <img data-testid="search-top-btn" alt="icon" src={searchIcon} />
+      <button type="button" className="invisible-btn" onClick={() => handleSearchIconClick()}>
+        <img data-testid="search-top-btn" alt="icon" src={searchIcon} className="yellow-text" />
       </button>
     );
   }
@@ -23,15 +23,13 @@ const Header = ({ title, searchEnabled, type }) => {
     setState({ searchInputEnabled: !state.searchInputEnabled });
   };
   return (
-    <header>
-      <nav className="header">
-        <Link to="perfil">
-          <img data-testid="profile-top-btn" alt="icon" src={profileIcon} />
-        </Link>
-        <h1 data-testid="page-title">{title}</h1>
-        {searchIconBtn(searchEnabled, handleSearchIconClick)}
-        <SearchBar searchInputEnabled={searchInputEnabled} type={type} />
-      </nav>
+    <header className="header ruby-bg yellow-text">
+      <Link to="perfil">
+        <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="yellow-text" />
+      </Link>
+      <h1 data-testid="page-title">{title}</h1>
+      {searchIconBtn(searchEnabled, handleSearchIconClick)}
+      <SearchBar searchInputEnabled={searchInputEnabled} type={type} />
     </header>
   );
 };
