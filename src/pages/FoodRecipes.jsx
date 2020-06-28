@@ -5,7 +5,7 @@ import { searchRecipesByName } from '../services/fetchRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import RecipeCardMeal from '../components/RecipeCardMeal';
+import RecipeCard from '../components/RecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 
 const FoodRecipes = () => {
@@ -13,7 +13,7 @@ const FoodRecipes = () => {
 
   useEffect(() => {
     searchRecipesByName('', 'meal').then((data) => {
-      setRecipes(data.meals);
+      setRecipes(data.meals.slice(0, 12));
       setIsFetching(false);
     });
   });
@@ -23,8 +23,8 @@ const FoodRecipes = () => {
     <div>
       <Header title="Comidas" type="meal" searchEnabled />
       <div>
-        {recipes.slice(0, 12).map((meal, index) =>
-          <RecipeCardMeal key={meal.idMeal} meal={meal} index={index} />)}
+        {recipes.map((meal, index) =>
+          <RecipeCard key={meal.idMeal} recipe={meal} index={index} type="Meal" />)}
       </div>
       <Footer />
     </div>

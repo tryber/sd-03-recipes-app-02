@@ -5,7 +5,7 @@ import { searchRecipesByName } from '../services/fetchRecipes';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import RecipeCardDrink from '../components/RecipeCardDrink';
+import RecipeCard from '../components/RecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 
 const DrinkRecipes = () => {
@@ -23,8 +23,8 @@ const DrinkRecipes = () => {
     <div>
       <Header title="Bebidas" type="cocktail" searchEnabled />
       <div>
-        {recipes.slice(0, 12).map((drink) =>
-          <RecipeCardDrink key={drink.idDrink} drink={drink} />)}
+        {recipes.slice(0, 12).map((drink, index) =>
+          <RecipeCard key={drink.idDrink} recipe={drink} index={index} type="Drink"/>)}
       </div>
       <Footer />
     </div>
