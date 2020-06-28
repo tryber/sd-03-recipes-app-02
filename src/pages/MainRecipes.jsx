@@ -16,7 +16,7 @@ const MainRecipes = ({ type, title }) => {
       setRecipes((data.meals || data.drinks).slice(0, 12));
       setIsFetching(false);
     });
-  }, []);
+  }, [ type ]);
 
   const upperCase = {
     meal: 'Meal',
