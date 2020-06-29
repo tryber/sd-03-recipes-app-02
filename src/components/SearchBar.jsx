@@ -52,14 +52,15 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
 
   if (searchInputEnabled) {
     return (
-      <div>
+      <div className="search-bar">
         <input
+          className="full-width"
           type="text"
           data-testid="search-input"
           name="searchText"
           onChange={(e) => handleChange(e)}
         />
-        <p>
+        <div>
           <label htmlFor="name">
             <input
               type="radio"
@@ -71,8 +72,6 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Nome</span>
           </label>
-        </p>
-        <p>
           <label htmlFor="ingredients">
             <input
               type="radio"
@@ -84,8 +83,6 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Ingredientes</span>
           </label>
-        </p>
-        <p>
           <label htmlFor="firstLetter">
             <input
               type="radio"
@@ -97,7 +94,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Primeira letra</span>
           </label>
-        </p>
+        </div>
         <button type="button" data-testid="exec-search-btn" onClick={() => searchBtn()}>
           Buscar
         </button>
