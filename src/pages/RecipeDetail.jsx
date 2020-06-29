@@ -42,17 +42,18 @@ const youtubeVideo = (recipe) => {
   return null;
 };
 
-// const recommendedCarousel = (recipes, type) => {
-//   if (type) {
-//     return (
-//       <div>
-//         <RecipeCard recipe={recipes[0]} index={0} type={type} page="mainPage"/>
-//       </div>
-//     );    
-//   }
-// }
+const recommendedCarousel = (recipes, type) => {
+  if (type) {
+    return (
+      <div>
+        <RecipeCard recipe={recipes[0]} index={0} type={type} page="mainPage" />
+      </div>
+    );
+  }
+  return null;
+};
 
-const RecipeDetail = ({ match: { params } }) => {
+const RecipeDetail = ({ match: { params, path } }) => {
   const [recipeState, setRecipeState] = useState({
     recipe: {},
     recipeIsFetching: true,
@@ -61,26 +62,33 @@ const RecipeDetail = ({ match: { params } }) => {
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
 
   useEffect(() => {
+    const type = path.split('/')[1];
     getRecipeDetailsById(params.id, 'meal').then((data) => {
       if (data.meals) {
-        setRecipeState({ ...recipeState, recipe: data.meals[0], recipeIsFetching: false, type: 'Meal' });
+        setRecipeState({
+          ...recipeState,
+          recipe: data.meals[0],
+          recipeIsFetching: false,
+          type: 'Meal',
+        });
         searchRecipesByName('', 'cocktail').then((data) => {
-          setRecommendedRecipes(data.drinks.slice(0,6))
-        })
+          setRecommendedRecipes(data.drinks.slice(0, 6));
+        });
       }
     });
     getRecipeDetailsById(params.id, 'cocktail').then((data) => {
       if (data.drinks) {
-        setRecipeState({ ...recipeState, recipe: data.drinks[0], recipeIsFetching: false, type: 'Drink' });
+        setRecipeState({
+          ...recipeState,
+          recipe: data.drinks[0],
+          recipeIsFetching: false,
+          type: 'Drink',
+        });
       }
     });
   }, []);
 
-  const {
-    recipe,
-    recipeIsFetching,
-    type,
-  } = recipeState;
+  const { recipe, recipeIsFetching, type } = recipeState;
 
   if (recipeIsFetching) return <Loading />;
 

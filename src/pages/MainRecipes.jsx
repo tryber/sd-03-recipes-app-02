@@ -29,7 +29,13 @@ const MainRecipes = ({ type, title }) => {
       <Header title={title} type={type} searchEnabled />
       <div className="recipes-display">
         {recipes.map((recipe, index) => (
-          <RecipeCard key={recipe[`id${upperCase[type]}`]} recipe={recipe} index={index} type={type} page="mainPage"/>
+          <RecipeCard
+            key={recipe[`id${upperCase[type]}`]}
+            recipe={recipe}
+            index={index}
+            type={type}
+            page="mainPage"
+          />
         ))}
       </div>
       <Footer />

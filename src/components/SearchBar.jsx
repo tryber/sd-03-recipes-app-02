@@ -14,7 +14,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     searchText: '',
   });
 
-  const { setIsFetching, setRecipes, recipes } = useContext(RecipesContext);
+  const { setIsFetching, setRecipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -31,7 +31,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
         if (data.meals || data.drinks) {
           setRecipes((data.meals || data.drinks).slice(0, 12));
           setIsFetching(false);
-        } else {          
+        } else {
           return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         }
         if (type === 'meal' && data.meals.length === 1) {
@@ -40,6 +40,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
         if (type === 'cocktail' && data.drinks.length === 1) {
           history.push(`/bebidas/${data.drinks[0].idDrink}`);
         }
+        return null;
       });
     }
   };
