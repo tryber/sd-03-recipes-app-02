@@ -19,10 +19,10 @@ const Categories = ({ type }) => {
 
   useEffect(() => {
     if (currentFilter) {
-    searchRecipesByCategory(currentFilter, type)
+      searchRecipesByCategory(currentFilter, type)
       .then((data) => setRecipes((data.drinks || data.meals).splice(0, 12)));
     } else {
-    searchRecipesByName('', type)
+      searchRecipesByName('', type)
       .then((data) => setRecipes((data.drinks || data.meals).splice(0, 12)));
     }
   }, [currentFilter, setRecipes, type]);
