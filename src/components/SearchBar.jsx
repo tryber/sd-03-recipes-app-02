@@ -29,10 +29,11 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     } else {
       searchOptions[searchParam](searchText, type).then((data) => {
         if (data.meals || data.drinks) {
-          setRecipes(data.meals || data.drinks);
+          setRecipes((data.meals || data.drinks).slice(0, 12));
           setIsFetching(false);
+        } else {          
+          return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         }
-        if (recipes.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         if (type === 'meal' && data.meals.length === 1) {
           history.push(`/comidas/${data.meals[0].idMeal}`);
         }
