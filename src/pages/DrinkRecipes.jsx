@@ -5,7 +5,7 @@ import Categories from '../components/Categories';
 
 const DrinkRecipes = () => (
   <div>
-    <Header title="Bebidas" searchEnabled />
+    <Header title="Bebidas" type="cocktail" searchEnabled />
     <Categories type='cocktail' />
     <Footer />
   </div>

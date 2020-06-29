@@ -4,7 +4,7 @@ import Footer from '../components/Footer/Footer';
 
 const ExploreFoodsArea = () => (
   <div>
-    <Header title="Explorar Origem" searchEnabled />
+    <Header title="Explorar Origem" type="meal" searchEnabled />
     <Footer />
   </div>
 );

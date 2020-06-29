@@ -6,7 +6,7 @@ import Categories from '../components/Categories';
 const FoodRecipes = () => (
 
   <div>
-    <Header title="Comidas" searchEnabled />
+    <Header title="Comidas" type="meal" searchEnabled />
     <Categories type='meal' />
     <Footer />
   </div>
