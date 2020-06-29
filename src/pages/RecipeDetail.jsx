@@ -60,7 +60,7 @@ const RecipeDetail = ({ match: { params } }) => {
   });
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     getRecipeDetailsById(params.id, 'meal').then((data) => {
       if (data.meals) {
         setRecipeState({ ...recipeState, recipe: data.meals[0], recipeIsFetching: false, type: 'Meal' });
