@@ -14,21 +14,27 @@ const Categories = ({ type }) => {
   useEffect(() => {
     getRecipeCategories(type)
       .then(data => setCategories((data['drinks'] || data['meals']).splice(0, 5)))
-  }, [])
+  }, [type])
+
+  useEffect(() => {
+    (currentFilter) ?
+    searchRecipesByCategory(currentFilter, type)
+      .then(data => setRecipes((data['drinks'] || data['meals']).splice(0, 12)))
+    :
+    searchRecipesByName('', type)
+      .then(data => setRecipes((data['drinks'] || data['meals']).splice(0, 12)))
+  }, [currentFilter, setRecipes, type])
 
   const handleBtnClick = (category) => {
     (category === 'All' || category === currentFilter) ?
-    searchRecipesByName('', type)
-      .then(data => { setRecipes(data); setCurrentFilter(''); })
+    setCurrentFilter('')
     :
     setCurrentFilter(category)
-    searchRecipesByCategory(category, type)
-      .then(data => setRecipes((data['drinks'] || data['meals'])))
   }
 
 
   return (
-    <div>
+    <div className='categories'>
       <button type='button' onClick={e => handleBtnClick(e.target.innerHTML)}>All</button>
       {categories.map(category => 
         <button 
