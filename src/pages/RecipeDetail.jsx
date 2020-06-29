@@ -12,7 +12,7 @@ const ingredientsList = (recipe) => {
   for (let index = 1; index < 16; index += 1) {
     if (recipe[`strIngredient${index}`]) {
       response.push(
-        <li data-testid={`${index}-ingredient-name-and-measure`}>
+        <li data-testid={`${index - 1}-ingredient-name-and-measure`}>
           - {recipe[`strIngredient${index}`]} - {recipe[`strMeasure${index}`]}
         </li>,
       );
@@ -33,20 +33,28 @@ const youtubeVideo = (recipe) => {
   };
   if (recipe.strYoutube) {
     return (
-      <span>
+      <span data-testid="video">
         <h4>Video</h4>
-        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} data-testid="video" />
+        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} />
       </span>
     );
   }
   return null;
 };
 
-const recommendedCarousel = (recipes, type) => {
+const recommendedCarousel = (recommendedRecipes, type) => {
   if (type) {
+    const invertedType = {
+      Meal: 'cocktail',
+      Drink: 'meal',
+    };
     return (
-      <div>
-        <RecipeCard recipe={recipes[0]} index={0} type={type} page="mainPage" />
+      <div className="recommended-recipes">
+        {recommendedRecipes.map((recipe, index) => (
+          <span className="margin10p">
+            <RecipeCard recipe={recipe} index={index} type={invertedType[type]} page="detailPage" />
+          </span>
+        ))}
       </div>
     );
   }
@@ -62,35 +70,38 @@ const RecipeDetail = ({ match: { params, path } }) => {
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
 
   useEffect(() => {
-    const type = path.split('/')[1];
-    getRecipeDetailsById(params.id, 'meal').then((data) => {
-      if (data.meals) {
+    const typePath = path.split('/')[1];
+    if (typePath === 'comidas') {
+      getRecipeDetailsById(params.id, 'meal').then((data) => {
         setRecipeState({
           ...recipeState,
           recipe: data.meals[0],
           recipeIsFetching: false,
           type: 'Meal',
         });
-        searchRecipesByName('', 'cocktail').then((data) => {
-          setRecommendedRecipes(data.drinks.slice(0, 6));
+        searchRecipesByName('', 'cocktail').then((cocktails) => {
+          setRecommendedRecipes(cocktails.drinks.slice(0, 6));
         });
-      }
-    });
-    getRecipeDetailsById(params.id, 'cocktail').then((data) => {
-      if (data.drinks) {
+      });
+    }
+    if (typePath === 'bebidas') {
+      getRecipeDetailsById(params.id, 'cocktail').then((data) => {
         setRecipeState({
           ...recipeState,
           recipe: data.drinks[0],
           recipeIsFetching: false,
           type: 'Drink',
         });
-      }
-    });
-  }, []);
+        searchRecipesByName('', 'meal').then((meals) => {
+          setRecommendedRecipes(meals.meals.slice(0, 6));
+        });
+      });
+    }
+  }, [path]);
 
   const { recipe, recipeIsFetching, type } = recipeState;
 
-  if (recipeIsFetching) return <Loading />;
+  if (recipeIsFetching || recommendedRecipes.length === 0) return <Loading />;
 
   return (
     <div className="detailPage">
@@ -112,6 +123,10 @@ const RecipeDetail = ({ match: { params, path } }) => {
       <span data-testid="instructions">{recipe.strInstructions}</span>
       {youtubeVideo(recipe)}
       <h4>Recomendadas</h4>
+      {recommendedCarousel(recommendedRecipes, type)}
+      <button className="footer" type="button" data-testid="start-recipe-btn">
+        Iniciar Receita
+      </button>
     </div>
   );
 };

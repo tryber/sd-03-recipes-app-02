@@ -90,6 +90,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .full-width {
@@ -98,4 +99,16 @@
 
 .search-bar {
   margin-top: 70px;
+}
+
+.margin10p {
+  margin: 6px;
+}
+
+.recommended-recipes {
+  display: flex;
+  margin:5px; 
+  padding:5px; 
+  width: 100%; 
+  overflow: auto;
 }
