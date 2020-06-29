@@ -1,62 +1,87 @@
-#meals {
-  height: 100vh;
-  width: 100%;
-  background: #0fa36b;
-  display: flex;
-  flex-direction: column;
+.footer {
   align-items: center;
-  justify-content: center;
-  font-family: sans-serif;
-  color: #464646;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  height: 58px;
+  justify-content: space-around;
+  position: fixed;
 }
 
-#rocksGlass {
-  max-height: 80vh;
-  animation: shake 1s infinite ease;
+.header {
+  width: 100%;
+  top: 0;
+  height: 58px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  font-size: 14px;
 }
 
-#iceLeft {
-  /* transform-origin set in px for firefox compatibility */
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-  animation: clink .8s infinite ease;
+.ruby-bg {
+  background-color: #9b1c1c;
 }
 
-#iceRight {
-  /* transform-origin set in px for firefox compatibility */
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-  animation: clink .8s .2s infinite ease;
+.ruby-text {
+  color: #9b1c1c;
 }
 
-#meals > span {
-  color: aliceblue;
-  font-weight: 900;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3em;
-  animation: shake 1.5s infinite ease;
+.blue-bg {
+  background-color: #003652;
 }
 
-@keyframes shake {
-  0% {
-    transform: rotate(5deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(5deg);
-  }
+.blue-text {
+  color: #003652;
 }
 
-@keyframes clink {
-  0% {
-    transform: rotate(-10deg);
-  }
-  50% {
-    transform: rotate(20deg);
-  }
-  100% {
-    transform: rotate(-10deg);
-  }
+.yellow-bg {
+  background-color: #FCBF49;
+}
+
+.yellow-text {
+  color: #FCBF49;
+}
+
+.cornsilk-bg {
+  background-color: #F2ECCF;
+}
+
+.cornsilk-text {
+  color: #F2ECCF;
+}
+
+.gray-bg {
+  background-color: #BDBDBD;
+}
+
+.gray-text {
+  color: #BDBDBD;
+}
+
+.invisible-btn {
+  background: transparent;
+  border: none !important;
+}
+
+.card {
+  height: 172px;
+  width: 161px;
+  text-align: center;
+}
+
+.recipe-title {
+  margin-top: 10px;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 70%;
+}
+
+.recipes-display {
+  margin: 70px 0 70px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }

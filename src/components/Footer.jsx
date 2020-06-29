@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import drinkIcon from '../../images/drinkIcon.svg';
-import mealIcon from '../../images/mealIcon.svg';
-import exploreIcon from '../../images/exploreIcon.svg';
-import './Footer.css';
+import drinkIcon from '../images/drinkIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
 
 const Footer = () => (
   <footer>
-    <nav data-testid="footer">
+    <nav data-testid="footer" className="footer ruby-bg">
       <Link to="comidas">
         <img data-testid="food-bottom-btn" alt="meal-icon" src={mealIcon} />
       </Link>

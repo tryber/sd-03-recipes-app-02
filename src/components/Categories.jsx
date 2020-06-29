@@ -9,15 +9,12 @@ import { RecipesContext } from '../context/RecipesContext';
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('');
-  const { recipes, setRecipes } = useContext(RecipesContext);
+  const { setRecipes } = useContext(RecipesContext);
 
   useEffect(() => {
     getRecipeCategories(type)
       .then(data => setCategories((data['drinks'] || data['meals']).splice(0, 5)))
   }, [])
-  useEffect(() =>{
-    console.log(recipes);
-  }, [recipes])
 
   const handleBtnClick = (category) => {
     (category === 'All' || category === currentFilter) ?
