@@ -34,8 +34,8 @@ const Categories = ({ type }) => {
 
   return (
     <div className="categories">
-      <button 
-        type="button" data-testid='All-category-filter' 
+      <button
+        type="button" data-testid="All-category-filter"
         onClick={(e) => handleBtnClick(e.target.innerHTML)}
       >
         All
