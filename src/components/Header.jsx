@@ -23,14 +23,16 @@ const Header = ({ title, searchEnabled, type }) => {
     setState({ searchInputEnabled: !state.searchInputEnabled });
   };
   return (
-    <header className="header ruby-bg yellow-text">
-      <Link to="perfil">
-        <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="yellow-text" />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {searchIconBtn(searchEnabled, handleSearchIconClick)}
+    <div>
+      <header className="header ruby-bg yellow-text">
+        <Link to="perfil">
+          <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="yellow-text" />
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {searchIconBtn(searchEnabled, handleSearchIconClick)}
+      </header>
       <SearchBar searchInputEnabled={searchInputEnabled} type={type} />
-    </header>
+    </div>
   );
 };
 

@@ -14,7 +14,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     searchText: '',
   });
 
-  const { setIsFetching, setRecipes, recipes } = useContext(RecipesContext);
+  const { setIsFetching, setRecipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -29,16 +29,18 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     } else {
       searchOptions[searchParam](searchText, type).then((data) => {
         if (data.meals || data.drinks) {
-          setRecipes(data.meals || data.drinks);
+          setRecipes((data.meals || data.drinks).slice(0, 12));
           setIsFetching(false);
+        } else {
+          return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         }
-        if (recipes.length === 0) alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         if (type === 'meal' && data.meals.length === 1) {
           history.push(`/comidas/${data.meals[0].idMeal}`);
         }
         if (type === 'cocktail' && data.drinks.length === 1) {
           history.push(`/bebidas/${data.drinks[0].idDrink}`);
         }
+        return null;
       });
     }
   };
@@ -52,14 +54,15 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
 
   if (searchInputEnabled) {
     return (
-      <div>
+      <div className="search-bar">
         <input
+          className="full-width"
           type="text"
           data-testid="search-input"
           name="searchText"
           onChange={(e) => handleChange(e)}
         />
-        <p>
+        <div>
           <label htmlFor="name">
             <input
               type="radio"
@@ -71,8 +74,6 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Nome</span>
           </label>
-        </p>
-        <p>
           <label htmlFor="ingredients">
             <input
               type="radio"
@@ -84,8 +85,6 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Ingredientes</span>
           </label>
-        </p>
-        <p>
           <label htmlFor="firstLetter">
             <input
               type="radio"
@@ -97,7 +96,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
             />
             <span>Primeira letra</span>
           </label>
-        </p>
+        </div>
         <button type="button" data-testid="exec-search-btn" onClick={() => searchBtn()}>
           Buscar
         </button>
