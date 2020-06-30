@@ -23,6 +23,39 @@ body {
   font-size: 14px;
 }
 
+.login-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.login-input {
+  border: 1px solid #003652;
+  border-radius: 6px;
+  font-size: 16px;
+  height: 30px;
+  margin: 10px;
+  padding: 3px 10px;
+  width: 240px;
+}
+
+.login-btn {
+  border-radius: 6px;
+  font-size: 20px;
+  font-weight: 800;
+  height: 50px;
+  margin: 20px;
+  width: 200px;
+}
+
+@media (max-height: 500px) {
+  .login-page {
+    margin-top: 30px;
+  }
+
+}
+
 .ruby-bg {
   background-color: #9b1c1c;
 }
@@ -61,6 +94,12 @@ body {
 
 .gray-text {
   color: #BDBDBD;
+}
+
+.btn {
+  background-color: #FCBF49;
+  border: none;
+  color: #003652;
 }
 
 .invisible-btn {
