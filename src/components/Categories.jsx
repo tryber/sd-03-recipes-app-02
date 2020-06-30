@@ -14,16 +14,16 @@ const Categories = ({ type }) => {
 
   useEffect(() => {
     getRecipeCategories(type)
-      .then((data) => setCategories((data.drinks || data.meals).splice(0, 5)));
+      .then((data) => setCategories((data.drinks || data.meals).slice(0, 5)));
   }, [type]);
 
   useEffect(() => {
     if (currentFilter) {
       searchRecipesByCategory(currentFilter, type)
-      .then((data) => setRecipes((data.drinks || data.meals).splice(0, 12)));
+      .then((data) => setRecipes((data.drinks || data.meals).slice(0, 12)));
     } else {
       searchRecipesByName('', type)
-      .then((data) => setRecipes((data.drinks || data.meals).splice(0, 12)));
+      .then((data) => setRecipes((data.drinks || data.meals).slice(0, 12)));
     }
   }, [currentFilter, setRecipes, type]);
 
@@ -32,10 +32,14 @@ const Categories = ({ type }) => {
     else setCurrentFilter(category);
   };
 
-
   return (
     <div className="categories">
-      <button type="button" onClick={(e) => handleBtnClick(e.target.innerHTML)}>All</button>
+      <button 
+        type="button" data-testid='All-category-filter' 
+        onClick={(e) => handleBtnClick(e.target.innerHTML)}
+      >
+        All
+      </button>
       {categories.map((category) =>
         <button
           data-testid={`${category.strCategory}-category-filter`} type="button"
