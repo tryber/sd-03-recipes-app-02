@@ -2,25 +2,40 @@ body {
   background-color: #F2ECCF;
 }
 
+a {
+  text-decoration: none;
+}
+
+.btn {
+  background-color: #FCBF49;
+  border: none;
+  color: #003652;
+}
+
+.invisible-btn {
+  background: transparent;
+  border: none !important;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  height: 58px;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 .footer {
   align-items: center;
   bottom: 0;
   display: flex;
-  width: 100%;
   height: 58px;
   justify-content: space-around;
   position: fixed;
-}
-
-.header {
   width: 100%;
-  top: 0;
-  height: 58px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: fixed;
-  font-size: 14px;
 }
 
 .login-page {
@@ -49,11 +64,51 @@ body {
   width: 200px;
 }
 
+.loading {
+  color: #003652;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.recipes-display {
+  margin: 70px 0 70px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  height: 172px;
+  width: 161px;
+  text-align: center;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 70%;
+}
+
+.recipe-title {
+  color: #003652;
+  margin: 0;
+}
+
 @media (max-height: 500px) {
+  .header {
+    height: 48px;
+  }
+
+  .footer {
+    height: 48px;
+  }
+
   .login-page {
     margin-top: 30px;
   }
 
+  .loading {
+    margin-top: 30px;
+  }
 }
 
 .ruby-bg {
@@ -94,37 +149,4 @@ body {
 
 .gray-text {
   color: #BDBDBD;
-}
-
-.btn {
-  background-color: #FCBF49;
-  border: none;
-  color: #003652;
-}
-
-.invisible-btn {
-  background: transparent;
-  border: none !important;
-}
-
-.card {
-  height: 172px;
-  width: 161px;
-  text-align: center;
-}
-
-.recipe-title {
-  margin-top: 10px;
-}
-
-.recipe-image {
-  width: 100%;
-  height: 70%;
-}
-
-.recipes-display {
-  margin: 70px 0 70px 0;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
