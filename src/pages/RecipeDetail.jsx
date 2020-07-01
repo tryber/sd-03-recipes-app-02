@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
-// import YouTube from 'react-youtube';
+import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -26,18 +25,18 @@ const ingredientsList = (recipe) => {
 };
 
 const youtubeVideo = (recipe) => {
-  // const opts = {
-  //   height: '219',
-  //   width: '360',
-  //   playerVars: {
-  //     autoplay: 1,
-  //   },
-  // };
+  const opts = {
+    height: '219',
+    width: '360',
+    playerVars: {
+      autoplay: 1,
+    },
+  };
   if (recipe.strYoutube) {
     return (
       <span data-testid="video">
         <h4>Video</h4>
-        {/* <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} /> */}
+        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} />
       </span>
     );
   }
