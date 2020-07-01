@@ -26,6 +26,9 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
+
+.categories {
+margin-top: 60px;
 }
 
 .footer {
@@ -149,4 +152,58 @@ a {
 
 .gray-text {
   color: #BDBDBD;
+}
+
+.invisible-btn {
+  background: transparent;
+  border: none !important;
+}
+
+.card {
+  height: 172px;
+  width: 161px;
+  text-align: center;
+}
+
+.recipe-title {
+  margin-top: 10px;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 70%;
+}
+
+.recipes-display {
+  margin: 70px 0 70px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.detailPage {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.search-bar {
+  margin-top: 70px;
+}
+
+.margin10p {
+  margin: 6px;
+}
+
+.recommended-recipes {
+  display: flex;
+  margin:5px; 
+  padding:5px; 
+  width: 100%; 
+  overflow: auto;
 }
