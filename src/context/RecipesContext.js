@@ -45,7 +45,7 @@ const RecipesProvider = ({ children }) => {
           strInstructions: instructions,
           strTags: tags,
         } = recipe;
-        const ingredients = ingredientsList(data);
+        const ingredients = ingredientsList(recipe);
         return { id, name, area, category, image, ingredients, youtube, instructions, tags };
       }),
     );
