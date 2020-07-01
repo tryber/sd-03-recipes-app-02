@@ -35,14 +35,16 @@ const Categories = ({ type }) => {
   return (
     <div className="categories">
       <button
-        type="button" data-testid="All-category-filter"
+        data-testid="All-category-filter"
+        type="button" className="categories-btn btn"
         onClick={(e) => handleBtnClick(e.target.innerHTML)}
       >
         All
       </button>
       {categories.map((category) =>
         <button
-          data-testid={`${category.strCategory}-category-filter`} type="button"
+          data-testid={`${category.strCategory}-category-filter`}
+          type="button" className="categories-btn btn"
           onClick={(e) => handleBtnClick(e.target.innerHTML)}
         >
           {category.strCategory}
