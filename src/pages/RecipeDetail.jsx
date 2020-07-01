@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 // import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
@@ -26,13 +26,13 @@ const ingredientsList = (recipe) => {
 };
 
 const youtubeVideo = (recipe) => {
-  const opts = {
-    height: '219',
-    width: '360',
-    playerVars: {
-      autoplay: 1,
-    },
-  };
+  // const opts = {
+  //   height: '219',
+  //   width: '360',
+  //   playerVars: {
+  //     autoplay: 1,
+  //   },
+  // };
   if (recipe.strYoutube) {
     return (
       <span data-testid="video">
