@@ -33,7 +33,6 @@ const RecipesProvider = ({ children }) => {
       type = 'Drink';
     }
     type.toLowerCase();
-    const ingredients = ingredientsList(data);
     setRecipes(
       data.slice(0, 12).map((recipe) => {
         const {
@@ -46,6 +45,7 @@ const RecipesProvider = ({ children }) => {
           strInstructions: instructions,
           strTags: tags,
         } = recipe;
+        const ingredients = ingredientsList(data);
         return { id, name, area, category, image, ingredients, youtube, instructions, tags };
       }),
     );
