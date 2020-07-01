@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import PropTypes from 'prop-types';
-// import YouTube from 'react-youtube';
-=======
 import { useLocation, useParams } from 'react-router-dom';
-import YouTube from 'react-youtube';
->>>>>>> e8ad35675185974995236c0e035ad6d734fd5156
+// import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';

@@ -102,7 +102,8 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
         </div>
         <button
           data-testid="exec-search-btn" type="button" className="search-btn btn"
-          onClick={() => searchBtn()}>
+          onClick={() => searchBtn()}
+        >
           Buscar
         </button>
       </div>
