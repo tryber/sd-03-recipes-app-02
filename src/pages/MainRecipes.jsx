@@ -9,11 +9,11 @@ import RecipeCard from '../components/RecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 
 const MainRecipes = ({ type, title }) => {
-  const { isFetching, setIsFetching, recipes, setRecipes } = useContext(RecipesContext);
+  const { isFetching, setIsFetching, recipes, setRecipes, saveRecipes } = useContext(RecipesContext);
 
   useEffect(() => {
     searchRecipesByName('', type).then((data) => {
-      setRecipes((data.meals || data.drinks).slice(0, 12));
+      saveRecipes(data);
       setIsFetching(false);
     });
   }, [type]);

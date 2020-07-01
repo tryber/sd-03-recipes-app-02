@@ -9,7 +9,13 @@ const RecipesProvider = ({ children }) => {
   const [isFetching, setIsFetching] = useState(true);
   const [recipes, setRecipes] = useState([]);
 
-  const context = { isFetching, setIsFetching, recipes, setRecipes };
+  const saveRecipes = (recipes) => {
+
+      setRecipes(recipes.meals || recipes.drinks)
+
+  }
+
+  const context = { isFetching, setIsFetching, recipes, setRecipes, saveRecipes };
 
   return <RecipesContext.Provider value={context}>{children}</RecipesContext.Provider>;
 };
