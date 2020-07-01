@@ -10,7 +10,7 @@ import { RecipesContext } from '../context/RecipesContext';
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('');
-  const { setRecipes } = useContext(RecipesContext);
+  const { saveRecipes, setIsFetching } = useContext(RecipesContext);
 
   useEffect(() => {
     getRecipeCategories(type)
@@ -20,12 +20,16 @@ const Categories = ({ type }) => {
   useEffect(() => {
     if (currentFilter) {
       searchRecipesByCategory(currentFilter, type)
-      .then((data) => setRecipes((data.drinks || data.meals).slice(0, 12)));
+      .then((data) => {
+        saveRecipes(data)
+      });
     } else {
       searchRecipesByName('', type)
-      .then((data) => setRecipes((data.drinks || data.meals).slice(0, 12)));
+      .then((data) => {
+        saveRecipes(data);
+      });
     }
-  }, [currentFilter, setRecipes, type]);
+  }, [ currentFilter ]);
 
   const handleBtnClick = (category) => {
     if (category === 'All' || category === currentFilter) setCurrentFilter('');

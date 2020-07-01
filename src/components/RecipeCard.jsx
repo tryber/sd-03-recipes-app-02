@@ -4,24 +4,24 @@ import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ recipe, index, type, page }) => {
   const stringsObj = {
-    meal: { path: 'comidas', uppercase: 'Meal' },
-    cocktail: { path: 'bebidas', uppercase: 'Drink' },
+    meal: { path: 'comidas' },
+    cocktail: { path: 'bebidas' },
   };
   const dataTests = {
     mainPage: { card: `${index}-recipe-card`, title: `${index}-card-name` },
     detailPage: { card: `${index}-recomendation-card`, title: `${index}-recomendation-title` },
   };
   return (
-    <Link to={`/${stringsObj[type].path}/${recipe[`id${stringsObj[type].uppercase}`]}`}>
+    <Link to={`/${stringsObj[type].path}/${recipe.id}`}>
       <div data-testid={dataTests[page].card} className="card">
         <img
           data-testid={`${index}-card-img`}
           alt="Recipe"
           className="recipe-image"
-          src={recipe[`str${stringsObj[type].uppercase}Thumb`]}
+          src={recipe.image}
         />
         <h4 data-testid={dataTests[page].title} className="recipe-title">
-          {recipe[`str${stringsObj[type].uppercase}`]}
+          {recipe.name}
         </h4>
       </div>
     </Link>
