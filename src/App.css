@@ -20,6 +20,12 @@ a {
   color: #003652;
 }
 
+.btn:disabled {
+  background-color: lightgray;
+  border: none;
+  color: lightslategray;
+}
+
 .invisible-btn {
   background: transparent;
   border: none !important;
