@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import RecipeCard from '../components/RecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
+import Categories from '../components/Categories';
 
 const MainRecipes = ({ type, title }) => {
   const { isFetching, setIsFetching, recipes, setRecipes, saveRecipes } = useContext(RecipesContext);
@@ -27,9 +28,16 @@ const MainRecipes = ({ type, title }) => {
   return (
     <div>
       <Header title={title} type={type} searchEnabled />
+      <Categories type={type} />
       <div className="recipes-display">
         {recipes.map((recipe, index) => (
-          <RecipeCard key={recipe[`id${upperCase[type]}`]} recipe={recipe} index={index} type={type} />
+          <RecipeCard
+            key={recipe[`id${upperCase[type]}`]}
+            recipe={recipe}
+            index={index}
+            type={type}
+            page="mainPage"
+          />
         ))}
       </div>
       <Footer />
