@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
@@ -35,7 +35,7 @@ const youtubeVideo = (recipe) => {
     return (
       <span data-testid="video">
         <h4>Video</h4>
-        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} />
+        {/* <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} /> */}
       </span>
     );
   }

@@ -1,9 +1,17 @@
+/* APP */
+
 body {
   background-color: #F2ECCF;
 }
 
 a {
   text-decoration: none;
+}
+
+.loading {
+  color: #003652;
+  margin-top: 100px;
+  text-align: center;
 }
 
 .btn {
@@ -17,6 +25,8 @@ a {
   border: none !important;
 }
 
+/* HEADER */
+
 .header {
   align-items: center;
   display: flex;
@@ -26,10 +36,13 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
-
-.categories {
-margin-top: 60px;
 }
+
+.search-bar {
+  margin-top: 70px;
+}
+
+/* FOOTER */
 
 .footer {
   align-items: center;
@@ -40,6 +53,8 @@ margin-top: 60px;
   position: fixed;
   width: 100%;
 }
+
+/* LOGIN */
 
 .login-page {
   align-items: center;
@@ -67,10 +82,10 @@ margin-top: 60px;
   width: 200px;
 }
 
-.loading {
-  color: #003652;
-  margin-top: 100px;
-  text-align: center;
+/* MAIN PAGE RECIPES */
+
+.categories {
+  margin-top: 60px;
 }
 
 .recipes-display {
@@ -96,6 +111,25 @@ margin-top: 60px;
   margin: 0;
 }
 
+/* RECIPE DETAIL PAGE */
+
+.detailPage {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.recommended-recipes {
+  display: flex;
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
+  overflow: auto;
+}
+
+/* MOBILE LANDSCAPE */
+
 @media (max-height: 500px) {
   .header {
     height: 48px;
@@ -112,6 +146,16 @@ margin-top: 60px;
   .loading {
     margin-top: 30px;
   }
+}
+
+/* GENERAL */
+
+.full-width {
+  width: 100%;
+}
+
+.margin10p {
+  margin: 6px;
 }
 
 .ruby-bg {
@@ -152,58 +196,4 @@ margin-top: 60px;
 
 .gray-text {
   color: #BDBDBD;
-}
-
-.invisible-btn {
-  background: transparent;
-  border: none !important;
-}
-
-.card {
-  height: 172px;
-  width: 161px;
-  text-align: center;
-}
-
-.recipe-title {
-  margin-top: 10px;
-}
-
-.recipe-image {
-  width: 100%;
-  height: 70%;
-}
-
-.recipes-display {
-  margin: 70px 0 70px 0;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.detailPage {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.search-bar {
-  margin-top: 70px;
-}
-
-.margin10p {
-  margin: 6px;
-}
-
-.recommended-recipes {
-  display: flex;
-  margin:5px; 
-  padding:5px; 
-  width: 100%; 
-  overflow: auto;
 }
