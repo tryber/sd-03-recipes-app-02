@@ -87,21 +87,17 @@ const favoriteBtn = (recipe, type) => {
     if (type === 'Meal') {
       const { idMeal: id, strMeal: name, strMealThumb: image } = recipe;
       const alcoholicOrNot = false;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image })
+      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
     } else {
       const { idMeal: id, strDrink: name, strDrinkThumb: image } = recipe;
       const alcoholicOrNot = true;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image })
+      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites))
-  }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+  };
 
   return (
-    <button
-      data-testid="favorite-btn"
-      className="invisible-btn"
-      onClick={() => saveFavorite()}
-    >
+    <button data-testid="favorite-btn" className="invisible-btn" onClick={() => saveFavorite()}>
       <img src={favoriteIcon} alt="share" />
     </button>
   );
