@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useLocation, useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { getRecipeDetailsById, searchRecipesByName } from '../services/fetchRecipes';
 import RecipeCard from '../components/RecipeCard';
-import { useLocation, useParams } from 'react-router-dom';
 
 const ingredientsList = (recipe) => {
   const response = [];
@@ -68,15 +67,17 @@ const recommendedCarousel = (recommendedRecipes, type) => {
 //   if (localStorage.getItem('favoriteRecipes')) {
 //     newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
 //   }
-//   if (type === 'Meal' && newFavorites.find((favoriteRecipe) => (favoriteRecipe.id === recipe.idMeal))) {
+//   if (type === 'Meal' && newFavorites.find((favoriteRecipe) =>
+// (favoriteRecipe.id === recipe.idMeal))) {
 
 //   }
-//   if (type === 'Drink' && newFavorites.find((favoriteRecipe) => (favoriteRecipe.id === recipe.idDrink))) {
+//   if (type === 'Drink' && newFavorites.find((favoriteRecipe) =>
+// (favoriteRecipe.id === recipe.idDrink))) {
 
 //   }
 // }
 
-const favoriteBtn = (recipe, type) => {
+const favoriteBtn = (recipe, type, favoriteIcon) => {
   const { strArea: area, strCategory: category } = recipe;
   let newFavorites = [];
   if (localStorage.getItem('favoriteRecipes')) {
@@ -104,18 +105,48 @@ const favoriteBtn = (recipe, type) => {
 };
 
 const shareBtn = (shareState, setShareState, pathname) => (
-  <button data-testid="share-btn" className="invisible-btn">
-    <img
-      src={shareIcon}
-      alt="share"
-      onClick={() => {
-        navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-        setShareState('Link copiado!');
-      }}
-    />
+  <button
+    data-testid="share-btn"
+    className="invisible-btn"
+    onClick={() => {
+      navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+      setShareState('Link copiado!');
+    }}
+  >
+    <img src={shareIcon} alt="share" />
     {shareState}
   </button>
 );
+
+const fetchDetails = (pathname, params, setRecommendedRecipes, recipeState, setRecipeState) => {
+  const typePath = pathname.split('/')[1];
+  if (typePath === 'comidas') {
+    getRecipeDetailsById(params.id, 'meal').then((data) => {
+      setRecipeState({
+        ...recipeState,
+        recipe: data.meals[0],
+        recipeIsFetching: false,
+        type: 'Meal',
+      });
+      searchRecipesByName('', 'cocktail').then((cocktails) => {
+        setRecommendedRecipes(cocktails.drinks.slice(0, 6));
+      });
+    });
+  }
+  if (typePath === 'bebidas') {
+    getRecipeDetailsById(params.id, 'cocktail').then((data) => {
+      setRecipeState({
+        ...recipeState,
+        recipe: data.drinks[0],
+        recipeIsFetching: false,
+        type: 'Drink',
+      });
+      searchRecipesByName('', 'meal').then((meals) => {
+        setRecommendedRecipes(meals.meals.slice(0, 6));
+      });
+    });
+  }
+};
 
 const RecipeDetail = () => {
   const [recipeState, setRecipeState] = useState({
@@ -126,37 +157,11 @@ const RecipeDetail = () => {
   const [shareState, setShareState] = useState('');
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
   const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
   const params = useParams();
 
   useEffect(() => {
-    const typePath = pathname.split('/')[1];
-    if (typePath === 'comidas') {
-      getRecipeDetailsById(params.id, 'meal').then((data) => {
-        setRecipeState({
-          ...recipeState,
-          recipe: data.meals[0],
-          recipeIsFetching: false,
-          type: 'Meal',
-        });
-        searchRecipesByName('', 'cocktail').then((cocktails) => {
-          setRecommendedRecipes(cocktails.drinks.slice(0, 6));
-        });
-      });
-    }
-    if (typePath === 'bebidas') {
-      getRecipeDetailsById(params.id, 'cocktail').then((data) => {
-        setRecipeState({
-          ...recipeState,
-          recipe: data.drinks[0],
-          recipeIsFetching: false,
-          type: 'Drink',
-        });
-        searchRecipesByName('', 'meal').then((meals) => {
-          setRecommendedRecipes(meals.meals.slice(0, 6));
-        });
-      });
-    }
+    fetchDetails(pathname, params, setRecommendedRecipes, recipeState, setRecipeState);
   }, [pathname]);
 
   const { recipe, recipeIsFetching, type } = recipeState;
@@ -189,10 +194,6 @@ const RecipeDetail = () => {
       </button>
     </div>
   );
-};
-
-RecipeDetail.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default RecipeDetail;
