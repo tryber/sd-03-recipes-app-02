@@ -10,26 +10,25 @@ import { RecipesContext } from '../context/RecipesContext';
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('');
-  const { saveRecipes, setIsFetching } = useContext(RecipesContext);
+  const { saveRecipes } = useContext(RecipesContext);
 
   useEffect(() => {
-    getRecipeCategories(type)
-      .then((data) => setCategories((data.drinks || data.meals).slice(0, 5)));
+    getRecipeCategories(type).then((data) =>
+      setCategories((data.drinks || data.meals).slice(0, 5)),
+    );
   }, [type]);
 
   useEffect(() => {
     if (currentFilter) {
-      searchRecipesByCategory(currentFilter, type)
-      .then((data) => {
-        saveRecipes(data)
+      searchRecipesByCategory(currentFilter, type).then((data) => {
+        saveRecipes(data);
       });
     } else {
-      searchRecipesByName('', type)
-      .then((data) => {
+      searchRecipesByName('', type).then((data) => {
         saveRecipes(data);
       });
     }
-  }, [ currentFilter ]);
+  }, [currentFilter]);
 
   const handleBtnClick = (category) => {
     if (category === 'All' || category === currentFilter) setCurrentFilter('');
@@ -39,18 +38,21 @@ const Categories = ({ type }) => {
   return (
     <div className="categories">
       <button
-        type="button" data-testid="All-category-filter"
+        type="button"
+        data-testid="All-category-filter"
         onClick={(e) => handleBtnClick(e.target.innerHTML)}
       >
         All
       </button>
-      {categories.map((category) =>
+      {categories.map((category) => (
         <button
-          data-testid={`${category.strCategory}-category-filter`} type="button"
+          data-testid={`${category.strCategory}-category-filter`}
+          type="button"
           onClick={(e) => handleBtnClick(e.target.innerHTML)}
         >
           {category.strCategory}
-        </button>)}
+        </button>
+      ))}
     </div>
   );
 };
