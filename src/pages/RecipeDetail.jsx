@@ -47,63 +47,43 @@ const recommendedCarousel = (recommendedRecipes, type) => (
   </div>
 );
 
-// const checkFavorite = (recipe, type) => {
-//   let newFavorites = [];
-//   if (localStorage.getItem('favoriteRecipes')) {
-//     newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-//   }
-//   if (type === 'Meal' && newFavorites.find((favoriteRecipe) =>
-// (favoriteRecipe.id === recipe.idMeal))) {
-
-//   }
-//   if (type === 'Drink' && newFavorites.find((favoriteRecipe) =>
-// (favoriteRecipe.id === recipe.idDrink))) {
-
-//   }
-// }
-
-const favoriteBtn = (recipe, type, favoriteIcon, setFavoriteIcon) => {
+const saveFavorite = (recipe, type, setFavoriteIcon) => {
   const { id, area, category, alcoholicOrNot, name, image } = recipe;
-  let newFavorites = [];
-  if (localStorage.getItem('favoriteRecipes')) {
-    newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  } else {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]))
-  }
+  const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
   const typeObj = {
     cocktail: 'bebida',
     meal: 'comida',
   };
 
-  const saveFavorite = () => {
-    const favoriteIndex = newFavorites.findIndex((favorite) => favorite.id === recipe.id)
-    console.log(favoriteIndex)
-    if (favoriteIndex === -1) {
-      newFavorites.push({
-        id,
-        type: typeObj[type],
-        area: area || '',
-        category: category || '',
-        alcoholicOrNot: alcoholicOrNot || '',
-        name,
-        image,
-      });
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-      setFavoriteIcon(blackHeartIcon);
-    } else {
-      newFavorites.splice(favoriteIndex, 1)
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-      setFavoriteIcon(whiteHeartIcon);
-    }
-  };
-
-  return (
-    <button className="invisible-btn" onClick={() => saveFavorite()}>
-      <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
-    </button>
-  );
+  const favoriteIndex = newFavorites.findIndex((favorite) => favorite.id === recipe.id);
+  if (favoriteIndex === -1) {
+    newFavorites.push({
+      id,
+      type: typeObj[type],
+      area: area || '',
+      category: category || '',
+      alcoholicOrNot: alcoholicOrNot || '',
+      name,
+      image,
+    });
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    setFavoriteIcon(blackHeartIcon);
+  } else {
+    newFavorites.splice(favoriteIndex, 1);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    setFavoriteIcon(whiteHeartIcon);
+  }
 };
+
+const favoriteBtn = (recipe, type, favoriteIcon, setFavoriteIcon) => (
+  <button
+    className="invisible-btn"
+    onClick={() => saveFavorite(recipe, type, setFavoriteIcon)}
+  >
+    <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
+  </button>
+);
 
 const shareBtn = (shareState, setShareState, pathname) => (
   <button
@@ -135,12 +115,13 @@ const RecipeDetail = ({ type, recommendedType }) => {
   }, [id]);
 
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (recipes.length !== 0 && favorites.find((favorite) => favorite.id === recipes[0].id))
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (recipes.length !== 0 && favorites.find((favorite) => favorite.id === recipes[0].id)) {
       setFavoriteIcon(blackHeartIcon);
+    }
   }, [recipes]);
 
-  if (recipes.length === 0 ) return <Loading />;
+  if (recipes.length === 0) return <Loading />;
 
   return (
     <div className="detailPage">
@@ -152,10 +133,10 @@ const RecipeDetail = ({ type, recommendedType }) => {
       />
       <h3 data-testid="recipe-title">{recipes[0].name}</h3>
       {favoriteBtn(recipes[0], type, favoriteIcon, setFavoriteIcon)}
-      <div>
-        {shareBtn(shareState, setShareState, pathname)}
-      </div>
-      <span data-testid="recipe-category">{recipes[0].category} {recipes[0].alcoholicOrNot}</span>
+      <div>{shareBtn(shareState, setShareState, pathname)}</div>
+      <span data-testid="recipe-category">
+        {recipes[0].category} {recipes[0].alcoholicOrNot}
+      </span>
       <h4>Ingredients</h4>
       <span>
         <ul>{ingredientsList(recipes[0])}</ul>
