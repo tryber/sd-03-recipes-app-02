@@ -40,6 +40,7 @@ const Categories = ({ type }) => {
       <button
         type="button"
         data-testid="All-category-filter"
+        className="categories-btn btn"
         onClick={(e) => handleBtnClick(e.target.innerHTML)}
       >
         All
@@ -48,6 +49,7 @@ const Categories = ({ type }) => {
         <button
           data-testid={`${category.strCategory}-category-filter`}
           type="button"
+          className="categories-btn btn"
           onClick={(e) => handleBtnClick(e.target.innerHTML)}
         >
           {category.strCategory}
