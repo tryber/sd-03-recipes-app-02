@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -7,22 +8,15 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Loading from '../components/Loading';
 import { getRecipeDetailsById, searchRecipesByName } from '../services/fetchRecipes';
 import RecipeCard from '../components/RecipeCard';
+import { RecipesContext } from '../context/RecipesContext';
+import { svRecipes } from '../utils/dataDestructure';
 
-const ingredientsList = (recipe) => {
-  const response = [];
-  for (let index = 1; index < 16; index += 1) {
-    if (recipe[`strIngredient${index}`]) {
-      response.push(
-        <li data-testid={`${index - 1}-ingredient-name-and-measure`}>
-          - {recipe[`strIngredient${index}`]} - {recipe[`strMeasure${index}`]}
-        </li>,
-      );
-    } else {
-      break;
-    }
-  }
-  return response;
-};
+const ingredientsList = (recipe) =>
+  recipe.ingredients.map((ingredient, index) => (
+    <li data-testid={`${index}-ingredient-name-and-measure`}>
+      {ingredient.name} - {ingredient.quantity}
+    </li>
+  ));
 
 const youtubeVideo = (recipe) => {
   const opts = {
@@ -32,35 +26,26 @@ const youtubeVideo = (recipe) => {
       autoplay: 1,
     },
   };
-  if (recipe.strYoutube) {
+  if (recipe.youtube) {
     return (
       <span data-testid="video">
         <h4>Video</h4>
-        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} />
+        <YouTube videoId={recipe.youtube.split('=')[1]} opts={opts} />
       </span>
     );
   }
   return null;
 };
 
-const recommendedCarousel = (recommendedRecipes, type) => {
-  if (type) {
-    const invertedType = {
-      Meal: 'cocktail',
-      Drink: 'meal',
-    };
-    return (
-      <div className="recommended-recipes">
-        {recommendedRecipes.map((recipe, index) => (
-          <span className="margin10p">
-            <RecipeCard recipe={recipe} index={index} type={invertedType[type]} page="detailPage" />
-          </span>
-        ))}
-      </div>
-    );
-  }
-  return null;
-};
+const recommendedCarousel = (recommendedRecipes, type) => (
+  <div className="recommended-recipes">
+    {recommendedRecipes.map((recipe, index) => (
+      <span className="margin10p">
+        <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
+      </span>
+    ))}
+  </div>
+);
 
 // const checkFavorite = (recipe, type) => {
 //   let newFavorites = [];
@@ -118,75 +103,42 @@ const shareBtn = (shareState, setShareState, pathname) => (
   </button>
 );
 
-const fetchDetails = (pathname, params, setRecommendedRecipes, recipeState, setRecipeState) => {
-  const typePath = pathname.split('/')[1];
-  if (typePath === 'comidas') {
-    getRecipeDetailsById(params.id, 'meal').then((data) => {
-      setRecipeState({
-        ...recipeState,
-        recipe: data.meals[0],
-        recipeIsFetching: false,
-        type: 'Meal',
-      });
-      searchRecipesByName('', 'cocktail').then((cocktails) => {
-        setRecommendedRecipes(cocktails.drinks.slice(0, 6));
-      });
-    });
-  }
-  if (typePath === 'bebidas') {
-    getRecipeDetailsById(params.id, 'cocktail').then((data) => {
-      setRecipeState({
-        ...recipeState,
-        recipe: data.drinks[0],
-        recipeIsFetching: false,
-        type: 'Drink',
-      });
-      searchRecipesByName('', 'meal').then((meals) => {
-        setRecommendedRecipes(meals.meals.slice(0, 6));
-      });
-    });
-  }
-};
-
-const RecipeDetail = () => {
-  const [recipeState, setRecipeState] = useState({
-    recipe: {},
-    recipeIsFetching: true,
-    type: '',
-  });
+const RecipeDetail = ({ type, recommendedType }) => {
+  const { saveRecipes, recipes } = useContext(RecipesContext);
   const [shareState, setShareState] = useState('');
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
   const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
   const { pathname } = useLocation();
-  const params = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchDetails(pathname, params, setRecommendedRecipes, recipeState, setRecipeState);
-  }, [pathname]);
+    getRecipeDetailsById(id, type).then((data) => saveRecipes(data));
+    searchRecipesByName('', recommendedType).then((data) =>
+      setRecommendedRecipes(svRecipes(data).slice(0, 6)),
+    );
+  }, [id]);
 
-  const { recipe, recipeIsFetching, type } = recipeState;
-
-  if (recipeIsFetching || recommendedRecipes.length === 0) return <Loading />;
-
+  if (recipes.length === 0 || recommendedRecipes.length === 0) return <Loading />;
+  console.log(recommendedRecipes);
   return (
     <div className="detailPage">
       <img
-        src={recipe[`str${type}Thumb`]}
+        src={recipes[0].image}
         alt="recipeThumb"
         data-testid="recipe-photo"
         className="full-width"
       />
-      <h3 data-testid="recipe-title">{recipe[`str${type}`]}</h3>
-      {favoriteBtn(recipe, type, favoriteIcon, setFavoriteIcon)}
+      <h3 data-testid="recipe-title">{recipes[0].name}</h3>
+      {favoriteBtn(recipes[0], type, favoriteIcon, setFavoriteIcon)}
       {shareBtn(shareState, setShareState, pathname)}
-      <span data-testid="recipe-category">{recipe.strCategory}</span>
+      <span data-testid="recipe-category">{recipes[0].category}</span>
       <h4>Ingredients</h4>
       <span>
-        <ul>{ingredientsList(recipe)}</ul>
+        <ul>{ingredientsList(recipes[0])}</ul>
       </span>
       <h4>Instructions</h4>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
-      {youtubeVideo(recipe)}
+      <span data-testid="instructions">{recipes[0].instructions}</span>
+      {youtubeVideo(recipes[0])}
       <h4>Recomendadas</h4>
       {recommendedCarousel(recommendedRecipes, type)}
       <button className="footer" type="button" data-testid="start-recipe-btn">
@@ -194,6 +146,11 @@ const RecipeDetail = () => {
       </button>
     </div>
   );
+};
+
+RecipeDetail.propTypes = {
+  recommendedType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default RecipeDetail;
