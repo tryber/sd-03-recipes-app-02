@@ -1,14 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
 
 const email = JSON.parse(localStorage.getItem('user')).email;
 
 const Profile = () => (
   <div>
     <Header title="Perfil" searchEnabled={false} />
-    <h2 data-testid="profile-email" style={{marginTop: '70px'}}>{email}</h2>
+    <h2 data-testid="profile-email" style={{ marginTop: '70px' }}>{email}</h2>
     <Link data-testid="profile-done-btn" to="receitas-feitas">
       <button type="button">Receitas Feitas</button>
     </Link>
