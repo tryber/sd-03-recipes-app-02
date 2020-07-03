@@ -23,9 +23,10 @@ export const destructureRecipe = (recipe, type) => {
     strYoutube: youtube,
     strInstructions: instructions,
     strTags: tags,
+    strAlcoholic: alcoholicOrNot,
   } = recipe;
   const ingredients = ingredientsList(recipe);
-  return { id, name, area, category, image, ingredients, youtube, instructions, tags };
+  return { id, name, area, category, alcoholicOrNot, image, ingredients, youtube, instructions, tags };
 };
 
 export const svRecipes = (recipes) => {

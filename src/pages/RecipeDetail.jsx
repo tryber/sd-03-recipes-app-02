@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { getRecipeDetailsById, searchRecipesByName } from '../services/fetchRecipes';
 import RecipeCard from '../components/RecipeCard';
@@ -62,29 +62,45 @@ const recommendedCarousel = (recommendedRecipes, type) => (
 //   }
 // }
 
-const favoriteBtn = (recipe, type, favoriteIcon) => {
-  const { strArea: area, strCategory: category } = recipe;
+const favoriteBtn = (recipe, type, favoriteIcon, setFavoriteIcon) => {
+  const { id, area, category, alcoholicOrNot, name, image } = recipe;
   let newFavorites = [];
   if (localStorage.getItem('favoriteRecipes')) {
     newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  } else {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]))
   }
 
+  const typeObj = {
+    cocktail: 'bebida',
+    meal: 'comida',
+  };
+
   const saveFavorite = () => {
-    if (type === 'Meal') {
-      const { idMeal: id, strMeal: name, strMealThumb: image } = recipe;
-      const alcoholicOrNot = false;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
+    const favoriteIndex = newFavorites.findIndex((favorite) => favorite.id === recipe.id)
+    console.log(favoriteIndex)
+    if (favoriteIndex === -1) {
+      newFavorites.push({
+        id,
+        type: typeObj[type],
+        area: area || '',
+        category: category || '',
+        alcoholicOrNot: alcoholicOrNot || '',
+        name,
+        image,
+      });
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+      setFavoriteIcon(blackHeartIcon);
     } else {
-      const { idMeal: id, strDrink: name, strDrinkThumb: image } = recipe;
-      const alcoholicOrNot = true;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
+      newFavorites.splice(favoriteIndex, 1)
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+      setFavoriteIcon(whiteHeartIcon);
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
   };
 
   return (
-    <button data-testid="favorite-btn" className="invisible-btn" onClick={() => saveFavorite()}>
-      <img src={favoriteIcon} alt="share" />
+    <button className="invisible-btn" onClick={() => saveFavorite()}>
+      <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
     </button>
   );
 };
@@ -118,8 +134,14 @@ const RecipeDetail = ({ type, recommendedType }) => {
     );
   }, [id]);
 
-  if (recipes.length === 0 || recommendedRecipes.length === 0) return <Loading />;
-  console.log(recommendedRecipes);
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (recipes.length !== 0 && favorites.find((favorite) => favorite.id === recipes[0].id))
+      setFavoriteIcon(blackHeartIcon);
+  }, [recipes]);
+
+  if (recipes.length === 0 ) return <Loading />;
+
   return (
     <div className="detailPage">
       <img
@@ -130,8 +152,10 @@ const RecipeDetail = ({ type, recommendedType }) => {
       />
       <h3 data-testid="recipe-title">{recipes[0].name}</h3>
       {favoriteBtn(recipes[0], type, favoriteIcon, setFavoriteIcon)}
-      {shareBtn(shareState, setShareState, pathname)}
-      <span data-testid="recipe-category">{recipes[0].category}</span>
+      <div>
+        {shareBtn(shareState, setShareState, pathname)}
+      </div>
+      <span data-testid="recipe-category">{recipes[0].category} {recipes[0].alcoholicOrNot}</span>
       <h4>Ingredients</h4>
       <span>
         <ul>{ingredientsList(recipes[0])}</ul>
