@@ -14,7 +14,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     searchText: '',
   });
 
-  const { setIsFetching, setRecipes } = useContext(RecipesContext);
+  const { setIsFetching, saveRecipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -29,7 +29,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     } else {
       searchOptions[searchParam](searchText, type).then((data) => {
         if (data.meals || data.drinks) {
-          setRecipes((data.meals || data.drinks).slice(0, 12));
+          saveRecipes(data);
           setIsFetching(false);
         } else {
           return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

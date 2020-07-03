@@ -10,19 +10,14 @@ import { RecipesContext } from '../context/RecipesContext';
 import Categories from '../components/Categories';
 
 const MainRecipes = ({ type, title }) => {
-  const { isFetching, setIsFetching, recipes, setRecipes } = useContext(RecipesContext);
+  const { isFetching, setIsFetching, recipes, saveRecipes } = useContext(RecipesContext);
 
   useEffect(() => {
     searchRecipesByName('', type).then((data) => {
-      setRecipes((data.meals || data.drinks).slice(0, 12));
+      saveRecipes(data);
       setIsFetching(false);
     });
   }, [type]);
-
-  const upperCase = {
-    meal: 'Meal',
-    cocktail: 'Drink',
-  };
 
   if (isFetching) return <Loading />;
   return (
@@ -32,7 +27,7 @@ const MainRecipes = ({ type, title }) => {
       <div className="recipes-display">
         {recipes.map((recipe, index) => (
           <RecipeCard
-            key={recipe[`id${upperCase[type]}`]}
+            key={recipe.id}
             recipe={recipe}
             index={index}
             type={type}
