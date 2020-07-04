@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getRecipeIngredients, searchRecipesByMainIngredients } from '../services/fetchRecipes';
 import { RecipesContext } from '../context/RecipesContext';
-import PropTypes from 'prop-types';
 
 const ExploreFoodsIngredients = ({ type, history, url }) => {
   const [ingredients, setIngredients] = useState([]);
@@ -27,10 +27,10 @@ const ExploreFoodsIngredients = ({ type, history, url }) => {
     <div>
       <Header title="Explorar Ingredientes" searchEnabled={false} />
       {ingredients.map((ingredient, index) => {
-        const name = ingredient.strIngredient || ingredient.strIngredient1
+        const name = ingredient.strIngredient || ingredient.strIngredient1;
         return (
-          <button 
-            className="invisible-btn" 
+          <button
+            className="invisible-btn"
             onClick={() => handleClick(name)} data-testid={`${index}-ingredient-card`}
           >
             <img
@@ -50,6 +50,6 @@ ExploreFoodsIngredients.propTypes = {
   type: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
-}
+};
 
 export default withRouter(ExploreFoodsIngredients);
