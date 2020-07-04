@@ -28,6 +28,7 @@ export const destructureRecipe = (recipe, type) => {
   const ingredients = ingredientsList(recipe);
   return {
     id,
+    type,
     name,
     area,
     category,
@@ -48,6 +49,5 @@ export const svRecipes = (recipes) => {
   } else {
     type = 'Drink';
   }
-  type.toLowerCase();
   return data.map((recipe) => destructureRecipe(recipe, type));
 };

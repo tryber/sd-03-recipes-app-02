@@ -1,19 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { getRecipeDetailsById, searchRecipesByName } from '../services/fetchRecipes';
 import RecipeCard from '../components/RecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 import { svRecipes } from '../utils/dataDestructure';
+import ShareBtn from '../components/ShareBtn';
+import FavoriteBtn from '../components/FavoriteBtn';
 
 const ingredientsList = (recipe) =>
   recipe.ingredients.map((ingredient, index) => (
-    <li data-testid={`${index}-ingredient-name-and-measure`}>
+    <li key={ingredient.name} data-testid={`${index}-ingredient-name-and-measure`}>
       {ingredient.name} - {ingredient.quantity}
     </li>
   ));
@@ -40,71 +39,16 @@ const youtubeVideo = (recipe) => {
 const recommendedCarousel = (recommendedRecipes, type) => (
   <div className="recommended-recipes">
     {recommendedRecipes.map((recipe, index) => (
-      <span className="margin10p">
+      <span key={recipe.id} className="margin10p">
         <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
       </span>
     ))}
   </div>
 );
 
-const saveFavorite = (recipe, type, setFavoriteIcon) => {
-  const { id, area, category, alcoholicOrNot, name, image } = recipe;
-  const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-
-  const typeObj = {
-    cocktail: 'bebida',
-    meal: 'comida',
-  };
-
-  const favoriteIndex = newFavorites.findIndex((favorite) => favorite.id === recipe.id);
-  if (favoriteIndex === -1) {
-    newFavorites.push({
-      id,
-      type: typeObj[type],
-      area: area || '',
-      category: category || '',
-      alcoholicOrNot: alcoholicOrNot || '',
-      name,
-      image,
-    });
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-    setFavoriteIcon(blackHeartIcon);
-  } else {
-    newFavorites.splice(favoriteIndex, 1);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-    setFavoriteIcon(whiteHeartIcon);
-  }
-};
-
-const favoriteBtn = (recipe, type, favoriteIcon, setFavoriteIcon) => (
-  <button
-    className="invisible-btn"
-    onClick={() => saveFavorite(recipe, type, setFavoriteIcon)}
-  >
-    <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
-  </button>
-);
-
-const shareBtn = (shareState, setShareState, pathname) => (
-  <button
-    data-testid="share-btn"
-    className="invisible-btn"
-    onClick={() => {
-      navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-      setShareState('Link copiado!');
-    }}
-  >
-    <img src={shareIcon} alt="share" />
-    {shareState}
-  </button>
-);
-
 const RecipeDetail = ({ type, recommendedType }) => {
   const { saveRecipes, recipes } = useContext(RecipesContext);
-  const [shareState, setShareState] = useState('');
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
-  const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
-  const { pathname } = useLocation();
   const { id } = useParams();
 
   useEffect(() => {
@@ -113,13 +57,6 @@ const RecipeDetail = ({ type, recommendedType }) => {
       setRecommendedRecipes(svRecipes(data).slice(0, 6)),
     );
   }, [id]);
-
-  useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (recipes.length !== 0 && favorites.find((favorite) => favorite.id === recipes[0].id)) {
-      setFavoriteIcon(blackHeartIcon);
-    }
-  }, [recipes]);
 
   if (recipes.length === 0) return <Loading />;
 
@@ -132,8 +69,8 @@ const RecipeDetail = ({ type, recommendedType }) => {
         className="full-width"
       />
       <h3 data-testid="recipe-title">{recipes[0].name}</h3>
-      {favoriteBtn(recipes[0], type, favoriteIcon, setFavoriteIcon)}
-      <div>{shareBtn(shareState, setShareState, pathname)}</div>
+      <FavoriteBtn />
+      <div><ShareBtn /></div>
       <span data-testid="recipe-category">
         {recipes[0].category} {recipes[0].alcoholicOrNot}
       </span>
