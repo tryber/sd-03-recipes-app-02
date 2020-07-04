@@ -55,7 +55,7 @@ const exploreRoutes = () => (
       render={(props) =>
         <ExploreRecipes {...props} title="Explorar Comidas" url="comidas" type="meal" />}
     />
-    <Route 
+    <Route
       exact path="/explorar/comidas/ingredientes"
       render={(props) => <ExploreByIngredients {...props} type="meal" url="comidas" />}
     />
@@ -67,7 +67,7 @@ const exploreRoutes = () => (
         {...props} title="Explorar Bebidas" url="bebidas" type="cocktail"
       />}
     />
-    <Route 
+    <Route
       exact path="/explorar/bebidas/ingredientes"
       render={(props) => <ExploreByIngredients {...props} type="cocktail" url="bebidas" />}
     />
