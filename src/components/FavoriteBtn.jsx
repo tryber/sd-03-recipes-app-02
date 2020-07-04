@@ -6,7 +6,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const saveFavorite = (recipe, setFavoriteIcon) => {
   const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
   const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log(type)
+  console.log(type);
   const typeObj = {
     Drink: 'bebida',
     Meal: 'comida',
@@ -44,14 +44,10 @@ const FavoriteBtn = () => {
   }, [recipes]);
 
   return (
-  <button
-    className="invisible-btn"
-    onClick={() => saveFavorite(recipes[0], setFavoriteIcon)}
-  >
-    <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
-  </button>
-)};
-
-
+    <button className="invisible-btn" onClick={() => saveFavorite(recipes[0], setFavoriteIcon)}>
+      <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
+    </button>
+  );
+};
 
 export default FavoriteBtn;
