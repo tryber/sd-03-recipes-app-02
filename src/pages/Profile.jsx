@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 
 const Profile = () => {
   let email = '';
-  if(localStorage.getItem('user')) email = JSON.parse(localStorage.getItem('user')).email;
+  if (localStorage.getItem('user')) email = JSON.parse(localStorage.getItem('user')).email;
   return (
     <div>
       <Header title="Perfil" searchEnabled={false} />
@@ -22,7 +22,7 @@ const Profile = () => {
       </Link>
       <Footer />
     </div>
-  )
+  );
 };
 
 export default Profile;

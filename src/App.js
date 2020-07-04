@@ -52,21 +52,22 @@ const exploreRoutes = () => (
     <Route
       exact
       path="/explorar/comidas"
-      render={(props) => 
-      <ExploreRecipes {...props} title="Explorar Comidas" url="comidas" type="meal" />}
+      render={(props) =>
+        <ExploreRecipes {...props} title="Explorar Comidas" url="comidas" type="meal" />}
     />
-    <Route exact path="/explorar/comidas/ingredientes" render={(props) => 
-      <ExploreByIngredients {...props} type="meal" url="comidas" />} 
+    <Route exact path="/explorar/comidas/ingredientes" 
+      render={(props) => <ExploreByIngredients {...props} type="meal" url="comidas" />} 
     />
     <Route exact path="/explorar/comidas/area" component={ExploreFoodsByArea} />
     <Route
       exact
       path="/explorar/bebidas"
-      render={(props) => 
-      <ExploreRecipes {...props} title="Explorar Bebidas" url="bebidas" type="cocktail" />}
+      render={(props) => <ExploreRecipes
+        {...props} title="Explorar Bebidas" url="bebidas" type="cocktail"
+      />}
     />
-    <Route exact path="/explorar/bebidas/ingredientes" render={(props) => 
-      <ExploreByIngredients {...props} type="cocktail" url="bebidas" />} 
+    <Route exact path="/explorar/bebidas/ingredientes"
+      render={(props) => <ExploreByIngredients {...props} type="cocktail" url="bebidas" />}
     />
   </Switch>
 );

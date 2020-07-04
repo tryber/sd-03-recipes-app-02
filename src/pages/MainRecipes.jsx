@@ -11,7 +11,7 @@ import Categories from '../components/Categories';
 
 const MainRecipes = ({ type, title }) => {
   const {
-    isFetching, setIsFetching, recipes, saveRecipes, explore, setExplore
+    isFetching, setIsFetching, recipes, saveRecipes, explore, setExplore,
   } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const MainRecipes = ({ type, title }) => {
       searchRecipesByName('', type).then((data) => {
         saveRecipes(data);
         setIsFetching(false);
-      })
+      });
     }
     setExplore(false);
   }, [type]);

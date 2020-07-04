@@ -13,14 +13,14 @@ const RecipesProvider = ({ children }) => {
 
   const saveRecipes = (data) => setRecipes(svRecipes(data, setRecipes).slice(0, 12));
 
-  const context = { 
+  const context = {
     isFetching,
     setIsFetching,
     recipes,
-    setRecipes, 
+    setRecipes,
     saveRecipes,
     explore,
-    setExplore
+    setExplore,
   };
 
   return <RecipesContext.Provider value={context}>{children}</RecipesContext.Provider>;

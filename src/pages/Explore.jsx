@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 
 const Explore = () => (
-  <div style={{ marginTop:"70px" }}>
+  <div style={{ marginTop: '70px' }}>
     <Header title="Explorar" searchEnabled={false} />
     <Link data-testid="explore-food" to="explorar/comidas">
       <button type="button">Explorar Comidas</button>
