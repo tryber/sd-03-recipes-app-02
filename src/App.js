@@ -12,6 +12,7 @@ import ExploreFoodsByArea from './pages/ExploreFoodsByArea';
 import MadeRecipes from './pages/MadeRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipesProvider from './context/RecipesContext';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -37,19 +38,27 @@ function App() {
           <Route
             exact
             path="/explorar/comidas"
-            render={(props) => <ExploreRecipes {...props} title="Explorar Comidas" />}
+            render={(props) => <ExploreRecipes {...props} title="Explorar Comidas" url="comidas" type="meal" />}
           />
-          <Route path="/explorar/comidas/ingredientes" component={ExploreByIngredients} />
+          <Route 
+            path="/explorar/comidas/ingredientes" 
+            render={(props) => <ExploreByIngredients {...props} type="meal" url="comidas" />}
+          />
           <Route exact path="/explorar/comidas/area" component={ExploreFoodsByArea} />
           <Route
             exact
             path="/explorar/bebidas"
-            render={(props) => <ExploreRecipes {...props} title="Explorar Bebidas" />}
+            render={(props) => <ExploreRecipes {...props} title="Explorar Bebidas" url="bebidas" type="cocktail" />}
           />
-          <Route exact path="/explorar/bebidas/ingredientes" component={ExploreByIngredients} />
+          <Route 
+            exact 
+            path="/explorar/bebidas/ingredientes" 
+            render={(props) => <ExploreByIngredients {...props} type="cocktail" url="bebidas" />} 
+          />
           <Route exact path="/receitas-feitas" component={MadeRecipes} />
           <Route exact path="/receitas-favoritas" component={FavoriteRecipes} />
           <Route exact path="/" component={Login} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Router>
     </RecipesProvider>

@@ -50,10 +50,11 @@ const svRecipes = (recipes, setRecipes) => {
 const RecipesProvider = ({ children }) => {
   const [isFetching, setIsFetching] = useState(true);
   const [recipes, setRecipes] = useState([]);
+  const [explore, setExplore] = useState(false);
 
   const saveRecipes = (data) => svRecipes(data, setRecipes);
 
-  const context = { isFetching, setIsFetching, recipes, setRecipes, saveRecipes };
+  const context = { isFetching, setIsFetching, recipes, setRecipes, saveRecipes, explore, setExplore };
 
   return <RecipesContext.Provider value={context}>{children}</RecipesContext.Provider>;
 };
