@@ -31,34 +31,30 @@ const saveIngredient = (e, index, checkedIngredients, setCheckIngredients) => {
   }
 };
 
-const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients) => {
-  console.log(checkedIngredients);
-
-  return (
-    <div>
-      <h4>Ingredients</h4>
-      <ul>
-        {recipe.ingredients.map((ingredient, index) => (
-          <li
-            className="list-none-style"
-            key={ingredient.name}
-            data-testid={`${index}-ingredient-step`}
-          >
-            <input
-              type="checkbox"
-              id={ingredient.name}
-              checked={checkedIngredients.some((ingredientIndex) => ingredientIndex === index)}
-              onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
-            />
-            <label htmlFor={ingredient.name}>
-              {ingredient.name} - {ingredient.quantity}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients) => (
+  <div>
+    <h4>Ingredients</h4>
+    <ul>
+      {recipe.ingredients.map((ingredient, index) => (
+        <li
+          className="list-none-style"
+          key={ingredient.name}
+          data-testid={`${index}-ingredient-step`}
+        >
+          <input
+            type="checkbox"
+            id={ingredient.name}
+            checked={checkedIngredients.some((ingredientIndex) => ingredientIndex === index)}
+            onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
+          />
+          <label htmlFor={ingredient.name}>
+            {ingredient.name} - {ingredient.quantity}
+          </label>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 const youtubeVideo = (recipe) => {
   const opts = {
@@ -181,7 +177,6 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       }
     } else if (page === 'inProgress') {
-      console.log(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
       if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
         const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`];
         inProgressRecipes[`${type}s`][id] = [];
