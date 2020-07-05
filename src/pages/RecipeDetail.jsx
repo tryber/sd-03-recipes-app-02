@@ -47,8 +47,8 @@ const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients
             <input
               type="checkbox"
               id={ingredient.name}
-              checked={checkedIngredients.some((ingredient) => ingredient === index) ? true : false}
-              onClick={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
+              checked={checkedIngredients.some((ingredientIndex) => ingredientIndex === index)}
+              onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
             />
             <label htmlFor={ingredient.name}>
               {ingredient.name} - {ingredient.quantity}
@@ -112,7 +112,7 @@ const header = (recipes) => (
 );
 
 const saveIngredients = (type, id, checkedIngredients) => {
-  let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   inProgressRecipes[`${type}s`] = { ...inProgressRecipes[`${type}s`], [id]: checkedIngredients };
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 };
@@ -146,7 +146,7 @@ const finishRecipe = (history, ingredients, checkedIngredients) => (
     type="button"
     className="footer btn"
     data-testid="finish-recipe-btn"
-    disabled={(ingredients.length === checkedIngredients.length) ? false : true}
+    disabled={!(ingredients.length === checkedIngredients.length)}
     onClick={() => redirectToDoneRecipes(history)}
   >
     Finalizar Receita
@@ -180,16 +180,14 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
         inProgressRecipes[`${type}s`][id] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       }
-    } else {
-      if (page === 'inProgress') {
-        console.log(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id])
-        if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
-          const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`];
-          inProgressRecipes[`${type}s`][id] = [];
-          localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-        }
-        setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
+    } else if (page === 'inProgress') {
+      console.log(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
+      if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`];
+        inProgressRecipes[`${type}s`][id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       }
+      setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
     }
   }, [page]);
 
@@ -218,7 +216,9 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
         {page === 'detail' ? youtubeVideo(recipes[0]) : null}
         {page === 'detail' ? recommendedCarousel(recommendedRecipes, type) : null}
       </div>
-      {page === 'detail' ? startRecipe(pathname, type, id) : finishRecipe(history, recipes[0].ingredients, checkedIngredients)}
+      {page === 'detail'
+        ? startRecipe(pathname, type, id)
+        : finishRecipe(history, recipes[0].ingredients, checkedIngredients)}
     </div>
   );
 };
@@ -226,6 +226,8 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
 RecipeDetail.propTypes = {
   recommendedType: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  page: PropTypes.string.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(RecipeDetail);
