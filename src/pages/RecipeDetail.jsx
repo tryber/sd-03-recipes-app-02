@@ -123,14 +123,7 @@ const startRecipe = (pathname, type, id) => {
     recipeStarted = true;
   }
   return (
-    <Link
-      to={`${pathname}/in-progress`}
-      className="footer btn"
-      data-testid="start-recipe-btn"
-      onClick={() => {
-        if (!recipeStarted) saveIngredients(type, id);
-      }}
-    >
+    <Link to={`${pathname}/in-progress`} className="footer btn" data-testid="start-recipe-btn">
       {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
     </Link>
   );
@@ -201,13 +194,13 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
-    } else if (
-      page === 'inProgress' &&
-      !JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]
-    ) {
-      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      inProgressRecipes[`${type}s`][id] = [];
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+    if (page === 'inProgress') {
+      if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        inProgressRecipes[`${type}s`][id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      }
       setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
     }
   }, [page, type, id]);
