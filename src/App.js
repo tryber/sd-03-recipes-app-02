@@ -24,9 +24,17 @@ const foodRoutes = () => (
     <Route
       exact
       path="/comidas/:id"
-      render={(props) => <RecipeDetail {...props} type="meal" recommendedType="cocktail" />}
+      render={(props) => (
+        <RecipeDetail {...props} type="meal" recommendedType="cocktail" page="detail" />
+      )}
     />
-    <Route exact path="/comidas/:id/in-progress" component={RecipeDetail} />
+    <Route
+      exact
+      path="/comidas/:id/in-progress"
+      render={(props) => (
+        <RecipeDetail {...props} type="meal" recommendedType="cocktail" page="inProgress" />
+      )}
+    />
   </Switch>
 );
 
@@ -40,9 +48,17 @@ const drinkRoutes = () => (
     <Route
       exact
       path="/bebidas/:id"
-      render={(props) => <RecipeDetail {...props} type="cocktail" recommendedType="meal" />}
+      render={(props) => (
+        <RecipeDetail {...props} type="cocktail" recommendedType="meal" page="detail" />
+      )}
     />
-    <Route exact path="/bebidas/:id/in-progress" component={RecipeDetail} />
+    <Route
+      exact
+      path="/bebidas/:id/in-progress"
+      render={(props) => (
+        <RecipeDetail {...props} type="cocktail" recommendedType="meal" page="inProgress" />
+      )}
+    />
   </Switch>
 );
 
