@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const ShareBtn = () => {
   const { pathname } = useLocation();
+  const path = pathname.split('/');
   const [shareState, setShareState] = useState('');
   return (
     <Fragment>
@@ -11,7 +12,7 @@ const ShareBtn = () => {
         data-testid="share-btn"
         className="invisible-btn"
         onClick={() => {
-          navigator.clipboard.writeText(`${window.location.origin}${pathname}`);
+          navigator.clipboard.writeText(`${window.location.origin}/${path[1]}/${path[2]}`);
           setShareState('Link copiado!');
         }}
       >

@@ -137,17 +137,45 @@ const redirectToDoneRecipes = (history) => {
   history.push('/receitas-feitas');
 };
 
-const finishRecipe = (history, ingredients, checkedIngredients) => (
-  <button
-    type="button"
-    className="footer btn"
-    data-testid="finish-recipe-btn"
-    disabled={!(ingredients.length === checkedIngredients.length)}
-    onClick={() => redirectToDoneRecipes(history)}
-  >
-    Finalizar Receita
-  </button>
-);
+const saveDoneRecipe = (recipe) => {
+  const { id, type, area, category, alcoholicOrNot, name, image, tags } = recipe;
+  const newDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const typeObj = {
+    Drink: 'bebida',
+    Meal: 'comida',
+  };
+  newDoneRecipes.push({
+    id,
+    type: typeObj[type],
+    area: area || '',
+    category: category || '',
+    alcoholicOrNot: alcoholicOrNot || '',
+    name,
+    image,
+    doneData: new Date(),
+    tags,
+  });
+  localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+};
+
+const finishRecipe = (history, recipe, checkedIngredients) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  if (doneRecipes.some((doneRecipe) => doneRecipe.id === recipe.id)) return null;
+  return (
+    <button
+      type="button"
+      className="footer btn"
+      data-testid="finish-recipe-btn"
+      disabled={!(recipe.ingredients.length === checkedIngredients.length)}
+      onClick={() => {
+        redirectToDoneRecipes(history);
+        saveDoneRecipe(recipe);
+      }}
+    >
+      Finalizar Receita
+    </button>
+  );
+};
 
 const thumbnail = (recipe) => (
   <img src={recipe.image} alt="recipeThumb" data-testid="recipe-photo" className="full-width" />
@@ -169,27 +197,21 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
 
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
-      if (page === 'detail') {
-        localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
-      } else {
-        const inProgressRecipes = { cocktails: {}, meals: {} };
-        inProgressRecipes[`${type}s`][id] = [];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
-    } else if (page === 'inProgress') {
-      if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
-        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        console.log(inProgressRecipes)
-        inProgressRecipes[`${type}s`][id] = [];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+    } else if (
+      page === 'inProgress' &&
+      !JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]
+    ) {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      inProgressRecipes[`${type}s`][id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
     }
   }, [page, type, id]);
 
   useEffect(() => {
     if (page === 'inProgress') saveIngredients(type, id, checkedIngredients);
-  }, [checkedIngredients, page, type, id]);
+  }, [checkedIngredients]);
 
   useEffect(() => {
     getRecipeDetailsById(id, type).then((data) => saveRecipes(data));
@@ -214,7 +236,7 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
       </div>
       {page === 'detail'
         ? startRecipe(pathname, type, id)
-        : finishRecipe(history, recipes[0].ingredients, checkedIngredients)}
+        : finishRecipe(history, recipes[0], checkedIngredients)}
     </div>
   );
 };
