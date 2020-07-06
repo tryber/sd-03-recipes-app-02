@@ -10,13 +10,18 @@ import { RecipesContext } from '../context/RecipesContext';
 import Categories from '../components/Categories';
 
 const MainRecipes = ({ type, title }) => {
-  const { isFetching, setIsFetching, recipes, saveRecipes } = useContext(RecipesContext);
+  const {
+    isFetching, setIsFetching, recipes, saveRecipes, explore, setExplore,
+  } = useContext(RecipesContext);
 
   useEffect(() => {
-    searchRecipesByName('', type).then((data) => {
-      saveRecipes(data);
-      setIsFetching(false);
-    });
+    if (!explore) {
+      searchRecipesByName('', type).then((data) => {
+        saveRecipes(data);
+        setIsFetching(false);
+      });
+    }
+    setExplore(false);
   }, [type]);
 
   if (isFetching) return <Loading />;
