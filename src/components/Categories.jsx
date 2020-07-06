@@ -10,7 +10,7 @@ import { RecipesContext } from '../context/RecipesContext';
 const Categories = ({ type }) => {
   const [categories, setCategories] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('');
-  const { saveRecipes } = useContext(RecipesContext);
+  const { saveRecipes, explore } = useContext(RecipesContext);
 
   useEffect(() => {
     getRecipeCategories(type).then((data) =>
@@ -23,7 +23,7 @@ const Categories = ({ type }) => {
       searchRecipesByCategory(currentFilter, type).then((data) => {
         saveRecipes(data);
       });
-    } else {
+    } else if (!explore) {
       searchRecipesByName('', type).then((data) => {
         saveRecipes(data);
       });
