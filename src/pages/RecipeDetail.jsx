@@ -184,18 +184,18 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
       }
       setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
     }
-  }, [page]);
+  }, [page, type, id]);
 
   useEffect(() => {
     if (page === 'inProgress') saveIngredients(type, id, checkedIngredients);
-  }, [checkedIngredients]);
+  }, [checkedIngredients, page, type, id]);
 
   useEffect(() => {
     getRecipeDetailsById(id, type).then((data) => saveRecipes(data));
     searchRecipesByName('', recommendedType).then((data) =>
       setRecommendedRecipes(svRecipes(data).slice(0, 6)),
     );
-  }, [id]);
+  }, [id, type, recommendedType]);
 
   if (recipes.length === 0) return <Loading />;
 
