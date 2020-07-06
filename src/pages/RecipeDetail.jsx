@@ -178,7 +178,8 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
       }
     } else if (page === 'inProgress') {
       if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
-        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`];
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        console.log(inProgressRecipes)
         inProgressRecipes[`${type}s`][id] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       }
