@@ -35,23 +35,26 @@ const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients
   <div>
     <h4>Ingredients</h4>
     <ul>
-      {recipe.ingredients.map((ingredient, index) => (
-        <li
-          className="list-none-style"
-          key={ingredient.name}
-          data-testid={`${index}-ingredient-step`}
-        >
-          <input
-            type="checkbox"
-            id={ingredient.name}
-            checked={checkedIngredients.some((ingredientIndex) => ingredientIndex === index)}
-            onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
-          />
-          <label htmlFor={ingredient.name}>
-            {ingredient.name} - {ingredient.quantity}
-          </label>
-        </li>
-      ))}
+      {recipe.ingredients.map((ingredient, index) => {
+        const isChecked = checkedIngredients.some((ingredientIndex) => ingredientIndex === index);
+        return (
+          <li
+            className="list-none-style"
+            key={ingredient.name}
+            data-testid={`${index}-ingredient-step`}
+          >
+            <input
+              type="checkbox"
+              id={ingredient.name}
+              checked={isChecked}
+              onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
+            />
+            <label htmlFor={ingredient.name} className={isChecked ? 'line-through' : ''}>
+              {ingredient.name} - {ingredient.quantity}
+            </label>
+          </li>
+        );
+      })}
     </ul>
   </div>
 );

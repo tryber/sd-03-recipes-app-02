@@ -252,6 +252,6 @@ a {
   color: #bdbdbd;
 }
 
-.overline {
-  text-decoration-line: overline ;
+.line-through {
+  text-decoration-line: line-through;
 }
