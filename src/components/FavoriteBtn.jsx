@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { RecipesContext } from '../context/RecipesContext';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const saveFavorite = (recipe, setFavoriteIcon) => {
+  console.log(recipe);
   const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
   const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log(type);
   const typeObj = {
     Drink: 'bebida',
     Meal: 'comida',
@@ -32,22 +32,33 @@ const saveFavorite = (recipe, setFavoriteIcon) => {
   }
 };
 
-const FavoriteBtn = () => {
-  const { recipes } = useContext(RecipesContext);
+const FavoriteBtn = ({ dataTestId, recipe }) => {
   const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (recipes.length !== 0 && favorites.find((favorite) => favorite.id === recipes[0].id)) {
+    if (
+      favorites.find((favorite) => {
+        console.log('favorite id', favorite.id);
+        console.log('recipe id', recipe.id);
+        return favorite.id === recipe.id;
+      })
+    ) {
+      console.log('nao era pra chegar');
       setFavoriteIcon(blackHeartIcon);
     }
-  }, [recipes]);
+  }, [recipe]);
 
   return (
-    <button className="invisible-btn" onClick={() => saveFavorite(recipes[0], setFavoriteIcon)}>
-      <img data-testid="favorite-btn" src={favoriteIcon} alt="share" />
+    <button className="invisible-btn" onClick={() => saveFavorite(recipe, setFavoriteIcon)}>
+      <img data-testid={dataTestId} src={favoriteIcon} alt="share" />
     </button>
   );
+};
+
+FavoriteBtn.propTypes = {
+  dataTestId: PropTypes.string.isRequired,
+  recipe: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default FavoriteBtn;
