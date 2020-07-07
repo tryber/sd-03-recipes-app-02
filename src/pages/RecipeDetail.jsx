@@ -1,199 +1,247 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext, Fragment } from 'react';
+import { useParams, useLocation, Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Loading from '../components/Loading';
 import { getRecipeDetailsById, searchRecipesByName } from '../services/fetchRecipes';
 import RecipeCard from '../components/RecipeCard';
+import { RecipesContext } from '../context/RecipesContext';
+import { svRecipes } from '../utils/dataDestructure';
+import ShareBtn from '../components/ShareBtn';
+import FavoriteBtn from '../components/FavoriteBtn';
 
-const ingredientsList = (recipe) => {
-  const response = [];
-  for (let index = 1; index < 16; index += 1) {
-    if (recipe[`strIngredient${index}`]) {
-      response.push(
-        <li data-testid={`${index - 1}-ingredient-name-and-measure`}>
-          - {recipe[`strIngredient${index}`]} - {recipe[`strMeasure${index}`]}
-        </li>,
-      );
-    } else {
-      break;
-    }
+const ingredientsList = (recipe) => (
+  <div>
+    <h4>Ingredients</h4>
+    <ul>
+      {recipe.ingredients.map((ingredient, index) => (
+        <li key={ingredient.name} data-testid={`${index}-ingredient-name-and-measure`}>
+          {ingredient.name} - {ingredient.quantity}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const saveIngredient = (e, index, checkedIngredients, setCheckIngredients) => {
+  if (e.target.checked) {
+    setCheckIngredients([...checkedIngredients, index]);
+  } else {
+    setCheckIngredients(checkedIngredients.filter((ingredient) => ingredient !== index));
   }
-  return response;
 };
+
+const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients) => (
+  <div>
+    <h4>Ingredients</h4>
+    <ul>
+      {recipe.ingredients.map((ingredient, index) => {
+        const isChecked = checkedIngredients.some((ingredientIndex) => ingredientIndex === index);
+        return (
+          <li
+            className="list-none-style"
+            key={ingredient.name}
+            data-testid={`${index}-ingredient-step`}
+          >
+            <input
+              type="checkbox"
+              id={ingredient.name}
+              checked={isChecked}
+              onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
+            />
+            <label htmlFor={ingredient.name} className={isChecked ? 'line-through' : ''}>
+              {ingredient.name} - {ingredient.quantity}
+            </label>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+);
 
 const youtubeVideo = (recipe) => {
   const opts = {
-    height: '219',
-    width: '360',
+    height: '198',
+    width: '324',
     playerVars: {
       autoplay: 1,
     },
   };
-  if (recipe.strYoutube) {
+  if (recipe.youtube) {
     return (
       <span data-testid="video">
         <h4>Video</h4>
-        <YouTube videoId={recipe.strYoutube.split('=')[1]} opts={opts} />
+        <YouTube videoId={recipe.youtube.split('=')[1]} opts={opts} />
       </span>
     );
   }
   return null;
 };
 
-const recommendedCarousel = (recommendedRecipes, type) => {
-  if (type) {
-    const invertedType = {
-      Meal: 'cocktail',
-      Drink: 'meal',
-    };
-    return (
-      <div className="recommended-recipes">
-        {recommendedRecipes.map((recipe, index) => (
-          <span className="margin10p">
-            <RecipeCard recipe={recipe} index={index} type={invertedType[type]} page="detailPage" />
-          </span>
-        ))}
+const recommendedCarousel = (recommendedRecipes, type) => (
+  <Fragment>
+    <h4>Recomendadas</h4>
+    <div className="recommended-recipes">
+      {recommendedRecipes.map((recipe, index) => (
+        <span key={recipe.id} className="margin10p">
+          <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
+        </span>
+      ))}
+    </div>
+  </Fragment>
+);
+
+const header = (recipes) => (
+  <div>
+    <div className="header-div">
+      <div>
+        <h3 data-testid="recipe-title" className="no-margin">
+          {recipes[0].name}
+        </h3>
+        <span data-testid="recipe-category">
+          {recipes[0].category} {recipes[0].alcoholicOrNot}
+        </span>
       </div>
-    );
-  }
-  return null;
+      <div className="float-right">
+        <FavoriteBtn />
+        <ShareBtn />
+      </div>
+    </div>
+  </div>
+);
+
+const saveIngredients = (type, id, checkedIngredients) => {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  inProgressRecipes[`${type}s`] = { ...inProgressRecipes[`${type}s`], [id]: checkedIngredients };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 };
 
-// const checkFavorite = (recipe, type) => {
-//   let newFavorites = [];
-//   if (localStorage.getItem('favoriteRecipes')) {
-//     newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-//   }
-//   if (type === 'Meal' && newFavorites.find((favoriteRecipe) =>
-// (favoriteRecipe.id === recipe.idMeal))) {
-
-//   }
-//   if (type === 'Drink' && newFavorites.find((favoriteRecipe) =>
-// (favoriteRecipe.id === recipe.idDrink))) {
-
-//   }
-// }
-
-const favoriteBtn = (recipe, type, favoriteIcon) => {
-  const { strArea: area, strCategory: category } = recipe;
-  let newFavorites = [];
-  if (localStorage.getItem('favoriteRecipes')) {
-    newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+const startRecipe = (pathname, type, id) => {
+  let recipeStarted = false;
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (JSON.parse(localStorage.getItem('inProgressRecipes')) && inProgressRecipes[`${type}s`][id]) {
+    recipeStarted = true;
   }
-
-  const saveFavorite = () => {
-    if (type === 'Meal') {
-      const { idMeal: id, strMeal: name, strMealThumb: image } = recipe;
-      const alcoholicOrNot = false;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
-    } else {
-      const { idMeal: id, strDrink: name, strDrinkThumb: image } = recipe;
-      const alcoholicOrNot = true;
-      newFavorites.push({ id, type, area, category, alcoholicOrNot, name, image });
-    }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-  };
-
   return (
-    <button data-testid="favorite-btn" className="invisible-btn" onClick={() => saveFavorite()}>
-      <img src={favoriteIcon} alt="share" />
+    <Link to={`${pathname}/in-progress`} className="footer btn" data-testid="start-recipe-btn">
+      {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
+    </Link>
+  );
+};
+
+const redirectToDoneRecipes = (history) => {
+  history.push('/receitas-feitas');
+};
+
+const saveDoneRecipe = (recipe) => {
+  const { id, type, area, category, alcoholicOrNot, name, image, tags } = recipe;
+  const newDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const typeObj = {
+    Drink: 'bebida',
+    Meal: 'comida',
+  };
+  newDoneRecipes.push({
+    id,
+    type: typeObj[type],
+    area: area || '',
+    category: category || '',
+    alcoholicOrNot: alcoholicOrNot || '',
+    name,
+    image,
+    doneData: new Date(),
+    tags,
+  });
+  localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+};
+
+const finishRecipe = (history, recipe, checkedIngredients) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  if (doneRecipes.some((doneRecipe) => doneRecipe.id === recipe.id)) return null;
+  return (
+    <button
+      type="button"
+      className="footer btn"
+      data-testid="finish-recipe-btn"
+      disabled={!(recipe.ingredients.length === checkedIngredients.length)}
+      onClick={() => {
+        redirectToDoneRecipes(history);
+        saveDoneRecipe(recipe);
+      }}
+    >
+      Finalizar Receita
     </button>
   );
 };
 
-const shareBtn = (shareState, setShareState, pathname) => (
-  <button
-    data-testid="share-btn"
-    className="invisible-btn"
-    onClick={() => {
-      navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-      setShareState('Link copiado!');
-    }}
-  >
-    <img src={shareIcon} alt="share" />
-    {shareState}
-  </button>
+const thumbnail = (recipe) => (
+  <img src={recipe.image} alt="recipeThumb" data-testid="recipe-photo" className="full-width" />
 );
 
-const fetchDetails = (pathname, params, setRecommendedRecipes, recipeState, setRecipeState) => {
-  const typePath = pathname.split('/')[1];
-  if (typePath === 'comidas') {
-    getRecipeDetailsById(params.id, 'meal').then((data) => {
-      setRecipeState({
-        ...recipeState,
-        recipe: data.meals[0],
-        recipeIsFetching: false,
-        type: 'Meal',
-      });
-      searchRecipesByName('', 'cocktail').then((cocktails) => {
-        setRecommendedRecipes(cocktails.drinks.slice(0, 6));
-      });
-    });
-  }
-  if (typePath === 'bebidas') {
-    getRecipeDetailsById(params.id, 'cocktail').then((data) => {
-      setRecipeState({
-        ...recipeState,
-        recipe: data.drinks[0],
-        recipeIsFetching: false,
-        type: 'Drink',
-      });
-      searchRecipesByName('', 'meal').then((meals) => {
-        setRecommendedRecipes(meals.meals.slice(0, 6));
-      });
-    });
-  }
-};
+const instructions = (recipe) => (
+  <div className="detailPage">
+    <h4>Instructions</h4>
+    <span data-testid="instructions">{recipe.instructions}</span>
+  </div>
+);
 
-const RecipeDetail = () => {
-  const [recipeState, setRecipeState] = useState({
-    recipe: {},
-    recipeIsFetching: true,
-    type: '',
-  });
-  const [shareState, setShareState] = useState('');
+const RecipeDetail = ({ type, recommendedType, page, history }) => {
+  const { saveRecipes, recipes } = useContext(RecipesContext);
   const [recommendedRecipes, setRecommendedRecipes] = useState([]);
-  const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
+  const { id } = useParams();
   const { pathname } = useLocation();
-  const params = useParams();
+  const [checkedIngredients, setCheckIngredients] = useState([]);
 
   useEffect(() => {
-    fetchDetails(pathname, params, setRecommendedRecipes, recipeState, setRecipeState);
-  }, [pathname]);
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+    }
+    if (page === 'inProgress') {
+      if (!JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]) {
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        inProgressRecipes[`${type}s`][id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      }
+      setCheckIngredients(JSON.parse(localStorage.getItem('inProgressRecipes'))[`${type}s`][id]);
+    }
+  }, [page, type, id]);
 
-  const { recipe, recipeIsFetching, type } = recipeState;
+  useEffect(() => {
+    if (page === 'inProgress') saveIngredients(type, id, checkedIngredients);
+  }, [checkedIngredients]);
 
-  if (recipeIsFetching || recommendedRecipes.length === 0) return <Loading />;
+  useEffect(() => {
+    getRecipeDetailsById(id, type).then((data) => saveRecipes(data));
+    searchRecipesByName('', recommendedType).then((data) =>
+      setRecommendedRecipes(svRecipes(data).slice(0, 6)),
+    );
+  }, [id, type, recommendedType]);
+
+  if (recipes.length === 0) return <Loading />;
 
   return (
-    <div className="detailPage">
-      <img
-        src={recipe[`str${type}Thumb`]}
-        alt="recipeThumb"
-        data-testid="recipe-photo"
-        className="full-width"
-      />
-      <h3 data-testid="recipe-title">{recipe[`str${type}`]}</h3>
-      {favoriteBtn(recipe, type, favoriteIcon, setFavoriteIcon)}
-      {shareBtn(shareState, setShareState, pathname)}
-      <span data-testid="recipe-category">{recipe.strCategory}</span>
-      <h4>Ingredients</h4>
-      <span>
-        <ul>{ingredientsList(recipe)}</ul>
-      </span>
-      <h4>Instructions</h4>
-      <span data-testid="instructions">{recipe.strInstructions}</span>
-      {youtubeVideo(recipe)}
-      <h4>Recomendadas</h4>
-      {recommendedCarousel(recommendedRecipes, type)}
-      <button className="footer" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
+    <div>
+      {thumbnail(recipes[0])}
+      <div className="detailPage">
+        {header(recipes)}
+        {page === 'detail'
+          ? ingredientsList(recipes[0])
+          : ingredientsListCheckbox(recipes[0], checkedIngredients, setCheckIngredients)}
+        {instructions(recipes[0])}
+        {page === 'detail' ? youtubeVideo(recipes[0]) : null}
+        {page === 'detail' ? recommendedCarousel(recommendedRecipes, type) : null}
+      </div>
+      {page === 'detail'
+        ? startRecipe(pathname, type, id)
+        : finishRecipe(history, recipes[0], checkedIngredients)}
     </div>
   );
 };
 
-export default RecipeDetail;
+RecipeDetail.propTypes = {
+  recommendedType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  page: PropTypes.string.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+export default withRouter(RecipeDetail);

@@ -1,7 +1,7 @@
 /* APP */
 
 body {
-  background-color: #F2ECCF;
+  background-color: #f2eccf;
 }
 
 a {
@@ -15,7 +15,7 @@ a {
 }
 
 .btn {
-  background-color: #FCBF49;
+  background-color: #fcbf49;
   border: none;
   color: #003652;
 }
@@ -158,16 +158,18 @@ a {
 /* RECIPE DETAIL PAGE */
 
 .detailPage {
+  margin: 10px 10px 30px 10px;
+}
+
+.header-div {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .recommended-recipes {
   display: flex;
-  margin: 5px;
-  padding: 5px;
+  padding: 0;
   width: 100%;
   overflow: auto;
 }
@@ -194,6 +196,14 @@ a {
 
 /* GENERAL */
 
+.list-none-style {
+  list-style-type: none;
+}
+
+.no-margin {
+  margin: 0;
+}
+
 .full-width {
   width: 100%;
 }
@@ -219,25 +229,29 @@ a {
 }
 
 .yellow-bg {
-  background-color: #FCBF49;
+  background-color: #fcbf49;
 }
 
 .yellow-text {
-  color: #FCBF49;
+  color: #fcbf49;
 }
 
 .cornsilk-bg {
-  background-color: #F2ECCF;
+  background-color: #f2eccf;
 }
 
 .cornsilk-text {
-  color: #F2ECCF;
+  color: #f2eccf;
 }
 
 .gray-bg {
-  background-color: #BDBDBD;
+  background-color: #bdbdbd;
 }
 
 .gray-text {
-  color: #BDBDBD;
+  color: #bdbdbd;
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
