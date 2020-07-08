@@ -11,7 +11,6 @@ const ExploreFoodsIngredients = ({ type, history, url }) => {
   const { saveRecipes, setExplore, setIsFetching } = useContext(RecipesContext);
 
   useEffect(() => {
-    console.log(history);
     getRecipeIngredients(type)
       .then((data) => setIngredients((data.meals || data.drinks).slice(0, 12)));
   }, []);

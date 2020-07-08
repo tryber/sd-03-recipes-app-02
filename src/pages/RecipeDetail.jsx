@@ -36,7 +36,7 @@ const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients
     <h4>Ingredients</h4>
     <ul>
       {recipe.ingredients.map((ingredient, index) => {
-        const isChecked = checkedIngredients.some((ingredientIndex) => ingredientIndex === index);
+        const isChecked = checkedIngredients.includes(index);
         return (
           <li
             className="list-none-style"
@@ -45,11 +45,14 @@ const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients
           >
             <input
               type="checkbox"
-              id={ingredient.name}
+              id={`${ingredient.name} - ${index}`}
               checked={isChecked}
               onChange={(e) => saveIngredient(e, index, checkedIngredients, setCheckIngredients)}
             />
-            <label htmlFor={ingredient.name} className={isChecked ? 'line-through' : ''}>
+            <label
+              htmlFor={`${ingredient.name} - ${index}`}
+              className={isChecked ? 'line-through' : ''}
+            >
               {ingredient.name} - {ingredient.quantity}
             </label>
           </li>
@@ -91,20 +94,24 @@ const recommendedCarousel = (recommendedRecipes, type) => (
   </Fragment>
 );
 
-const header = (recipes) => (
+const header = (recipe) => (
   <div>
     <div className="header-div">
       <div>
         <h3 data-testid="recipe-title" className="no-margin">
-          {recipes[0].name}
+          {recipe.name}
         </h3>
         <span data-testid="recipe-category">
-          {recipes[0].category} {recipes[0].alcoholicOrNot}
+          {recipe.category} {recipe.alcoholicOrNot}
         </span>
       </div>
       <div className="float-right">
-        <FavoriteBtn />
-        <ShareBtn />
+        <FavoriteBtn dataTestId="favorite-btn" recipe={recipe} />
+        <ShareBtn
+          dataTestId="share-btn"
+          id={recipe.id}
+          type={recipe.type === 'Meal' ? 'comida' : 'bebida'}
+        />
       </div>
     </div>
   </div>
@@ -148,7 +155,7 @@ const saveDoneRecipe = (recipe) => {
     alcoholicOrNot: alcoholicOrNot || '',
     name,
     image,
-    doneData: new Date(),
+    doneDate: new Date().toLocaleDateString('pt-BR'),
     tags,
   });
   localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
@@ -216,13 +223,13 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
     );
   }, [id, type, recommendedType]);
 
-  if (recipes.length === 0) return <Loading />;
+  if (recipes.length === 0 || recipes.length > 1) return <Loading />;
 
   return (
     <div>
       {thumbnail(recipes[0])}
       <div className="detailPage">
-        {header(recipes)}
+        {header(recipes[0])}
         {page === 'detail'
           ? ingredientsList(recipes[0])
           : ingredientsListCheckbox(recipes[0], checkedIngredients, setCheckIngredients)}
