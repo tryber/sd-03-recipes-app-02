@@ -196,12 +196,12 @@ a {
   width: 330px;
   height: 143px;
   margin: 10px;
-  background-color: #FBF9EF;
+  background-color: #fbf9ef;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .category-text {
-  color: #A9A9A9;
+  color: #a9a9a9;
   font-size: 15px;
 }
 
@@ -267,6 +267,15 @@ a {
   width: 100%;
 }
 
+.filters-btn {
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px;
+  padding: 5px 0;
+  width: 100px;
+}
+
 /* GENERAL */
 
 .list-none-style {
@@ -314,7 +323,7 @@ a {
 }
 
 .icon-filter {
-  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%); 
+  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%);
 }
 
 .cornsilk-bg {

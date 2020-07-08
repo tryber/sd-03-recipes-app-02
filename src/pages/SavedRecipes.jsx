@@ -12,7 +12,7 @@ const filterButtons = (setFilter) => {
       <button
         data-testid="filter-by-all-btn"
         type="button"
-        className="btn categories-btn"
+        className="btn filters-btn"
         value=""
         onClick={(e) => handleClick(e)}
       >
@@ -21,7 +21,7 @@ const filterButtons = (setFilter) => {
       <button
         data-testid="filter-by-food-btn"
         type="button"
-        className="btn categories-btn"
+        className="btn filters-btn"
         value="comida"
         onClick={(e) => handleClick(e)}
       >
@@ -30,7 +30,7 @@ const filterButtons = (setFilter) => {
       <button
         data-testid="filter-by-drink-btn"
         type="button"
-        className="btn categories-btn"
+        className="btn filters-btn"
         value="bebida"
         onClick={(e) => handleClick(e)}
       >
