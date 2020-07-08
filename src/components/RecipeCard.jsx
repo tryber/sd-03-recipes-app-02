@@ -20,9 +20,11 @@ const RecipeCard = ({ recipe, index, type, page }) => {
           className="recipe-image"
           src={recipe.image}
         />
-        <h4 data-testid={dataTests[page].title} className="recipe-title">
-          {recipe.name}
-        </h4>
+        <span className="title-box">
+          <h4 data-testid={dataTests[page].title} className="recipe-title">
+            {recipe.name}
+          </h4>
+        </span>
       </div>
     </Link>
   );
