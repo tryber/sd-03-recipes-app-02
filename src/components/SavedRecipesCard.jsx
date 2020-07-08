@@ -60,17 +60,15 @@ const favoriteRecipe = (
   recipes,
 ) => (
   <div>
-    <div>
-      {renderLink(type, id, image, index, name)}
-      {renderCategory(index, type, area, category, alcoholicOrNot)}
-      <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
-      <button
-        type="button"
-        onClick={() => setRecipes(recipes.filter((element) => element.id !== id))}
-      >
-        <FavoriteBtn dataTestId={`${index}-horizontal-favorite-btn`} recipe={recipe} />
-      </button>
-    </div>
+    {renderLink(type, id, image, index, name)}
+    {renderCategory(index, type, area, category, alcoholicOrNot)}
+    <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
+    <button
+      type="button"
+      onClick={() => setRecipes(recipes.filter((element) => element.id !== id))}
+    >
+      <FavoriteBtn dataTestId={`${index}-horizontal-favorite-btn`} recipe={recipe} />
+    </button>
   </div>
 );
 

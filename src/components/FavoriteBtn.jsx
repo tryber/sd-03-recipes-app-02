@@ -4,7 +4,6 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const saveFavorite = (recipe, setFavoriteIcon) => {
-  console.log(recipe);
   const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
   const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const typeObj = {
@@ -38,13 +37,8 @@ const FavoriteBtn = ({ dataTestId, recipe }) => {
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (
-      favorites.find((favorite) => {
-        console.log('favorite id', favorite.id);
-        console.log('recipe id', recipe.id);
-        return favorite.id === recipe.id;
-      })
+      favorites.find((favorite) => favorite.id === recipe.id)
     ) {
-      console.log('nao era pra chegar');
       setFavoriteIcon(blackHeartIcon);
     }
   }, [recipe]);
