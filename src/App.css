@@ -122,9 +122,9 @@ a {
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  margin: 6px;
+  margin: 3px 6px;
   padding: 5px 0;
-  width: 100px;
+  width: 154px;
 }
 
 .recipes-display {
@@ -135,9 +135,11 @@ a {
 }
 
 .card {
-  height: 172px;
-  width: 161px;
+  background-color: #FBF9EF;
+  height: 160px;
+  margin: 0 0 6px 0;
   text-align: center;
+  width: 161px;
 }
 
 .recipe-image {
@@ -145,8 +147,18 @@ a {
   height: 70%;
 }
 
+.title-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+}
+
 .recipe-title {
   color: #003652;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.0;
   margin: 0;
 }
 
@@ -169,6 +181,56 @@ a {
   overflow: auto;
 }
 
+/* EXPLORE */
+
+.explore {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 160px 10px 20px 10px;
+}
+
+.explore-btn {
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 20px;
+  padding: 5px 0;
+  width: 210px;
+}
+
+.explore-ingredients {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 60px 10px 60px 10px;
+}
+
+.ingredient-card {
+  height: 120px;
+  margin: 10px;
+  width: 150px;
+}
+
+.ingredient-title {
+  color: #003652;
+  font-weight: 600;
+  line-height: 1.0;
+  margin: 0;
+}
+
+.area-select {
+  background-color: white;
+  border: 1px solid #003652;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 26px;
+  margin: 40px 20px 10px;
+  padding: 0 10px;
+  width: 140px;
+}
+
 /* MOBILE LANDSCAPE */
 
 @media (max-height: 500px) {
@@ -186,6 +248,14 @@ a {
 
   .loading {
     margin-top: 30px;
+  }
+
+  .explore {
+    margin-top: 90px;
+  }
+
+  .area-select {
+    margin: 10px 20px;
   }
 }
 
