@@ -81,7 +81,7 @@ const youtubeVideo = (recipe) => {
   return null;
 };
 
-const recommendedCarousel = (recommendedRecipes, type) => (
+const recommendedCarousel = (recommendedRecipes) => (
   <Fragment>
     <h4>Recomendadas</h4>
     <div className="recommended-recipes">
@@ -237,7 +237,7 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
           : ingredientsListCheckbox(recipes[0], checkedIngredients, setCheckIngredients)}
         {instructions(recipes[0])}
         {page === 'detail' ? youtubeVideo(recipes[0]) : null}
-        {page === 'detail' ? recommendedCarousel(recommendedRecipes, type) : null}
+        {page === 'detail' ? recommendedCarousel(recommendedRecipes) : null}
       </div>
       {page === 'detail'
         ? startRecipe(pathname, type, id)
