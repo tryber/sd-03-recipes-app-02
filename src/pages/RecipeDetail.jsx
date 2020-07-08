@@ -187,7 +187,7 @@ const thumbnail = (recipe) => (
 );
 
 const instructions = (recipe) => (
-  <div className="detailPage" className="light-box">
+  <div className="detailPage light-box">
     <h4>Instructions</h4>
     <span data-testid="instructions">{recipe.instructions}</span>
   </div>
