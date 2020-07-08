@@ -22,10 +22,11 @@ export const destructureRecipe = (recipe, type) => {
     [`str${type}Thumb`]: image,
     strYoutube: youtube,
     strInstructions: instructions,
-    strTags: tags,
     strAlcoholic: alcoholicOrNot,
   } = recipe;
   const ingredients = ingredientsList(recipe);
+  let tags = recipe.strTags;
+  if (tags) tags = tags.split(',').slice(0, 2);
   return {
     id,
     type,

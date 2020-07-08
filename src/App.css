@@ -255,3 +255,7 @@ a {
 .line-through {
   text-decoration-line: line-through;
 }
+
+.margin-top-70p {
+  margin-top: 70px;
+}

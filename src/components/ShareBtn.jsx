@@ -1,26 +1,29 @@
 import React, { useState, Fragment } from 'react';
-import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-const ShareBtn = () => {
-  const { pathname } = useLocation();
-  const path = pathname.split('/');
+const ShareBtn = ({ dataTestId, type, id }) => {
   const [shareState, setShareState] = useState('');
   return (
     <Fragment>
       <button
-        data-testid="share-btn"
         className="invisible-btn"
         onClick={() => {
-          navigator.clipboard.writeText(`${window.location.origin}/${path[1]}/${path[2]}`);
+          navigator.clipboard.writeText(`${window.location.origin}/${type}s/${id}`);
           setShareState('Link copiado!');
         }}
       >
-        <img src={shareIcon} alt="share" />
+        <img data-testid={dataTestId} src={shareIcon} alt="share" />
       </button>
       {shareState}
     </Fragment>
   );
+};
+
+ShareBtn.propTypes = {
+  dataTestId: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ShareBtn;
