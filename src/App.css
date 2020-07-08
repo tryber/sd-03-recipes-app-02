@@ -176,6 +176,24 @@ a {
   overflow: auto;
 }
 
+/* EXPLORE */
+
+.explore {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 160px 10px 20px 10px;
+}
+
+.explore-btn {
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 20px;
+  padding: 5px 0;
+  width: 210px;
+}
+
 /* MOBILE LANDSCAPE */
 
 @media (max-height: 500px) {
@@ -193,6 +211,10 @@ a {
 
   .loading {
     margin-top: 30px;
+  }
+
+  .explore {
+    margin-top: 90px;
   }
 }
 

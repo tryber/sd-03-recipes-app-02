@@ -15,19 +15,24 @@ const ExploreRecipes = ({ title, url, type, history }) => {
   return (
     <div style={{ marginTop: '70px' }}>
       <Header title={title} searchEnabled={false} />
-      <Link to={`/explorar/${url}/ingredientes`} data-testid="explore-by-ingredient">
-        <button type="button">Por Ingredientes</button>
-      </Link>
-      {type === 'meal' ?
-        <Link to={'/explorar/comidas/area'} data-testid="explore-by-area">
-          <button type="button">Por Local de Origem</button>
+      <div className="explore">
+        <Link to={`/explorar/${url}/ingredientes`} data-testid="explore-by-ingredient">
+          <button className="btn explore-btn" type="button">Por Ingredientes</button>
         </Link>
-      :
-        <button type="button">Por Local de Origem</button>
-      }
-      <button type="button" data-testid="explore-surprise" onClick={handleClick}>
-        Me Surpreenda!
-      </button>
+        {type === 'meal' ?
+          <Link to={'/explorar/comidas/area'} data-testid="explore-by-area">
+            <button className="btn explore-btn" type="button">Por Local de Origem</button>
+          </Link>
+        :
+          <button className="btn explore-btn" type="button">Por Local de Origem</button>
+        }
+        <button
+          className="btn explore-btn" type="button" data-testid="explore-surprise"
+          onClick={handleClick}
+        >
+          Me Surpreenda!
+        </button>
+      </div>
       <Footer />
     </div>
   );
