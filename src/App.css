@@ -217,6 +217,17 @@ a {
   margin: 0;
 }
 
+.area-select {
+  background-color: white;
+  border: 1px solid #003652;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 26px;
+  margin: 40px 20px 10px;
+  padding: 0 10px;
+  width: 140px;
+}
+
 /* MOBILE LANDSCAPE */
 
 @media (max-height: 500px) {
@@ -238,6 +249,10 @@ a {
 
   .explore {
     margin-top: 90px;
+  }
+
+  .area-select {
+    margin: 10px 20px;
   }
 }
 
