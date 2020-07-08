@@ -57,7 +57,8 @@ const Login = () => {
 
   return (
     <div className="login-page row">
-      <h1 className="blue-text">Login</h1>
+      <h1 className="logo ruby-bg yellow-text">App de Receitas</h1>
+      <h2 className="login-text blue-text">Login</h2>
       {textInput(email, handleChange, 'email', 'Email')}
       {textInput(password, handleChange, 'password', 'Senha')}
       {submitButton(state)}
