@@ -26,21 +26,21 @@ const ExploreFoodsIngredients = ({ type, history, url }) => {
     <div>
       <Header title="Explorar Ingredientes" searchEnabled={false} />
       <div className="explore-ingredients">
-      {ingredients.map((ingredient, index) => {
-        const name = ingredient.strIngredient || ingredient.strIngredient1;
-        return (
-          <button
-            className="invisible-btn ingredient-card"
-            onClick={() => handleClick(name)} data-testid={`${index}-ingredient-card`}
-          >
-            <img
-              src={`https://www.the${type}db.com/images/ingredients/${name}-Small.png`}
-              alt={`${name} thumbnail`} data-testid={`${index}-card-img`}
-            />
-            <p className="ingredient-title" data-testid={`${index}-card-name`}>{name}</p>
-          </button >
-        );
-      })}
+        {ingredients.map((ingredient, index) => {
+          const name = ingredient.strIngredient || ingredient.strIngredient1;
+          return (
+            <button
+              className="invisible-btn ingredient-card"
+              onClick={() => handleClick(name)} data-testid={`${index}-ingredient-card`}
+            >
+              <img
+                src={`https://www.the${type}db.com/images/ingredients/${name}-Small.png`}
+                alt={`${name} thumbnail`} data-testid={`${index}-card-img`}
+              />
+              <p className="ingredient-title" data-testid={`${index}-card-name`}>{name}</p>
+            </button >
+          );
+        })}
       </div>
       <Footer />
     </div>
