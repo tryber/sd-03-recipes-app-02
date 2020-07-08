@@ -165,7 +165,7 @@ a {
 /* RECIPE DETAIL PAGE */
 
 .detailPage {
-  margin: 10px 10px 30px 10px;
+  margin: 10px 10px 70px 10px;
 }
 
 .header-div {
@@ -180,6 +180,13 @@ a {
   width: 100%;
   overflow: auto;
 }
+
+.light-box {
+  background-color: #FBF9EF;
+  padding: 5px;
+  margin: 20px 0 20px 0;
+}
+
 
 /* EXPLORE */
 
@@ -207,17 +214,19 @@ a {
   margin: 60px 10px 60px 10px;
 }
 
-.ingredient-card {
-  height: 120px;
-  margin: 10px;
-  width: 150px;
-}
-
 .ingredient-title {
   color: #003652;
   font-weight: 600;
   line-height: 1.0;
   margin: 0;
+}
+
+.ingredient-card {
+  background-color: #FBF9EF;
+  height: 140px;
+  margin: 5px 8px 6px 0;
+  text-align: center;
+  width: 161px;
 }
 
 .area-select {
@@ -394,6 +403,10 @@ a {
 
 .icon-filter {
   filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%);
+}
+
+.blue-filter {
+  filter: invert(15%) sepia(64%) saturate(1321%) hue-rotate(168deg) brightness(99%) contrast(101%);
 }
 
 .cornsilk-bg {

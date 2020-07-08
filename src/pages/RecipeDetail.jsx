@@ -11,7 +11,7 @@ import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
 
 const ingredientsList = (recipe) => (
-  <div>
+  <div className="light-box">
     <h4>Ingredients</h4>
     <ul>
       {recipe.ingredients.map((ingredient, index) => (
@@ -32,7 +32,7 @@ const saveIngredient = (e, index, checkedIngredients, setCheckIngredients) => {
 };
 
 const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients) => (
-  <div>
+  <div className="light-box">
     <h4>Ingredients</h4>
     <ul>
       {recipe.ingredients.map((ingredient, index) => {
@@ -72,10 +72,10 @@ const youtubeVideo = (recipe) => {
   };
   if (recipe.youtube) {
     return (
-      <span data-testid="video">
+      <div data-testid="video" className="light-box">
         <h4>Video</h4>
         <YouTube videoId={recipe.youtube.split('=')[1]} opts={opts} />
-      </span>
+      </div>
     );
   }
   return null;
@@ -187,7 +187,7 @@ const thumbnail = (recipe) => (
 );
 
 const instructions = (recipe) => (
-  <div className="detailPage">
+  <div className="detailPage" className="light-box">
     <h4>Instructions</h4>
     <span data-testid="instructions">{recipe.instructions}</span>
   </div>
@@ -230,7 +230,7 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
   return (
     <div>
       {thumbnail(recipes[0])}
-      <div className="detailPage">
+      <div className="detailPage blue-text">
         {header(recipes[0])}
         {page === 'detail'
           ? ingredientsList(recipes[0])
