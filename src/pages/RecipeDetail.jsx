@@ -124,6 +124,8 @@ const saveIngredients = (type, id, checkedIngredients) => {
 };
 
 const startRecipe = (pathname, type, id) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  if (doneRecipes.some((doneRecipe) => doneRecipe.id === id)) return null;
   let recipeStarted = false;
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (JSON.parse(localStorage.getItem('inProgressRecipes')) && inProgressRecipes[`${type}s`][id]) {

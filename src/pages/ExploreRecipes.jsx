@@ -23,7 +23,7 @@ const ExploreRecipes = ({ title, url, type, history }) => {
           <button type="button">Por Local de Origem</button>
         </Link>
       :
-        <button type="button">Por Local de Origem</button>
+        null
       }
       <button type="button" data-testid="explore-surprise" onClick={handleClick}>
         Me Surpreenda!
