@@ -17,7 +17,11 @@ const renderName = (type, id, name, index) => (
 
 const tagsList = (tags, index) => {
   if (tags && tags.length !== 0) {
-    return tags.map((tag) => <span className="done-card-tag" data-testid={`${index}-${tag}-horizontal-tag`}>{tag}</span>);
+    return tags.map((tag) => (
+      <span className="done-card-tag" data-testid={`${index}-${tag}-horizontal-tag`}>
+        {tag}
+      </span>
+    ));
   }
   return null;
 };
@@ -52,10 +56,10 @@ const doneRecipe = (
         <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
       </span>
       <span className="done-name">{renderName(type, id, name, index)}</span>
-      <span data-testid={`${index}-horizontal-done-date`} className="margin-left-10p">Feita em: {doneDate}</span>
-      <span className="done-tags">
-      {tagsList(tags, index)}
+      <span data-testid={`${index}-horizontal-done-date`} className="margin-left-10p">
+        Feita em: {doneDate}
       </span>
+      <span className="done-tags">{tagsList(tags, index)}</span>
     </div>
   </div>
 );
