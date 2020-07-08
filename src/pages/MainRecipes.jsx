@@ -35,7 +35,6 @@ const MainRecipes = ({ type, title }) => {
             key={recipe.id}
             recipe={recipe}
             index={index}
-            type={type}
             page="mainPage"
           />
         ))}

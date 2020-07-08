@@ -45,7 +45,7 @@ const FavoriteBtn = ({ dataTestId, recipe }) => {
 
   return (
     <button className="invisible-btn" onClick={() => saveFavorite(recipe, setFavoriteIcon)}>
-      <img data-testid={dataTestId} src={favoriteIcon} alt="share" />
+      <img data-testid={dataTestId} src={favoriteIcon} alt="share" className="ruby-filter" />
     </button>
   );
 };
