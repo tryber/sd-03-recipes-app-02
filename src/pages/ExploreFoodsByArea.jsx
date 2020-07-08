@@ -43,7 +43,6 @@ const ExploreFoodsArea = () => {
             key={recipe.id}
             recipe={recipe}
             index={index}
-            type="meal"
             page="mainPage"
           />
         ))}

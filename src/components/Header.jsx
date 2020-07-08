@@ -25,7 +25,7 @@ const Header = ({ title, searchEnabled, type }) => {
   return (
     <div>
       <header className="header ruby-bg yellow-text">
-        <Link to="perfil">
+        <Link to="/perfil">
           <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="icon-filter" />
         </Link>
         <h1 data-testid="page-title">{title}</h1>

@@ -26,11 +26,6 @@ a {
   color: lightslategray;
 }
 
-.invisible-btn {
-  background: transparent;
-  border: none !important;
-}
-
 /* HEADER */
 
 .header {
@@ -262,6 +257,93 @@ a {
   }
 }
 
+/* SAVED RECIPES PAGE */
+
+.saved-cards {
+  display: flex;
+  width: 330px;
+  height: 143px;
+  margin: 10px;
+  background-color: #fbf9ef;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.category-text {
+  color: #a9a9a9;
+  font-size: 15px;
+}
+
+.recipe-name {
+  color: #003652;
+  font-size: 21px;
+}
+
+.saved-cards-contend {
+  display: flex;
+  flex-direction: column;
+}
+
+.btns-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 24px;
+}
+
+.type-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.saved-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.done-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.done-card-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.done-name {
+  position: relative;
+  bottom: 8px;
+  width: 100%;
+}
+
+.done-card-tag {
+  background-color: #bdbdbd;
+  display: flex;
+  padding: 0 5px 0 5px;
+  align-items: center;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.done-tags {
+  margin: 10px;
+  display: flex;
+  width: 100%;
+}
+
+.filters-btn {
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px;
+  padding: 5px 0;
+  width: 100px;
+}
+
 /* GENERAL */
 
 .list-none-style {
@@ -288,6 +370,10 @@ a {
   color: #9b1c1c;
 }
 
+.ruby-filter {
+  filter: invert(14%) sepia(74%) saturate(3505%) hue-rotate(351deg) brightness(88%) contrast(90%);
+}
+
 .blue-bg {
   background-color: #003652;
 }
@@ -305,7 +391,7 @@ a {
 }
 
 .icon-filter {
-  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%); 
+  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%);
 }
 
 .cornsilk-bg {
@@ -330,4 +416,17 @@ a {
 
 .margin-top-70p {
   margin-top: 70px;
+}
+
+.margin-top-10p {
+  margin-top: 10px;
+}
+
+.margin-left-10p {
+  margin-left: 10px;
+}
+
+.invisible-btn {
+  background: transparent;
+  border: none !important;
 }

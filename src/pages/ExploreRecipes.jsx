@@ -23,16 +23,15 @@ const ExploreRecipes = ({ title, url, type, history }) => {
           <Link to={'/explorar/comidas/area'} data-testid="explore-by-area">
             <button className="btn explore-btn" type="button">Por Local de Origem</button>
           </Link>
-        :
-          <button className="btn explore-btn" type="button">Por Local de Origem</button>
-        }
+      :
+        null
+      }
         <button
           className="btn explore-btn" type="button" data-testid="explore-surprise"
           onClick={handleClick}
         >
-          Me Surpreenda!
-        </button>
-      </div>
+        Me Surpreenda!
+      </button>
       <Footer />
     </div>
   );

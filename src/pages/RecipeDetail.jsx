@@ -81,13 +81,13 @@ const youtubeVideo = (recipe) => {
   return null;
 };
 
-const recommendedCarousel = (recommendedRecipes, type) => (
+const recommendedCarousel = (recommendedRecipes) => (
   <Fragment>
     <h4>Recomendadas</h4>
     <div className="recommended-recipes">
       {recommendedRecipes.map((recipe, index) => (
         <span key={recipe.id} className="margin10p">
-          <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
+          <RecipeCard recipe={recipe} index={index} page="detailPage" />
         </span>
       ))}
     </div>
@@ -124,6 +124,8 @@ const saveIngredients = (type, id, checkedIngredients) => {
 };
 
 const startRecipe = (pathname, type, id) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  if (doneRecipes.some((doneRecipe) => doneRecipe.id === id)) return null;
   let recipeStarted = false;
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (JSON.parse(localStorage.getItem('inProgressRecipes')) && inProgressRecipes[`${type}s`][id]) {
@@ -235,7 +237,7 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
           : ingredientsListCheckbox(recipes[0], checkedIngredients, setCheckIngredients)}
         {instructions(recipes[0])}
         {page === 'detail' ? youtubeVideo(recipes[0]) : null}
-        {page === 'detail' ? recommendedCarousel(recommendedRecipes, type) : null}
+        {page === 'detail' ? recommendedCarousel(recommendedRecipes) : null}
       </div>
       {page === 'detail'
         ? startRecipe(pathname, type, id)
