@@ -8,11 +8,11 @@ const filterButtons = (setFilter) => {
     setFilter(e.target.value);
   };
   return (
-    <div className="margin-top-70p">
+    <div className="margin-top-70p type-div">
       <button
         data-testid="filter-by-all-btn"
         type="button"
-        className="btn"
+        className="btn categories-btn"
         value=""
         onClick={(e) => handleClick(e)}
       >
@@ -21,7 +21,7 @@ const filterButtons = (setFilter) => {
       <button
         data-testid="filter-by-food-btn"
         type="button"
-        className="btn"
+        className="btn categories-btn"
         value="comida"
         onClick={(e) => handleClick(e)}
       >
@@ -30,7 +30,7 @@ const filterButtons = (setFilter) => {
       <button
         data-testid="filter-by-drink-btn"
         type="button"
-        className="btn"
+        className="btn categories-btn"
         value="bebida"
         onClick={(e) => handleClick(e)}
       >
@@ -41,7 +41,7 @@ const filterButtons = (setFilter) => {
 };
 
 const displayRecipes = (filter, recipes, page, setRecipes) => (
-  <div>
+  <div className="saved-content">
     {recipes
       .filter((recipe) => {
         if (filter) {

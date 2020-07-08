@@ -3,6 +3,18 @@ import { Link } from 'react-router-dom';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 
+const renderImage = (type, id, image, index) => (
+  <Link to={`${type}s/${id}`}>
+    <img alt="recipe" src={image} data-testid={`${index}-horizontal-image`} height="143px" />
+  </Link>
+);
+
+const renderName = (type, id, name, index) => (
+  <Link to={`${type}s/${id}`} className="recipe-name margin-left-10p">
+    <span data-testid={`${index}-horizontal-name`}>{name}</span>
+  </Link>
+);
+
 const tagsList = (tags, index) => {
   if (tags && tags.length !== 0) {
     return tags.map((tag) => <span data-testid={`${index}-${tag}-horizontal-tag`}>{tag}</span>);
@@ -10,15 +22,11 @@ const tagsList = (tags, index) => {
   return null;
 };
 
-const renderLink = (type, id, image, index, name) => (
-  <Link to={`${type}s/${id}`}>
-    <img alt="recipe" src={image} data-testid={`${index}-horizontal-image`} width="160px" />
-    <span data-testid={`${index}-horizontal-name`}>{name}</span>
-  </Link>
-);
-
 const renderCategory = (index, type, area, category, alcoholicOrNot) => (
-  <span data-testid={`${index}-horizontal-top-text`}>
+  <span
+    data-testid={`${index}-horizontal-top-text`}
+    className="category-text margin-left-10p margin-top-10p"
+  >
     {type === 'comida' ? `${area || ''} - ${category}` : alcoholicOrNot}
   </span>
 );
@@ -36,7 +44,8 @@ const doneRecipe = (
   index,
 ) => (
   <div>
-    {renderLink(type, id, image, index, name)}
+    {renderImage(type, id, image, index)}
+    {renderName(type, id, name, index)}
     <div>
       {renderCategory(index, type, area, category, alcoholicOrNot)}
       <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
@@ -59,16 +68,22 @@ const favoriteRecipe = (
   setRecipes,
   recipes,
 ) => (
-  <div>
-    {renderLink(type, id, image, index, name)}
-    {renderCategory(index, type, area, category, alcoholicOrNot)}
-    <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
-    <button
-      type="button"
-      onClick={() => setRecipes(recipes.filter((element) => element.id !== id))}
-    >
-      <FavoriteBtn dataTestId={`${index}-horizontal-favorite-btn`} recipe={recipe} />
-    </button>
+  <div className="saved-cards blue-text">
+    {renderImage(type, id, image, index)}
+    <div className="saved-cards-contend">
+      {renderCategory(index, type, area, category, alcoholicOrNot)}
+      {renderName(type, id, name, index)}
+      <div className="btns-div">
+        <ShareBtn dataTestId={`${index}-horizontal-share-btn`} id={id} type={type} />
+        <button
+          type="button"
+          className="invisible-btn"
+          onClick={() => setRecipes(recipes.filter((element) => element.id !== id))}
+        >
+          <FavoriteBtn dataTestId={`${index}-horizontal-favorite-btn`} recipe={recipe} />
+        </button>
+      </div>
+    </div>
   </div>
 );
 
