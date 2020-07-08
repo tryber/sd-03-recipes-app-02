@@ -140,7 +140,7 @@ a {
 }
 
 .card {
-  height: 172px;
+  height: 160px;
   margin: 0 0 6px 0;
   text-align: center;
   width: 161px;
@@ -153,6 +153,8 @@ a {
 
 .recipe-title {
   color: #003652;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.0;
   margin: 0;
 }
