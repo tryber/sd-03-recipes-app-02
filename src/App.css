@@ -222,6 +222,9 @@ a {
 }
 
 .ingredient-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #FBF9EF;
   height: 140px;
   margin: 5px 8px 6px 0;
