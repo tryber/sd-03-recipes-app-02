@@ -87,7 +87,7 @@ const recommendedCarousel = (recommendedRecipes, type) => (
     <div className="recommended-recipes">
       {recommendedRecipes.map((recipe, index) => (
         <span key={recipe.id} className="margin10p">
-          <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
+          <RecipeCard recipe={recipe} index={index} page="detailPage" />
         </span>
       ))}
     </div>
