@@ -236,6 +236,10 @@ a {
   color: #fcbf49;
 }
 
+.icon-filter {
+  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%); 
+}
+
 .cornsilk-bg {
   background-color: #f2eccf;
 }
