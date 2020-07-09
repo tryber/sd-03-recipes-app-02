@@ -13,7 +13,7 @@ const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
       </button>
     );
   }
-  return null;
+  return <span className="icon-empty-space" />;
 };
 
 const Header = ({ title, searchEnabled, type }) => {
