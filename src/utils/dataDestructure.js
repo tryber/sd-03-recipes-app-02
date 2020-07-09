@@ -1,6 +1,6 @@
 export const ingredientsList = (recipe) => {
   const response = [];
-  for (let index = 1; index < 16; index += 1) {
+  for (let index = 1; index < 21; index += 1) {
     if (recipe[`strIngredient${index}`]) {
       response.push({
         name: recipe[`strIngredient${index}`],
