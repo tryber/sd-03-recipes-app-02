@@ -83,6 +83,13 @@ a {
 
 /* LOGIN */
 
+.logo {
+  border-radius: 8px;
+  height: 50px;
+  padding: 10px;
+  width: 240px;
+}
+
 .login-page {
   align-items: center;
   display: flex;
@@ -192,6 +199,11 @@ a {
   margin: 20px 0 20px 0;
 }
 
+.detail-footer-btn {
+  font-size: 16px;
+  font-weight: 700;
+}
+
 
 /* EXPLORE */
 
@@ -246,34 +258,6 @@ a {
   margin: 40px 20px 10px;
   padding: 0 10px;
   width: 140px;
-}
-
-/* MOBILE LANDSCAPE */
-
-@media (max-height: 500px) {
-  .header {
-    height: 48px;
-  }
-
-  .footer {
-    height: 48px;
-  }
-
-  .login-page {
-    margin-top: 30px;
-  }
-
-  .loading {
-    margin-top: 30px;
-  }
-
-  .explore {
-    margin-top: 90px;
-  }
-
-  .area-select {
-    margin: 10px 20px;
-  }
 }
 
 /* SAVED RECIPES PAGE */
@@ -362,6 +346,76 @@ a {
   width: 100px;
 }
 
+/* PROFILE */
+
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30%;
+}
+
+.profile-container h2{
+ margin-bottom: 70px;
+}
+
+.buttons-container {
+  align-items: center stretch;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-around;
+  width: 70%;
+}
+
+.profile-btn {
+  font-size: large;
+  font-weight: 800;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+/* MOBILE LANDSCAPE */
+
+@media (max-height: 500px) {
+  .header {
+    height: 48px;
+  }
+
+  .footer {
+    height: 48px;
+  }
+
+  .login-page {
+    margin-top: 0;
+  }
+
+  .login-text {
+    margin: 0;
+  }
+
+  .loading {
+    margin-top: 30px;
+  }
+
+  .explore {
+    margin-top: 90px;
+  }
+
+  .area-select {
+    margin: 10px 20px;
+  }
+
+  .profile-container {
+    margin-top: 10px;
+  }
+
+  .profile-container h2{
+   margin-bottom: 30px;
+  }
+}
+
 /* GENERAL */
 
 .list-none-style {
@@ -438,6 +492,12 @@ a {
 
 .margin-top-70p {
   margin-top: 70px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .margin-top-10p {
