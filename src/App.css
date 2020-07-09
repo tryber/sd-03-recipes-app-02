@@ -26,11 +26,6 @@ a {
   color: lightslategray;
 }
 
-.invisible-btn {
-  background: transparent;
-  border: none !important;
-}
-
 /* HEADER */
 
 .header {
@@ -127,9 +122,9 @@ a {
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  margin: 6px;
+  margin: 3px 6px;
   padding: 5px 0;
-  width: 100px;
+  width: 154px;
 }
 
 .recipes-display {
@@ -140,25 +135,42 @@ a {
 }
 
 .card {
-  height: 172px;
-  width: 161px;
+  background-color: #FBF9EF;
+  height: 185px;
+  margin: 0 0 6px 0;
   text-align: center;
+  width: 161px;
+}
+
+.image-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .recipe-image {
   width: 100%;
-  height: 70%;
+}
+
+.title-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
 }
 
 .recipe-title {
   color: #003652;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.0;
   margin: 0;
 }
 
 /* RECIPE DETAIL PAGE */
 
 .detailPage {
-  margin: 10px 10px 30px 10px;
+  margin: 10px 10px 70px 10px;
 }
 
 .header-div {
@@ -172,6 +184,68 @@ a {
   padding: 0;
   width: 100%;
   overflow: auto;
+}
+
+.light-box {
+  background-color: #FBF9EF;
+  padding: 5px;
+  margin: 20px 0 20px 0;
+}
+
+
+/* EXPLORE */
+
+.explore {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 160px 10px 20px 10px;
+}
+
+.explore-btn {
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 20px;
+  padding: 5px 0;
+  width: 210px;
+}
+
+.explore-ingredients {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 60px 10px 60px 10px;
+}
+
+.ingredient-title {
+  color: #003652;
+  font-weight: 600;
+  line-height: 1.0;
+  margin: 0;
+}
+
+.ingredient-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FBF9EF;
+  height: 140px;
+  margin: 5px 8px 6px 0;
+  text-align: center;
+  width: 161px;
+}
+
+.area-select {
+  background-color: white;
+  border: 1px solid #003652;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 26px;
+  margin: 40px 20px 10px;
+  padding: 0 10px;
+  width: 140px;
 }
 
 /* MOBILE LANDSCAPE */
@@ -192,6 +266,100 @@ a {
   .loading {
     margin-top: 30px;
   }
+
+  .explore {
+    margin-top: 90px;
+  }
+
+  .area-select {
+    margin: 10px 20px;
+  }
+}
+
+/* SAVED RECIPES PAGE */
+
+.saved-cards {
+  display: flex;
+  width: 330px;
+  height: 143px;
+  margin: 10px;
+  background-color: #fbf9ef;
+}
+
+.category-text {
+  color: #a9a9a9;
+  font-size: 15px;
+}
+
+.recipe-name {
+  color: #003652;
+  font-size: 21px;
+}
+
+.saved-cards-contend {
+  display: flex;
+  flex-direction: column;
+}
+
+.btns-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 24px;
+}
+
+.type-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.saved-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.done-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.done-card-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.done-name {
+  position: relative;
+  bottom: 8px;
+  width: 100%;
+}
+
+.done-card-tag {
+  background-color: #bdbdbd;
+  display: flex;
+  padding: 0 5px 0 5px;
+  align-items: center;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.done-tags {
+  margin: 10px;
+  display: flex;
+  width: 100%;
+}
+
+.filters-btn {
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px;
+  padding: 5px 0;
+  width: 100px;
 }
 
 /* GENERAL */
@@ -220,6 +388,10 @@ a {
   color: #9b1c1c;
 }
 
+.ruby-filter {
+  filter: invert(14%) sepia(74%) saturate(3505%) hue-rotate(351deg) brightness(88%) contrast(90%);
+}
+
 .blue-bg {
   background-color: #003652;
 }
@@ -237,7 +409,11 @@ a {
 }
 
 .icon-filter {
-  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%); 
+  filter: invert(79%) sepia(54%) saturate(627%) hue-rotate(334deg) brightness(101%) contrast(98%);
+}
+
+.blue-filter {
+  filter: invert(15%) sepia(64%) saturate(1321%) hue-rotate(168deg) brightness(99%) contrast(101%);
 }
 
 .cornsilk-bg {
@@ -298,4 +474,16 @@ a {
   border-radius: 5px;
   padding: 5px;
   width: 100%;
+}
+.margin-top-10p {
+  margin-top: 10px;
+}
+
+.margin-left-10p {
+  margin-left: 10px;
+}
+
+.invisible-btn {
+  background: transparent;
+  border: none !important;
 }

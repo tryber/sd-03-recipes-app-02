@@ -30,7 +30,10 @@ const ExploreFoodsArea = () => {
   return (
     <div style={{ marginTop: '70px' }}>
       <Header title="Explorar Origem" type="meal" searchEnabled />
-      <select data-testid="explore-by-area-dropdown" onChange={(e) => handleSelect(e.target.value)}>
+      <select
+        className="area-select blue-text" data-testid="explore-by-area-dropdown"
+        onChange={(e) => handleSelect(e.target.value)}
+      >
         <option data-testid="All-option">All</option>
         {areas.map((e) => <option data-testid={`${e.strArea}-option`}>{e.strArea}</option>)}
       </select>
@@ -40,7 +43,6 @@ const ExploreFoodsArea = () => {
             key={recipe.id}
             recipe={recipe}
             index={index}
-            type="meal"
             page="mainPage"
           />
         ))}

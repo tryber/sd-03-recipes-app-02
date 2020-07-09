@@ -13,7 +13,7 @@ const ShareBtn = ({ dataTestId, type, id }) => {
           setShareState('Link copiado!');
         }}
       >
-        <img data-testid={dataTestId} src={shareIcon} alt="share" />
+        <img data-testid={dataTestId} src={shareIcon} alt="share" className="blue-filter" />
       </button>
       {shareState}
     </Fragment>

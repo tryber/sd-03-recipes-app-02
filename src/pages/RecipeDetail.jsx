@@ -11,7 +11,7 @@ import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
 
 const ingredientsList = (recipe) => (
-  <div>
+  <div className="light-box">
     <h4>Ingredients</h4>
     <ul>
       {recipe.ingredients.map((ingredient, index) => (
@@ -32,7 +32,7 @@ const saveIngredient = (e, index, checkedIngredients, setCheckIngredients) => {
 };
 
 const ingredientsListCheckbox = (recipe, checkedIngredients, setCheckIngredients) => (
-  <div>
+  <div className="light-box">
     <h4>Ingredients</h4>
     <ul>
       {recipe.ingredients.map((ingredient, index) => {
@@ -72,22 +72,22 @@ const youtubeVideo = (recipe) => {
   };
   if (recipe.youtube) {
     return (
-      <span data-testid="video">
+      <div data-testid="video" className="light-box">
         <h4>Video</h4>
         <YouTube videoId={recipe.youtube.split('=')[1]} opts={opts} />
-      </span>
+      </div>
     );
   }
   return null;
 };
 
-const recommendedCarousel = (recommendedRecipes, type) => (
+const recommendedCarousel = (recommendedRecipes) => (
   <Fragment>
     <h4>Recomendadas</h4>
     <div className="recommended-recipes">
       {recommendedRecipes.map((recipe, index) => (
         <span key={recipe.id} className="margin10p">
-          <RecipeCard recipe={recipe} index={index} type={type} page="detailPage" />
+          <RecipeCard recipe={recipe} index={index} page="detailPage" />
         </span>
       ))}
     </div>
@@ -124,6 +124,8 @@ const saveIngredients = (type, id, checkedIngredients) => {
 };
 
 const startRecipe = (pathname, type, id) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  if (doneRecipes.some((doneRecipe) => doneRecipe.id === id)) return null;
   let recipeStarted = false;
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (JSON.parse(localStorage.getItem('inProgressRecipes')) && inProgressRecipes[`${type}s`][id]) {
@@ -185,7 +187,7 @@ const thumbnail = (recipe) => (
 );
 
 const instructions = (recipe) => (
-  <div className="detailPage">
+  <div className="detailPage light-box">
     <h4>Instructions</h4>
     <span data-testid="instructions">{recipe.instructions}</span>
   </div>
@@ -228,14 +230,14 @@ const RecipeDetail = ({ type, recommendedType, page, history }) => {
   return (
     <div>
       {thumbnail(recipes[0])}
-      <div className="detailPage">
+      <div className="detailPage blue-text">
         {header(recipes[0])}
         {page === 'detail'
           ? ingredientsList(recipes[0])
           : ingredientsListCheckbox(recipes[0], checkedIngredients, setCheckIngredients)}
         {instructions(recipes[0])}
         {page === 'detail' ? youtubeVideo(recipes[0]) : null}
-        {page === 'detail' ? recommendedCarousel(recommendedRecipes, type) : null}
+        {page === 'detail' ? recommendedCarousel(recommendedRecipes) : null}
       </div>
       {page === 'detail'
         ? startRecipe(pathname, type, id)
