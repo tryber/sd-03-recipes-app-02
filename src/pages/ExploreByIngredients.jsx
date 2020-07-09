@@ -11,14 +11,18 @@ const ExploreFoodsIngredients = ({ type, history, url }) => {
   const { saveRecipes, setExplore, setIsFetching } = useContext(RecipesContext);
 
   useEffect(() => {
-    getRecipeIngredients(type)
-      .then((data) => setIngredients((data.meals || data.drinks).slice(0, 12)));
+    getRecipeIngredients(type).then((data) =>
+      setIngredients((data.meals || data.drinks).slice(0, 12)),
+    );
   }, []);
 
   const handleClick = (ingredient) => {
     searchRecipesByMainIngredients(ingredient, type)
       .then((data) => saveRecipes(data))
-      .then(() => { setExplore(true); setIsFetching(false); })
+      .then(() => {
+        setExplore(true);
+        setIsFetching(false);
+      })
       .then(() => history.push(`/${url}`));
   };
 
@@ -29,16 +33,22 @@ const ExploreFoodsIngredients = ({ type, history, url }) => {
         {ingredients.map((ingredient, index) => {
           const name = ingredient.strIngredient || ingredient.strIngredient1;
           return (
-            <button
-              className="invisible-btn ingredient-card"
-              onClick={() => handleClick(name)} data-testid={`${index}-ingredient-card`}
-            >
-              <img
-                src={`https://www.the${type}db.com/images/ingredients/${name}-Small.png`}
-                alt={`${name} thumbnail`} data-testid={`${index}-card-img`}
-              />
-              <p className="ingredient-title" data-testid={`${index}-card-name`}>{name}</p>
-            </button >
+            <div className="ingredient-card">
+              <button
+                className="invisible-btn"
+                onClick={() => handleClick(name)}
+                data-testid={`${index}-ingredient-card`}
+              >
+                <img
+                  src={`https://www.the${type}db.com/images/ingredients/${name}-Small.png`}
+                  alt={`${name} thumbnail`}
+                  data-testid={`${index}-card-img`}
+                />
+                <p className="ingredient-title" data-testid={`${index}-card-name`}>
+                  {name}
+                </p>
+              </button>
+            </div>
           );
         })}
       </div>

@@ -14,12 +14,17 @@ const RecipeCard = ({ recipe, index, page }) => {
   return (
     <Link to={`/${stringsPath[recipe.type]}/${recipe.id}`}>
       <div data-testid={dataTests[page].card} className="card">
-        <img
-          data-testid={`${index}-card-img`}
-          alt="Recipe"
-          className="recipe-image"
-          src={recipe.image}
-        />
+        <div
+          className="image-div"
+          style={{ overflow: 'hidden', maxHeight: '140px', display: 'flex' }}
+        >
+          <img
+            data-testid={`${index}-card-img`}
+            className="recipe-image"
+            alt="Recipe"
+            src={recipe.image}
+          />
+        </div>
         <span className="title-box">
           <h4 data-testid={dataTests[page].title} className="recipe-title">
             {recipe.name}
