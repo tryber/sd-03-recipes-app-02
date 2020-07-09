@@ -132,7 +132,8 @@ const startRecipe = (pathname, type, id) => {
     recipeStarted = true;
   }
   return (
-    <Link to={`${pathname}/in-progress`}
+    <Link
+      to={`${pathname}/in-progress`}
       className="footer btn detail-footer-btn" data-testid="start-recipe-btn"
     >
       {recipeStarted ? 'Continuar Receita' : 'Iniciar Receita'}
