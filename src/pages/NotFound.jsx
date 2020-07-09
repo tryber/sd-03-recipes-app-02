@@ -2,7 +2,7 @@ import React from 'react';
 
 const NotFound = () => (
   <div>
-    <h1>Not Found</h1>
+    <h1 className="blue-text">Not Found</h1>
   </div>
 );
 
