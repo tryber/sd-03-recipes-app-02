@@ -1,9 +1,12 @@
 import React from 'react';
 import { cleanup, waitForDomChange, fireEvent } from '@testing-library/react';
+import Clipboard from './services/clipboard';
 import RecipeDetail from '../pages/RecipeDetail';
 import drinks from '../../cypress/mocks/drinks';
 import corba from '../../cypress/mocks/oneMeal';
 import renderWithContext from './services/renderWithContext';
+
+navigator.clipboard = new Clipboard();
 
 const URLs = {
   'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=': drinks,
@@ -34,6 +37,25 @@ describe('RecipeDetail.jsx tests', () => {
     expect(card0.textContent).toBe('Spicy Arrabiata Penne');
     const ingredient1 = getByTestId('0-ingredient-name-and-measure');
     expect(ingredient1.textContent).toBe('penne rigate - 1 pound')
+  });
+
+  test('favorite and share btn test', async () => {
+    const { getByTestId } = renderWithContext(
+      <RecipeDetail type="meal" recommendedType="cocktail" page="detail" />,
+      '/comidas/52771',
+      '/comidas/:id',
+    );
+
+    await waitForDomChange();
+
+    const favoriteBtn = getByTestId('favorite-btn');
+    fireEvent.click(favoriteBtn);
+    expect(favoriteBtn.src).toBe('http://localhost/blackHeartIcon.svg')
+    fireEvent.click(favoriteBtn);
+    expect(favoriteBtn.src).toBe('http://localhost/whiteHeartIcon.svg')
+
+    const shareBtn = getByTestId('share-btn');
+    fireEvent.click(shareBtn);
   });
 
 
