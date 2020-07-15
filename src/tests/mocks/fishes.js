@@ -1,4 +1,4 @@
-const fishes = {
+export default {
   meals: [
     {
       idMeal: '52802',

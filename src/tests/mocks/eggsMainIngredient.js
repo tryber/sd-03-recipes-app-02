@@ -1,4 +1,4 @@
-const eggsMainIngredient = {
+export default {
   meals: [
     {
       strMeal: 'Banana Pancakes',
