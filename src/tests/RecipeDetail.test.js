@@ -40,7 +40,7 @@ describe('RecipeDetail.jsx tests', () => {
   });
 
   test('favorite and share btn test', async () => {
-    const { getByTestId } = renderWithContext(
+    const { getByTestId, getByText } = renderWithContext(
       <RecipeDetail type="meal" recommendedType="cocktail" page="detail" />,
       '/comidas/52771',
       '/comidas/:id',
@@ -56,6 +56,8 @@ describe('RecipeDetail.jsx tests', () => {
 
     const shareBtn = getByTestId('share-btn');
     fireEvent.click(shareBtn);
+    const copiedLink = getByText(/Link copiado!/);
+    expect(copiedLink).toBeInTheDocument();
   });
 
 
