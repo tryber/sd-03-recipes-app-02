@@ -14,7 +14,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     searchText: '',
   });
 
-  const { setIsFetching, setRecipes } = useContext(RecipesContext);
+  const { setIsFetching, saveRecipes } = useContext(RecipesContext);
   const { searchParam, searchText } = state;
 
   const searchBtn = () => {
@@ -29,7 +29,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     } else {
       searchOptions[searchParam](searchText, type).then((data) => {
         if (data.meals || data.drinks) {
-          setRecipes((data.meals || data.drinks).slice(0, 12));
+          saveRecipes(data);
           setIsFetching(false);
         } else {
           return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -56,13 +56,13 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
     return (
       <div className="search-bar">
         <input
-          className="full-width"
           type="text"
           data-testid="search-input"
           name="searchText"
+          className="search-input"
           onChange={(e) => handleChange(e)}
         />
-        <div>
+        <div className="blue-text">
           <label htmlFor="name">
             <input
               type="radio"
@@ -70,6 +70,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
               name="searchParam"
               value="name"
               data-testid="name-search-radio"
+              className="search-radio"
               onClick={(e) => handleChange(e)}
             />
             <span>Nome</span>
@@ -81,6 +82,7 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
               name="searchParam"
               value="ingredients"
               data-testid="ingredient-search-radio"
+              className="search-radio"
               onClick={(e) => handleChange(e)}
             />
             <span>Ingredientes</span>
@@ -92,12 +94,16 @@ const SearchBar = ({ searchInputEnabled, type, history }) => {
               name="searchParam"
               value="firstLetter"
               data-testid="first-letter-search-radio"
+              className="search-radio"
               onClick={(e) => handleChange(e)}
             />
             <span>Primeira letra</span>
           </label>
         </div>
-        <button type="button" data-testid="exec-search-btn" onClick={() => searchBtn()}>
+        <button
+          data-testid="exec-search-btn" type="button" className="search-btn btn"
+          onClick={() => searchBtn()}
+        >
           Buscar
         </button>
       </div>

@@ -1,7 +1,3 @@
-export const getRecipeDetailedCategories = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/categories.php`)
-  .then((response) => response.json()
-  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-
 export const getRecipeCategories = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?c=list`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
@@ -34,7 +30,7 @@ export const searchRecipesByCategory = (category, type) => fetch(`https://www.th
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 
-export const searchRecipesByArea = (area, type) => fetch(`https://www.the${type}db.com/api/json/v1/1/search.php?f=${area}`)
+export const searchRecipesByArea = (area) => fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import Footer from '../components/Footer';
-import renderWithRouter from '../services/renderWithRouter';
+import renderWithContext from './services/renderWithContext';
 
 describe('Footer.jsx tests', () => {
   test('renders icons with correct img', () => {
-    const { getByAltText } = renderWithRouter(<Footer />)
+    const { getByAltText } = renderWithContext(<Footer />)
 
     const mealIcon = getByAltText(/meal-icon/i);
     const drinkIcon = getByAltText(/drink-icon/i);
@@ -16,7 +16,7 @@ describe('Footer.jsx tests', () => {
   })
 
   test('icons redirect properly', () => {
-    const { getByTestId } = renderWithRouter(<Footer />)
+    const { getByTestId } = renderWithContext(<Footer />)
 
     const mealLink = getByTestId('meals-link');
     const drinkLink = getByTestId('drinks-link');

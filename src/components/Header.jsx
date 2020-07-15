@@ -9,7 +9,7 @@ const searchIconBtn = (searchEnabled, handleSearchIconClick) => {
   if (searchEnabled) {
     return (
       <button type="button" className="invisible-btn" onClick={() => handleSearchIconClick()}>
-        <img data-testid="search-top-btn" alt="icon" src={searchIcon} className="yellow-text" />
+        <img data-testid="search-top-btn" alt="icon" src={searchIcon} className="icon-filter" />
       </button>
     );
   }
@@ -25,8 +25,8 @@ const Header = ({ title, searchEnabled, type }) => {
   return (
     <div>
       <header className="header ruby-bg yellow-text">
-        <Link to="perfil">
-          <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="yellow-text" />
+        <Link to="/perfil">
+          <img data-testid="profile-top-btn" alt="icon" src={profileIcon} className="icon-filter" />
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         {searchIconBtn(searchEnabled, handleSearchIconClick)}
