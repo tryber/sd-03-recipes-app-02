@@ -512,3 +512,8 @@ a {
   background: transparent;
   border: none !important;
 }
+
+.icon-empty-space {
+  width: 30px;
+  height: 30px;
+}
