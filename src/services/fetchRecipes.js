@@ -1,7 +1,3 @@
-export const getRecipeDetailedCategories = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/categories.php`)
-  .then((response) => response.json()
-  .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
-
 export const getRecipeCategories = (type) => fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?c=list`)
   .then((response) => response.json()
   .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
