@@ -113,7 +113,7 @@ const App = () => (
           )}
         />
         <Route exact path="/" component={Login} />
-        <Route exact path="/explorar/bebidas/area" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   </RecipesProvider>

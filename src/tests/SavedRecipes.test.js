@@ -1,69 +1,129 @@
 import React from 'react';
 import { cleanup, waitForDomChange, fireEvent } from '@testing-library/react';
-import LocalStorage from './services/localStorage';
-import renderWithContext from './services/renderWithContext';
+import Clipboard from './services/clipboard';
 import SavedRecipes from '../pages/SavedRecipes';
+import renderWithContext from './services/renderWithContext';
 
-localStorage = new LocalStorage();
-localStorage.setItem('doneRecipes', '[{"id":"53013","type":"comida","area":"American","category":"Beef","alcoholicOrNot":"","name":"Big Mac","image":"https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg","doneDate":"15/07/2020","tags":null},{"id":"52977","type":"comida","area":"Turkish","category":"Side","alcoholicOrNot":"","name":"Corba","image":"https://www.themealdb.com/images/media/meals/58oia61564916529.jpg","doneDate":"15/07/2020","tags":["Soup"]},{"id":"14229","type":"bebida","area":"","category":"Shot","alcoholicOrNot":"Alcoholic","name":"747","image":"https://www.thecocktaildb.com/images/media/drink/xxsxqy1472668106.jpg","doneDate":"15/07/2020","tags":null}]');
-localStorage.setItem('favoriteRecipes', '[{"id":"53013","type":"comida","area":"American","category":"Beef","alcoholicOrNot":"","name":"Big Mac","image":"https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg"},{"id":"52977","type":"comida","area":"Turkish","category":"Side","alcoholicOrNot":"","name":"Corba","image":"https://www.themealdb.com/images/media/meals/58oia61564916529.jpg"},{"id":"17222","type":"bebida","area":"","category":"Cocktail","alcoholicOrNot":"Alcoholic","name":"A1","image":"https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg"},{"id":"14229","type":"bebida","area":"","category":"Shot","alcoholicOrNot":"Alcoholic","name":"747","image":"https://www.thecocktaildb.com/images/media/drink/xxsxqy1472668106.jpg"}]');
+navigator.clipboard = new Clipboard();
 
-describe('Saved recipes test', () => {
-  test('Receitas feitas', () => {
-    const { getByText } = renderWithContext(
-      <SavedRecipes title="Receitas Feitas" page="doneRecipes" />
+localStorage.setItem(
+  'doneRecipes',
+  JSON.stringify([
+    {
+      id: '52977',
+      type: 'comida',
+      area: 'Turkish',
+      category: 'Side',
+      alcoholicOrNot: '',
+      name: 'Corba',
+      image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+      doneDate: '08/07/2020',
+      tags: ['Soup'],
+    },
+    {
+      id: '13501',
+      type: 'bebida',
+      area: '',
+      category: 'Shot',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'ABC',
+      image: 'https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg',
+      doneDate: '08/07/2020',
+      tags: null,
+    },
+    {
+      id: '52802',
+      type: 'comida',
+      area: 'British',
+      category: 'Seafood',
+      alcoholicOrNot: '',
+      name: 'Fish pie',
+      image: 'https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg',
+      doneDate: '08/07/2020',
+      tags: ['Fish', 'Pie'],
+    },
+    {
+      id: '52804',
+      type: 'comida',
+      area: 'Canadian',
+      category: 'Miscellaneous',
+      alcoholicOrNot: '',
+      name: 'Poutine',
+      image: 'https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg',
+      doneDate: '08/07/2020',
+      tags: ['UnHealthy', 'Speciality'],
+    },
+    {
+      id: '52978',
+      type: 'comida',
+      area: 'Turkish',
+      category: 'Side',
+      alcoholicOrNot: '',
+      name: 'Kumpir',
+      image: 'https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg',
+      doneDate: '08/07/2020',
+      tags: ['SideDish'],
+    },
+    {
+      id: '52929',
+      type: 'comida',
+      area: 'Canadian',
+      category: 'Dessert',
+      alcoholicOrNot: '',
+      name: 'Timbits',
+      image: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+      doneDate: '08/07/2020',
+      tags: ['Snack', 'Treat'],
+    },
+    {
+      id: '13938',
+      type: 'bebida',
+      area: '',
+      category: 'Ordinary Drink',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'AT&T',
+      image: 'https://www.thecocktaildb.com/images/media/drink/rhhwmp1493067619.jpg',
+      doneDate: '09/07/2020',
+      tags: null,
+    },
+  ]),
+);
+
+describe('SavedRecipes.jsx tests', () => {
+  afterEach(cleanup);
+
+  test('render done recipes', async () => {
+    const { getByTestId } = renderWithContext(
+      <SavedRecipes title="Receitas Feitas" page="doneRecipes" />,
+      '/receitas-feitas',
     );
 
-    const bigmac = getByText(/Big Mac/i);
-    const corba = getByText(/Corba/i);
-    const drink = getByText(/747/i);
-
-    expect(bigmac).toBeInTheDocument();
-    expect(corba).toBeInTheDocument();
-    expect(drink).toBeInTheDocument();
+    const recipeImage = getByTestId('0-horizontal-image');
+    expect(recipeImage.src).toBe('https://www.themealdb.com/images/media/meals/58oia61564916529.jpg');
   });
 
-  test('Receitas favoritas', () => {
-    const { getByTestId, queryByText } = renderWithContext(
-      <SavedRecipes title="Receitas Favoritas" page="favoriteRecipes" />
+  test('test filters', async () => {
+    const { getByTestId } = renderWithContext(
+      <SavedRecipes title="Receitas Feitas" page="doneRecipes" />,
+      '/receitas-feitas',
     );
 
-    const bigmac = queryByText(/Big Mac/i);
-    const corba = queryByText(/Corba/i);
-    const drink747 = queryByText(/747/i);
-    const drinkA1 = queryByText(/A1/i);
+    const filterByDrinkBtn = getByTestId('filter-by-drink-btn');
+    fireEvent.click(filterByDrinkBtn);
 
-    expect(bigmac).toBeInTheDocument();
-    expect(corba).toBeInTheDocument();
-    expect(drink747).toBeInTheDocument();
-    expect(drinkA1).toBeInTheDocument();
+    let firstCardName = getByTestId('0-horizontal-name');
+    expect(firstCardName.textContent).toBe('ABC');
 
-    const bigmacFavBtn = getByTestId('0-horizontal-favorite-btn');
+    const filterByFoodBtn = getByTestId('filter-by-food-btn');
+    fireEvent.click(filterByFoodBtn);
 
-    fireEvent.click(bigmacFavBtn);
+    firstCardName = getByTestId('0-horizontal-name');
+    expect(firstCardName.textContent).toBe('Corba');
 
-    expect(queryByText(/Big Mac/i)).not.toBeInTheDocument();
-    expect(queryByText(/Corba/i)).toBeInTheDocument();
-    expect(queryByText(/747/i)).toBeInTheDocument();
-    expect(queryByText(/A1/i)).toBeInTheDocument();
+    const filterByAllBtn = getByTestId('filter-by-all-btn');
+    fireEvent.click(filterByAllBtn);
 
-    const drinkA1FavBtn = getByTestId('1-horizontal-favorite-btn');
-
-    fireEvent.click(drinkA1FavBtn);
-
-    expect(queryByText(/A1/i)).not.toBeInTheDocument();
-    expect(queryByText(/Big Mac/i)).not.toBeInTheDocument();
-    expect(queryByText(/Corba/i)).toBeInTheDocument();
-    expect(queryByText(/747/i)).toBeInTheDocument();
+    const secondCardName = getByTestId('1-horizontal-name');
+    expect(secondCardName.textContent).toBe('ABC');
   });
-
-  test('Filter buttons', () => {
-    const { getByTestId, queryByText } = renderWithContext(
-      <SavedRecipes title="Receitas Favoritas" page="favoriteRecipes" />
-    );
-
-    const bigmac = queryByText(/Big Mac/i);
-
-    expect(bigmac).toBeInTheDocument();
-  })
-})
+});

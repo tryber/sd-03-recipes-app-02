@@ -1,4 +1,4 @@
-const aFirstLetter = {
+export default {
   meals: [
     {
       idMeal: '52768',

@@ -59,6 +59,4 @@ describe('RecipeDetail.jsx tests', () => {
     const copiedLink = getByText(/Link copiado!/);
     expect(copiedLink).toBeInTheDocument();
   });
-
-
 });
