@@ -4,9 +4,9 @@ import MainRecipes from '../pages/MainRecipes';
 import meals from '../../cypress/mocks/meals';
 import mealCategories from '../../cypress/mocks/mealCategories';
 import beefMeals from '../../cypress/mocks/beefMeals'
-import fishes from './mocks/fishes';
-import eggsMainIngredient from './mocks/eggsMainIngredient';
-import aFirstLetter from './mocks/aFirstLetter';
+import fishes from '../../cypress/mocks/fishes';
+import eggsMainIngredient from '../../cypress/mocks/eggsMainIngredient';
+import aFirstLetter from '../../cypress/mocks/aFirstLetter';
 import renderWithContext from './services/renderWithContext';
 
 const URLs = {
