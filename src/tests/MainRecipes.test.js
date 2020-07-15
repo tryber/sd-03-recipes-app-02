@@ -25,22 +25,15 @@ jest.spyOn(global, 'fetch').mockImplementation((URL) =>
   }),
 );
 
-const props = {
-  match: {
-    params: {
-      id: '52977',
-    },
-  },
-};
-
 describe('MainRecipes.jsx tests', () => {
   afterEach(cleanup);
   beforeEach(() => fetch.mockClear())
 
   test('render correct cards', async () => {
     const { getByTestId } = renderWithContext(
-      <MainRecipes {...props} type="meal" title="Comidas" />,
+      <MainRecipes type="meal" title="Comidas" />,
       '/comidas/52977',
+      '/comidas/:id',
     );
 
     expect(fetch).toHaveBeenCalledWith(
@@ -57,8 +50,9 @@ describe('MainRecipes.jsx tests', () => {
 
   test('categories buttons working', async () => {
     const { getByTestId } = renderWithContext(
-      <MainRecipes {...props} type="meal" title="Comidas" />,
+      <MainRecipes type="meal" title="Comidas" />,
       '/comidas/52977',
+      '/comidas/:id',
     );
 
     await waitForDomChange();
@@ -85,8 +79,9 @@ describe('MainRecipes.jsx tests', () => {
 
   test('Search bar by name test', async () => {
     const { getByTestId } = renderWithContext(
-      <MainRecipes {...props} type="meal" title="Comidas" />,
+      <MainRecipes type="meal" title="Comidas" />,
       '/comidas/52977',
+      '/comidas/:id',
     );
 
     await waitForDomChange();
@@ -105,8 +100,9 @@ describe('MainRecipes.jsx tests', () => {
 
   test('Search bar by ingredient test', async () => {
     const { getByTestId } = renderWithContext(
-      <MainRecipes {...props} type="meal" title="Comidas" />,
+      <MainRecipes type="meal" title="Comidas" />,
       '/comidas/52977',
+      '/comidas/:id',
     );
 
     await waitForDomChange();
@@ -125,8 +121,9 @@ describe('MainRecipes.jsx tests', () => {
 
   test('Search bar by first letter test', async () => {
     const { getByTestId } = renderWithContext(
-      <MainRecipes {...props} type="meal" title="Comidas" />,
+      <MainRecipes type="meal" title="Comidas" />,
       '/comidas/52977',
+      '/comidas/:id',
     );
 
     await waitForDomChange();

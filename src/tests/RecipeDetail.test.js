@@ -35,4 +35,6 @@ describe('RecipeDetail.jsx tests', () => {
     const ingredient1 = getByTestId('0-ingredient-name-and-measure');
     expect(ingredient1.textContent).toBe('penne rigate - 1 pound')
   });
+
+
 });
